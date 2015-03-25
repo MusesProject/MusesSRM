@@ -13,6 +13,6 @@
     </head>
     <body>
         <h2>You have entered wrong username or password.</h2>
-        
+        <a href="index.jsp">Click here to go to index page</a>
     </body>
 </html>

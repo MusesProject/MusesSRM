@@ -13,5 +13,7 @@
     </head>
     <body>
         <h2>Admin page</h2>
+        <br/>
+        <a href="logout.jsp">Click here to logout</a>
     </body>
 </html>
