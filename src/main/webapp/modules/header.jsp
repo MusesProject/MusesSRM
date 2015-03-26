@@ -32,9 +32,9 @@
                             
                             
                             <a class="item" href="admin.jsp">Login</a>
-                            <a class="item">Assets</a>
-                            <a class="item">User/Devices</a>
-                            <a class="item">Policies/Rules</a>
+                            <a class="item" href="assets.jsp">Assets</a>
+                            <a class="item" href="users.jsp">User/Devices</a>
+                            <a class="item" href="policies.jsp">Policies/Rules</a>
                         </div>
                     </div>
                     <div class="ui dropdown link item" tabindex="0">
