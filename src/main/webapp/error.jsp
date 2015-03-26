@@ -6,13 +6,10 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Error Page</title>
-    </head>
-    <body>
-        <h2>You have entered wrong username or password.</h2>
-        <a href="index.jsp">Click here to go to index page</a>
-    </body>
-</html>
+<jsp:include page="modules/header.jsp"></jsp:include>
+<jsp:include page="modules/menu.jsp"></jsp:include>
+
+    <h2>You have entered wrong username or password.</h2>
+    <a href="index.jsp">Click here to go to index page</a>
+
+<jsp:include page="modules/footer.jsp"></jsp:include>

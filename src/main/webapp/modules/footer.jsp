@@ -7,13 +7,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-</div></div>
-<div class="ui inverted black footer vertical segment">
+        </div>
+    </div>
+</div>
+
+
+<div class="ui inverted black footer vertical segment vertically">
 
     <span class="copyright">© Copyright - The MUSES Project Website <a href="https://plus.google.com/105068115039168353022" rel="publisher">Google+</a></span>
 
     <nav class="sub_menu_socket" role="navigation" itemscope="itemscope" itemtype="https://schema.org/SiteNavigationElement"></nav>
 </div>
 
-    </body>
+</body>
 </html>

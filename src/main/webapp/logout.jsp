@@ -6,16 +6,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" session="true"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Logout Page</title>
-    </head>
-    <body>
-        User '<%=request.getRemoteUser()%>' has been logged out.
-        <% session.invalidate();%>
-        <br/>
-        <a href="index.jsp">Click here to go to index page</a>
-    </body>
-</html>
+<jsp:include page="modules/header.jsp"></jsp:include>
+<jsp:include page="modules/menu.jsp"></jsp:include>
+User '<%=request.getRemoteUser()%>' has been logged out.
+<% session.invalidate();%>
+<br/>
+<a href="index.jsp">Click here to go to index page</a>
+<jsp:include page="modules/footer.jsp"></jsp:include>
 
