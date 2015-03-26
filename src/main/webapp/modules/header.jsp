@@ -20,6 +20,7 @@
         <script src="resources/js/header.js"></script>
 
     </head>
+    <body id="home">
         <div class="column">
             <div class="ui inverted pink menu">
                 <div class="header item">MUSES SRM</div>
@@ -49,3 +50,5 @@
             </div>
 
         </div>
+
+        
