@@ -29,7 +29,7 @@
                         Menu
                         <i class="dropdown icon"></i>
                         <div class="menu" tabindex="-1">
-                            <% if % %>
+                            
                             
                             <a class="item" href="admin.jsp">Login</a>
                             <a class="item">Assets</a>
