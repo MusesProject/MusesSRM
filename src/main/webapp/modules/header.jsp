@@ -28,22 +28,23 @@
                         Menu
                         <i class="dropdown icon"></i>
                         <div class="menu" tabindex="-1">
-                            <a class="item">Classes</a>
-                            <a class="item">Cocktail Hours</a>
-                            <a class="item">Community</a>
+                            <a class="item">Assets</a>
+                            <a class="item">User/Devices</a>
+                            <a class="item">Policies/Rules</a>
                         </div>
                     </div>
                     <div class="ui dropdown link item" tabindex="0">
-                        Courses
+                        Stats
                         <i class="dropdown icon"></i>
                         <div class="menu" tabindex="-1">
-                            <a class="item">Petting</a>
-                            <a class="item">Feeding</a>
-                            <a class="item">Mind Reading</a>
+                            <a class="item">Simple Events</a>
+                            <a class="item">Policy Violations</a>
+                            <a class="item">Security Incidents</a>
+                            <a class="item">User Behaviour</a>
                         </div>
                     </div>
-                    <a class="item">Library</a>
-                    <a class="item">Community</a>
+                    <a class="item">New Rules</a>
+                    <a class="item">Configuration</a>
                 </div>
             </div>
 
