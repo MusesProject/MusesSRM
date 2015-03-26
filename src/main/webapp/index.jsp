@@ -15,5 +15,7 @@
     </head>
     <body>
         <h1>CSO dashboard</h1>
+        <br/>
+        <a href="admin.jsp">Click here </a> to access the admin page. You will be asked to login if you are not already logged in.
     </body>
 </html>
