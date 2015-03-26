@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>MUSES SRM</title>
-       
+
         <link rel="stylesheet" type="text/css" href="resources/css/semantic.css">
         <link rel="stylesheet" type="text/css" href="resources/css/header.css">
         <link rel="shortcut icon" href="resources/favicon.ico" type="image/x-icon" />
@@ -29,6 +29,9 @@
                         Menu
                         <i class="dropdown icon"></i>
                         <div class="menu" tabindex="-1">
+                            <% if % %>
+                            
+                            <a class="item" href="admin.jsp">Login</a>
                             <a class="item">Assets</a>
                             <a class="item">User/Devices</a>
                             <a class="item">Policies/Rules</a>
@@ -46,9 +49,10 @@
                     </div>
                     <a class="item">New Rules</a>
                     <a class="item">Configuration</a>
+                    <a class="item" href="admin.jsp">Login</a>
                 </div>
             </div>
 
         </div>
 
-        
+
