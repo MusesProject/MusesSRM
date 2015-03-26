@@ -11,9 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>MUSES SRM</title>
-
-        
-        
+       
         <link rel="stylesheet" type="text/css" href="resources/css/semantic.css">
         <link rel="stylesheet" type="text/css" href="resources/css/header.css">
         <link rel="shortcut icon" href="resources/favicon.ico" type="image/x-icon" />
