@@ -2491,7 +2491,7 @@ input::selection {
 
 .ui.pink.buttons .button,
 .ui.pink.button {
-  background-color: #d9499a;
+  background-color: #d46fad;
   color: #ffffff;
   text-shadow: none;
   background-image: none;
@@ -5225,7 +5225,7 @@ a.ui.orange.header:hover {
 }
 
 .ui.pink.header {
-  color: #d9499a !important;
+  color: #d46fad !important;
 }
 
 a.ui.pink.header:hover {
@@ -5281,7 +5281,7 @@ a.ui.yellow.header:hover {
 }
 
 .ui.pink.dividing.header {
-  border-bottom: 2px solid #d9499a;
+  border-bottom: 2px solid #d46fad;
 }
 
 .ui.purple.dividing.header {
@@ -5806,7 +5806,7 @@ i.orange.icon {
 }
 
 i.pink.icon {
-  color: #d9499a !important;
+  color: #d46fad !important;
 }
 
 i.purple.icon {
@@ -5903,7 +5903,7 @@ i.inverted.circular.orange.icon {
 
 i.inverted.bordered.pink.icon,
 i.inverted.circular.pink.icon {
-  background-color: #d9499a !important;
+  background-color: #d46fad !important;
   color: #FFFFFF !important;
 }
 
@@ -10195,15 +10195,15 @@ a.ui.orange.label:hover:before {
 
 .ui.pink.labels .label,
 .ui.pink.label {
-  background-color: #d9499a !important;
-  border-color: #d9499a !important;
+  background-color: #d46fad !important;
+  border-color: #d46fad !important;
   color: #ffffff !important;
 }
 
 .ui.labels .pink.label:before,
 .ui.pink.labels .label:before,
 .ui.pink.label:before {
-  background-color: #d9499a !important;
+  background-color: #d46fad !important;
 }
 
 a.ui.pink.labels .label:hover,
@@ -12717,7 +12717,7 @@ ol.ui.horizontal.list li:before,
 }
 
 .ui.pink.segment:not(.inverted) {
-  border-top: 2px solid #d9499a;
+  border-top: 2px solid #d46fad;
 }
 
 .ui.purple.segment:not(.inverted) {
@@ -12807,7 +12807,7 @@ ol.ui.horizontal.list li:before,
 }
 
 .ui.inverted.pink.segment {
-  background-color: #d9499a !important;
+  background-color: #d46fad !important;
   color: #ffffff !important;
 }
 
@@ -16172,7 +16172,7 @@ ol.ui.horizontal.list li:before,
 
 .ui.grid > .pink.row,
 .ui.grid .pink.column {
-  background-color: #d9499a !important;
+  background-color: #d46fad !important;
   color: #ffffff;
 }
 
@@ -17929,8 +17929,8 @@ ol.ui.horizontal.list li:before,
 
 .ui.menu .pink.active.item,
 .ui.pink.menu .active.item {
-  border-color: #d9499a !important;
-  color: #d9499a !important;
+  border-color: #d46fad !important;
+  color: #d46fad !important;
 }
 
 .ui.menu .purple.active.item,
@@ -18151,11 +18151,11 @@ ol.ui.horizontal.list li:before,
 /* Pink */
 
 .ui.inverted.pink.menu {
-  background-color: #d9499a;
+  background-color: #d46fad;
 }
 
 .ui.inverted.pink.pointing.menu .active.item:after {
-  background-color: #d9499a;
+  background-color: #d46fad;
 }
 
 /* Purple */
@@ -18910,7 +18910,7 @@ ol.ui.horizontal.list li:before,
 
 .ui.pink.message {
   background-color: #ffe3fb;
-  color: #d9499a;
+  color: #d46fad;
 }
 
 .ui.pink.message .header {
@@ -19617,7 +19617,7 @@ ol.ui.horizontal.list li:before,
 }
 
 .ui.pink.table {
-  border-top: 0.2em solid #d9499a;
+  border-top: 0.2em solid #d46fad;
 }
 
 .ui.purple.table {
@@ -19662,7 +19662,7 @@ ol.ui.horizontal.list li:before,
 }
 
 .ui.inverted.pink.table {
-  background-color: #d9499a !important;
+  background-color: #d46fad !important;
   color: #ffffff !important;
 }
 
@@ -20925,7 +20925,7 @@ a.ui.card:hover,
 .ui.pink.cards > .card,
 .ui.cards > .pink.card,
 .ui.pink.card {
-  box-shadow: 0px 3px 0px 0px #d9499a, 0px 0px 0px 1px #d4d4d5;
+  box-shadow: 0px 3px 0px 0px #d46fad, 0px 0px 0px 1px #d4d4d5;
 }
 
 .ui.purple.cards > .card,
@@ -22716,7 +22716,7 @@ a.ui.card:hover,
 .ui.pink.statistics .statistic > .value,
 .ui.statistics .pink.statistic > .value,
 .ui.pink.statistic > .value {
-  color: #d9499a;
+  color: #d46fad;
 }
 
 .ui.purple.statistics .statistic > .value,
@@ -26456,7 +26456,7 @@ a.ui.nag {
 }
 
 .ui.pink.progress .bar {
-  background-color: #d9499a;
+  background-color: #d46fad;
 }
 
 .ui.purple.progress .bar {
@@ -28810,7 +28810,7 @@ html.ios {
 }
 
 .ui.pink.table {
-  border-top: 0.2em solid #d9499a;
+  border-top: 0.2em solid #d46fad;
 }
 
 .ui.purple.table {
@@ -28855,7 +28855,7 @@ html.ios {
 }
 
 .ui.inverted.pink.table {
-  background-color: #d9499a !important;
+  background-color: #d46fad !important;
   color: #ffffff !important;
 }
 
