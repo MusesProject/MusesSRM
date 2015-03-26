@@ -4,6 +4,7 @@
     Author     : Vahid
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +14,7 @@
     </head>
     <body>
         <h2>Hello, please log in:</h2>
-        <form method="post" action="j_security_check">
+        <form method="post" action=<c:url value="j_security_check"/>>
             <table>
                 <tr>
                     <td>Username: </td>
