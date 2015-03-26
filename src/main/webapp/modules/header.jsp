@@ -32,19 +32,19 @@
                             
                             
                             <a class="item" href="admin.jsp">Login</a>
-                            <a class="item" href="assets.jsp">Assets</a>
-                            <a class="item" href="users.jsp">User/Devices</a>
-                            <a class="item" href="policies.jsp">Policies/Rules</a>
                         </div>
                     </div>
                     <div class="ui dropdown link item" tabindex="0">
                         Stats
                         <i class="dropdown icon"></i>
                         <div class="menu" tabindex="-1">
-                            <a class="item">Simple Events</a>
-                            <a class="item">Policy Violations</a>
-                            <a class="item">Security Incidents</a>
-                            <a class="item">User Behaviour</a>
+                            <a class="item" href="events.jsp">Simple Events</a>
+                            <a class="item" href="p_violations.jsp">Policy Violations</a>
+                            <a class="item" href="s_incidents">Security Incidents</a>
+                            <a class="item" href="behaviour.jsp">User Behaviour</a>
+                            <a class="item" href="assets.jsp">Assets</a>
+                            <a class="item" href="users.jsp">User/Devices</a>
+                            <a class="item" href="policies.jsp">Policies/Rules</a>
                         </div>
                     </div>
                     <a class="item">New Rules</a>
