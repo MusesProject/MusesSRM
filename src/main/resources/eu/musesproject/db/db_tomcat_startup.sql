@@ -3,7 +3,7 @@ CREATE DATABASE tomcat_realm;
 USE tomcat_realm;
 CREATE TABLE users (
 username varchar(20) NOT NULL PRIMARY KEY,
-password varchar(20) NOT NULL
+password varchar(40) NOT NULL
 );
 CREATE TABLE roles (
 rolename varchar(20) NOT NULL PRIMARY KEY
@@ -15,7 +15,7 @@ PRIMARY KEY (username, rolename),
 CONSTRAINT users_roles_fk1 FOREIGN KEY (username) REFERENCES users (username),
 CONSTRAINT users_roles_fk2 FOREIGN KEY (rolename) REFERENCES roles (rolename)
 );
-INSERT INTO `tomcat_realm`.`users` (`username`, `password`) VALUES ('musesadmin', 'musespass');
+INSERT INTO `tomcat_realm`.`users` (`username`, `password`) VALUES ('musesadmin', sha('musespass'));
 INSERT INTO `tomcat_realm`.`roles` (`rolename`) VALUES ('manager-gui');
 INSERT INTO `tomcat_realm`.`roles` (`rolename`) VALUES ('manager-script');
 INSERT INTO `tomcat_realm`.`roles` (`rolename`) VALUES ('manager');
@@ -33,9 +33,11 @@ COMMIT;
 CREATE USER 'tomcat'@'localhost' IDENTIFIED BY 'tomcat';
 GRANT ALL PRIVILEGES ON tomcat_realm.* TO 'tomcat'@'localhost' WITH GRANT OPTION;
 
-/* Place mysql-connector-java.jar in tomcat_home/lib */
-/* Place this inside tomcat server.xml */
 /* 
+follow the steps below after running this script
+1) Place mysql-connector-java.jar in tomcat_home/lib even if you have it as a maven dependency 
+2) Place this inside tomcat server.xml underneath the existing realm tag
+
 <Realm  className="org.apache.catalina.realm.JDBCRealm"
  driverName="com.mysql.jdbc.Driver"
  connectionURL="jdbc:mysql://localhost:3306/tomcat_realm"
@@ -45,5 +47,7 @@ GRANT ALL PRIVILEGES ON tomcat_realm.* TO 'tomcat'@'localhost' WITH GRANT OPTION
  userNameCol="username"
  userCredCol="password"
  userRoleTable="users_roles"
- roleNameCol="rolename" />
+ roleNameCol="rolename" 
+ digest="SHA"/>
+
 */
