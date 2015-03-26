@@ -16,7 +16,7 @@
         
         <link rel="stylesheet" type="text/css" href="resources/css/semantic.css">
         <link rel="stylesheet" type="text/css" href="resources/css/header.css">
-
+        <link rel="shortcut icon" href="resources/favicon.ico" type="image/x-icon" />
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
         <script src="resources/js/semantic.js"></script>
         <script src="resources/js/header.js"></script>
