@@ -23,7 +23,7 @@
     <body id="home">
         <div class="column">
             <div class="ui inverted pink menu">
-                <div class="header item">MUSES SRM</div>
+                <div class="header item"><a href="index.jsp" > MUSES SRM</a></div>
                 <div class="right menu">
                     <div class="ui mobile dropdown link item" tabindex="0">
                         Menu
