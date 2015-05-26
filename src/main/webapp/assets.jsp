@@ -17,7 +17,7 @@
                    user="muses"  password="muses11"/>
 
 <sql:query dataSource="${snapshot}" var="columnNames">
-    <%--Uncomment if the name of the tables is the same as the name of the jsp files-->
+    <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
     <%--select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = '${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')}';--%>
     select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = 'assets';
 </sql:query>
