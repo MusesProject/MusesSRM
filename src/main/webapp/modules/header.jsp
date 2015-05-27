@@ -2,6 +2,7 @@
     Document   : header
     Created on : 26-mar-2015, 10:33:06
     Author     : Antonio Fernández Ares <antares@ugr.es>
+    Author     : Juan Luis Martin Acal <jlmacal@gmail.com>
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -40,7 +41,7 @@
                         <div class="menu" tabindex="-1">
                             <a class="item" href="events.jsp">Simple Events</a>
                             <a class="item" href="p_violations.jsp">Policy Violations</a>
-                            <a class="item" href="s_incidents">Security Incidents</a>
+                            <a class="item" href="s_incidents.jsp">Security Incidents</a>
                             <a class="item" href="behaviour.jsp">User Behaviour</a>
                             <a class="item" href="assets.jsp">Assets</a>
                             <a class="item" href="users.jsp">User/Devices</a>
