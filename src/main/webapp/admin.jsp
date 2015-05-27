@@ -8,8 +8,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <jsp:include page="modules/header.jsp"></jsp:include>
 <jsp:include page="modules/menu.jsp"></jsp:include>
+
     <h2>Admin page</h2>
     <br/>
     <a href="logout.jsp">Click here to logout</a>
@@ -42,4 +44,5 @@
     </c:forEach>
 </table>
 
-<jsp:include page="modules/footer.jsp"></jsp:include>
+<%--it's crossed in the middle of table.--%>
+<%-- <jsp:include page="modules/footer.jsp"></jsp:include> --%>

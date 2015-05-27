@@ -2,7 +2,7 @@
     Document   : behaviour
     Created on : 26-mar-2015, 16:59:05
     Author     : unintendedbear
-    Author     : Juan Luis Martin Acal jlmacal@gmail.com
+    Author     : Juan Luis Martin Acal <jlmacal@gmail.com>
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -18,12 +18,14 @@
 
 <sql:query dataSource="${snapshot}" var="columnNames">
     <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
-    select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = '${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')}';
+    <%--select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = '${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')}';--%>
+    select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = 'user_behaviour';
 </sql:query>
 
 <sql:query dataSource="${snapshot}" var="result">
     <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
-    select * from ${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')};
+    <%--select * from ${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')};--%>
+    select * from user_behaviour;
 </sql:query>
 
 <jsp:include page="modules/header.jsp"></jsp:include>
