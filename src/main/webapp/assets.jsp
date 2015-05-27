@@ -2,7 +2,7 @@
     Document   : assets
     Created on : 26-mar-2015, 16:03:53
     Author     : unintendedbear
-    Author     : Juan Luis Martin Acal jlmacal@gmail.com
+    Author     : Juan Luis Martin Acal <jlmacal@gmail.com>
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -18,14 +18,14 @@
 
 <sql:query dataSource="${snapshot}" var="columnNames">
     <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
-    <%--select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = '${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')}';--%>
-    select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = 'assets';
+    select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = '${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')}';
+    <%--select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = 'assets';--%>
 </sql:query>
 
 <sql:query dataSource="${snapshot}" var="result">
-    <%--Uncomment if the name of the tables is the same as the name of the jsp files-->
-    <%--select * from ${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')};--%>
-    select * from assets;
+    <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
+    select * from ${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')};
+    <%--select * from assets;--%>
 </sql:query>
 
 <jsp:include page="modules/header.jsp"></jsp:include>
