@@ -19,8 +19,13 @@
 <jsp:include page="modules/header.jsp"></jsp:include>
 <jsp:include page="modules/menu.jsp"></jsp:include>
 
-<c:if test="${pageContext.request.method=='POST'}">   
+<%--CONTROL SECTION-----------------------------------------------------------%>    
+<%--POST catched--%>
+<c:if test="${pageContext.request.method=='POST'}">
+
+<%--Save submited--%>
 <c:choose><c:when test="${param.button=='Save'}">
+    <c:catch var ="catchException">
     <sql:update dataSource="${snapshot}" var="result">
         INSERT INTO users(user_id,name,surname,email,username,password,trust_value,role_id,language) VALUES (?,?,?,?,?,?,?,?,?);
         <sql:param value="${param.user_id}" />
@@ -33,26 +38,45 @@
         <sql:param value="${param.role_id}" />
         <sql:param value="${param.language}" />
     </sql:update>
+    </c:catch>
 </c:when></c:choose>
+        
+<%--Remove submited--%>
 <c:choose><c:when test="${param.button=='Remove'}">
+    <c:catch var ="catchException">
     <sql:update dataSource="${snapshot}" var="result">
         DELETE FROM users where user_id = ?
         <sql:param value="${param.user_id}" />
     </sql:update>
+    </c:catch>
+</c:when></c:choose>
+        
+<%--Modify submited--%>
+<c:choose><c:when test="${param.button=='Modify'}">
+    <c:catch var ="catchException">
+    <sql:update dataSource="${snapshot}" var="result">
+        UPDATE users SET name = ?, surname = ?, email = ?, username = ?, password = ?, trust_value = ?, role_id = ?, language = ? WHERE user_id = ?;
+        <sql:param value="${param.name}" />
+        <sql:param value="${param.surname}" />
+        <sql:param value="${param.email}" />
+        <sql:param value="${param.username}" />
+        <sql:param value="${param.password}" />
+        <sql:param value="${param.trust_value}" />
+        <sql:param value="${param.role_id}" />
+        <sql:param value="${param.language}" />
+        <sql:param value="${param.user_id}" />
+    </sql:update>
+    </c:catch>
+</c:when></c:choose>
+        
+<%--A exception was catched--%>
+<c:choose><c:when test = "${catchException != null}">
+    <h3>There is an exception: ${catchException.message}</h3>
 </c:when></c:choose>
 </c:if>
+<%--END CONTROL SECTION-------------------------------------------------------%>
 
-<sql:query dataSource="${snapshot}" var="columnNames">
-    <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
-    <%--select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = '${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')}';--%>
-    select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = 'users';
-</sql:query>
-<sql:query dataSource="${snapshot}" var="result">
-    <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
-    <%--select * from ${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')};--%>
-    select * from users;
-</sql:query>
-            
+<%--FORM USER SECTION---------------------------------------------------------%>         
 <form name="buscar" method="post" action="admin.jsp">
     <fieldset>
         user_id: <input type="text" name="user_id" value="666"><br>
@@ -68,9 +92,23 @@
             
         <input type="submit" name="button" value="Save">
         <input type="submit" name="button" value="Remove">
+        <input type="submit" name="button" value="Modify">
     </fieldset>
 </form>
 <br /><br />
+<%--END FORM USER SECTION-----------------------------------------------------%> 
+
+<%--TABLE USERS SECTION-------------------------------------------------------%> 
+<sql:query dataSource="${snapshot}" var="columnNames">
+    <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
+    <%--select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = '${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')}';--%>
+    select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = 'users';
+</sql:query>
+<sql:query dataSource="${snapshot}" var="result">
+    <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
+    <%--select * from ${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')};--%>
+    select * from users;
+</sql:query>
     
 <table border="1" width="100%">
     <tr>
@@ -98,6 +136,8 @@
         </tr>
     </c:forEach>
  </table>
-    
+<%--END TABLE USERS SECTION---------------------------------------------------%>     
+
+<%--Debug post parameters--%>
 <%--<c:out value="${param}"/>--%>
 <jsp:include page="modules/footer.jsp"></jsp:include>
