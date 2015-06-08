@@ -27,7 +27,7 @@
 <c:choose><c:when test="${param.button=='Save'}">
     <c:catch var ="catchException">
     <sql:update dataSource="${snapshot}" var="result">
-        INSERT INTO users(user_id,name,surname,email,username,password,trust_value,role_id,language) VALUES (?,?,?,?,?,?,?,?,?);
+        insert into users(user_id,name,surname,email,username,password,trust_value,role_id,language) VALUES (?,?,?,?,?,?,?,?,?);
         <sql:param value="${param.user_id}" />
         <sql:param value="${param.name}" />
         <sql:param value="${param.surname}" />
@@ -45,7 +45,7 @@
 <c:choose><c:when test="${param.button=='Remove'}">
     <c:catch var ="catchException">
     <sql:update dataSource="${snapshot}" var="result">
-        DELETE FROM users where user_id = ?
+        delete from users where user_id = ?
         <sql:param value="${param.user_id}" />
     </sql:update>
     </c:catch>
@@ -55,7 +55,7 @@
 <c:choose><c:when test="${param.button=='Modify'}">
     <c:catch var ="catchException">
     <sql:update dataSource="${snapshot}" var="result">
-        UPDATE users SET name = ?, surname = ?, email = ?, username = ?, password = ?, trust_value = ?, role_id = ?, language = ? WHERE user_id = ?;
+        update users set name = ?, surname = ?, email = ?, username = ?, password = ?, trust_value = ?, role_id = ?, language = ? where user_id = ?;
         <sql:param value="${param.name}" />
         <sql:param value="${param.surname}" />
         <sql:param value="${param.email}" />
