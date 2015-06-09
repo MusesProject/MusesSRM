@@ -218,5 +218,5 @@
 <%--END TABLE USERS SECTION---------------------------------------------------%>     
 
 <%--Debug post parameters--%>
-<c:out value="${param}"/>
+<%--<c:out value="${param}"/>--%>
 <jsp:include page="modules/footer.jsp"></jsp:include>

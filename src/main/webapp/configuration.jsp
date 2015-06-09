@@ -27,7 +27,7 @@
     <c:choose><c:when test="${param.button=='OFF'}">
         <c:catch var ="catchException">
         <sql:update dataSource="${snapshot}" var="result">
-            update muses_config set silent_mode = 0 where config_name='SILENT';
+            UPDATE muses_config SET silent_mode=0, date=NOW() WHERE config_name='SILENT';
         </sql:update>
         </c:catch>
     </c:when></c:choose>
@@ -36,7 +36,7 @@
     <c:choose><c:when test="${param.button=='ON'}">
         <c:catch var ="catchException">
         <sql:update dataSource="${snapshot}" var="result">
-            update muses_config set silent_mode = 1 where config_name='SILENT';
+            UPDATE muses_config SET silent_mode=1, date=NOW() WHERE config_name='SILENT';
         </sql:update>
         </c:catch>
     </c:when></c:choose>
