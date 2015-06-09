@@ -215,7 +215,7 @@
         </tr>
     </c:forEach>
  </table>
-<%--END TABLE USERS SECTION---------------------------------------------------%>     
+<%--END TABLE ROLE SECTION---------------------------------------------------%>     
 
 <%--Debug post parameters--%>
 <%--<c:out value="${param}"/>--%>

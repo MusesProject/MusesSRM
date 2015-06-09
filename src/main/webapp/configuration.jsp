@@ -59,7 +59,7 @@
 <%--From enable to disable--%>
 <h3>The status is</h3>
 <c:if test="${statusMode.rows[0].silent_mode=='1'}">
-    <h3>The silent mode is ENABLE</h3><br/>
+    <h3>The silent mode is ENABLED</h3><br/>
     <form name="modifyStatusMode" method="post" action="configuration.jsp">
         <fieldset>
             Silent Mode:<input type="submit" name="button" value="OFF">
@@ -69,7 +69,7 @@
 
 <%--From disable to enable--%>
 <c:if test="${statusMode.rows[0].silent_mode=='0'}">
-        <h3>The silent mode is DISABLE</h3><br/>
+        <h3>The silent mode is DISABLED</h3><br/>
         <form name="modifyStatusMode" method="post" action="configuration.jsp">
             <fieldset>
                 Silent Mode:<input type="submit" name="button" value="ON">
