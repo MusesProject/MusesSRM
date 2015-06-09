@@ -93,16 +93,14 @@ DROP TABLE IF EXISTS `applications`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `applications` (
   `app_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `type` bigint(20) DEFAULT NULL COMMENT 'FK to table APP_TYPE(app_type_id)',
   `name` varchar(30) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
   `version` varchar(20) DEFAULT NULL COMMENT 'The current version of the application',
   `last_update` datetime DEFAULT NULL COMMENT 'Last update of application',
   `vendor` varchar(30) DEFAULT NULL COMMENT 'Vendor of the application',
+  `blacklisted` int(11) DEFAULT '0' COMMENT 'If TRUE (1) -> the application is blacklisted',
   `is_MUSES_aware` int(11) DEFAULT '0' COMMENT 'If TRUE (1) -> the application can be monitored easily (it interacts with the system through the API)',
-  PRIMARY KEY (`app_id`),
-  KEY `app_type_id_idx` (`type`),
-  CONSTRAINT `applications-app_type:app_type_id` FOREIGN KEY (`type`) REFERENCES `app_type` (`app_type_id`) ON DELETE NO ACTION ON UPDATE CASCADE
+  PRIMARY KEY (`app_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8 COMMENT='As MUSES will have both black and white lists, a description of the different applications installed on a device can be found in this table.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -222,7 +220,7 @@ CREATE TABLE `default_policies` (
   `default_policy_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(2000) NOT NULL COMMENT 'Policy subject',
   `description` varchar(2000) NOT NULL COMMENT 'Policy textual description',
-  `file` blob NOT NULL COMMENT 'Policy formalized in standard format (XACML,JSON,...), to make it machine readable',
+  `file` blob  COMMENT 'Policy formalized in standard format (XACML,JSON,...), to make it machine readable',
   `date` date NOT NULL COMMENT 'Date of creation of the policy',
   PRIMARY KEY (`default_policy_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Table which contains the default security policies, both containing textual descriptions and formalization files.';
@@ -262,7 +260,7 @@ CREATE TABLE `domains` (
   `domain_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL COMMENT 'Name of the domain (e.g. Offers)',
   `description` varchar(100) DEFAULT NULL COMMENT 'Domain description (e.g. Company domain used to store commercial offers to be presented to concrete customers. This kind of information is strictly confidential.)',
-  `sensitivity_id` int(11) NOT NULL DEFAULT '0' COMMENT 'Associated sensitivity level (strictly confidential, protected, public,...) FK to sensitivity table',
+  `sensitivity_id` enum('PUBLIC','INTERNAL','CONFIDENTIAL','STRICTLY_CONFIDENTIAL','NONE') NOT NULL DEFAULT 'CONFIDENTIAL' COMMENT 'Associated sensitivity level (strictly confidential, protected, public,...)',
   PRIMARY KEY (`domain_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Table which describes the different domains that might apply for different company resources. Depending on this domain, it will have a different sensitivity level.';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -327,6 +325,7 @@ CREATE TABLE `muses_config` (
   `config_name` varchar(30) NOT NULL COMMENT 'Name of the configuration',
   `silent_mode` tinyint(4) NOT NULL COMMENT 'Specify whether all devices should run MUSES application in silent mode (true), or verbose (false)',
   `access_attempts_before_blocking` int(10) unsigned NOT NULL DEFAULT '5',
+  `date` datetime DEFAULT NULL COMMENT 'Time from which configuration applies',
   PRIMARY KEY (`config_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='MUSES Server configuration parameters';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -390,6 +389,9 @@ CREATE TABLE `patterns_krs` (
   `mail_contains_cc_allowed` int(11) COMMENT 'If the event is about sending an email, specify whether the mail contains (1) or not (0) someone in CC',
   `mail_contains_bcc_allowed` int(11) COMMENT 'If the event is about sending an email, specify whether the mail contains (1) or not (0) someone in BCC',
   `mail_has_attachment` int(11) COMMENT 'If the event is about sending an email, specify whether the mail contains (1) or not (0) an attachment',
+  `wifiencryption` varchar(30) COMMENT 'When sending an asset, information about encryption of the wifi network',
+  `wifienabled` int(11) COMMENT 'When sending an asset, information about wifi connection being enabled',
+  `wificonnected` int(11) COMMENT 'When sending an asset, information about wifi being connected',
   PRIMARY KEY (`log_entry_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Patterns built with the extracted information from the events';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -555,21 +557,6 @@ CREATE TABLE `security_violation` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `sensitivity`
---
-
-DROP TABLE IF EXISTS `sensitivity`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sensitivity` (
-  `sensitivity_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `level` smallint(6) NOT NULL COMMENT 'Associated numeric value corresponding to different levels of sensitivity from 1 for Strictly confidential, to 3 for public',
-  PRIMARY KEY (`sensitivity_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='Table for listing all the possible values representing sensitivity of corporate data';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `sensor_configuration`
 --
 
@@ -648,7 +635,7 @@ CREATE TABLE `system_log_krs` (
   `user_behaviour_id` bigint(20) unsigned NOT NULL COMMENT 'Corresponding user''s behaviour for the event. FK to USER_BEHAVIOUR(user_behaviour_id)',
   `security_incident_id` bigint(20) unsigned NOT NULL COMMENT 'Corresponding security incident for the event. FK to SECURITY_INCIDENT(security_incident_id)',
   `device_security_state` bigint(20) unsigned NOT NULL COMMENT 'Corresponding device security state for the event. FK to DEVICE_SECURITY_STATE(device_security_state_id)',
-  `risk_treatment` int(10) unsigned NOT NULL COMMENT 'Corresponding risk treatment for the event. FK to RISK_TREATMENT(risk_treatment_id)',
+  `risk_treatment`  varchar(1000) COMMENT 'Corresponding risk treatment for the event.',
   `start_time` datetime NOT NULL COMMENT 'When the sequence started',
   `finish_time` datetime NOT NULL COMMENT 'When the sequence finished',
   PRIMARY KEY (`log_id`)
