@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <a class="item">New Rules</a>
-                    <a class="item">Configuration</a>
+                    <a class="item" href="configuration.jsp">Configuration</a>
                     <a class="item" href="admin.jsp">Login</a>
                 </div>
             </div>

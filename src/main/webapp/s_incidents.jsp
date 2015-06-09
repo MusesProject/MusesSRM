@@ -30,20 +30,30 @@
 
 <jsp:include page="modules/header.jsp"></jsp:include>
 <jsp:include page="modules/menu.jsp"></jsp:include>
-
-    <table border="1" width="100%">
-        
-        <tr><c:forEach var="row" items="${columnNames.rows}">
-            <th><c:out value="${row.COLUMN_NAME}"/></th>
-        </c:forEach></tr>
-
-        <c:forEach var="row" items="${result.rows}">
-            <tr><c:forEach var="cell" items="${row}">
-                <td><c:out value="${cell.value}"/></td>
-            </c:forEach></tr>
+ 	 	 	 	 	
+<table border="1" width="100%">
+    <tr>
+        <c:forEach var="rowHeader" items="${columnNames.rows}">
+            <th><c:out value="${rowHeader.COLUMN_NAME}"/></th>
         </c:forEach>
-    
-    </table>
+    </tr>
+
+    <c:forEach var="rowBody" items="${result.rows}">
+            <%--Get row ordered alphabetically-- ¿?¿? WHY--%>
+            <%--<tr><c:forEach var="cell" items="${rowBody}">
+                <td><c:out value="${cell}"/></td>
+            </c:forEach></tr>--%>
+        <tr>
+            <td><c:out value="${rowBody.security_incident_id}"/></td>
+            <td><c:out value="${rowBody.name}"/></td>
+            <td><c:out value="${rowBody.decision_id}"/></td>
+            <td><c:out value="${rowBody.event_id}"/></td>
+            <td><c:out value="${rowBody.device_id}"/></td>
+            <td><c:out value="${rowBody.user_id}"/></td>
+            <td><c:out value="${rowBody.modification}"/></td>
+        </tr>
+    </c:forEach>
+ </table>
 
 <jsp:include page="modules/footer.jsp"></jsp:include>
 

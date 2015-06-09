@@ -2,47 +2,142 @@
     Document   : admin
     Created on : Mar 25, 2015, 4:43:29 PM
     Author     : Vahid
+    Author     : Juan Luis Martin Acal <jlmacal@gmail.com>
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-
-<jsp:include page="modules/header.jsp"></jsp:include>
-<jsp:include page="modules/menu.jsp"></jsp:include>
-
-    <h2>Admin page</h2>
-    <br/>
-    <a href="logout.jsp">Click here to logout</a>
-    <br/>
-    <h2>The data below has been fetched from the database</h2>
-    <h2>In case you are not able to see it make sure that you have ran the startup_db.sql script beforehand</h2>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
                    url="jdbc:mysql://localhost/muses"
                    user="muses"  password="muses11"/>
 
-<sql:query dataSource="${snapshot}" var="result">
-    select user_id, username, password, email from users;
-</sql:query>
+<jsp:include page="modules/header.jsp"></jsp:include>
+<jsp:include page="modules/menu.jsp"></jsp:include>
 
+<%--CONTROL SECTION-----------------------------------------------------------%>    
+<%--POST catched--%>
+<c:if test="${pageContext.request.method=='POST'}">
+
+<%--Save submited--%>
+<c:choose><c:when test="${param.button=='Save'}">
+    <c:catch var ="catchException">
+    <sql:update dataSource="${snapshot}" var="result">
+        insert into users(user_id,name,surname,email,username,password,trust_value,role_id,language) VALUES (?,?,?,?,?,?,?,?,?);
+        <sql:param value="${param.user_id}" />
+        <sql:param value="${param.name}" />
+        <sql:param value="${param.surname}" />
+        <sql:param value="${param.email}" />
+        <sql:param value="${param.username}" />
+        <sql:param value="${param.password}" />
+        <sql:param value="${param.trust_value}" />
+        <sql:param value="${param.role_id}" />
+        <sql:param value="${param.language}" />
+    </sql:update>
+    </c:catch>
+</c:when></c:choose>
+        
+<%--Remove submited--%>
+<c:choose><c:when test="${param.button=='Remove'}">
+    <c:catch var ="catchException">
+    <sql:update dataSource="${snapshot}" var="result">
+        delete from users where user_id = ?
+        <sql:param value="${param.user_id}" />
+    </sql:update>
+    </c:catch>
+</c:when></c:choose>
+        
+<%--Modify submited--%>
+<c:choose><c:when test="${param.button=='Modify'}">
+    <c:catch var ="catchException">
+    <sql:update dataSource="${snapshot}" var="result">
+        update users set name = ?, surname = ?, email = ?, username = ?, password = ?, trust_value = ?, role_id = ?, language = ? where user_id = ?;
+        <sql:param value="${param.name}" />
+        <sql:param value="${param.surname}" />
+        <sql:param value="${param.email}" />
+        <sql:param value="${param.username}" />
+        <sql:param value="${param.password}" />
+        <sql:param value="${param.trust_value}" />
+        <sql:param value="${param.role_id}" />
+        <sql:param value="${param.language}" />
+        <sql:param value="${param.user_id}" />
+    </sql:update>
+    </c:catch>
+</c:when></c:choose>
+        
+<%--A exception was catched--%>
+<c:choose><c:when test = "${catchException != null}">
+    <h3>There is an exception: ${catchException.message}</h3>
+</c:when></c:choose>
+</c:if>
+<%--END CONTROL SECTION-------------------------------------------------------%>
+
+<%--FORM USER SECTION---------------------------------------------------------%>         
+<form name="buscar" method="post" action="admin.jsp">
+    <fieldset>
+        user_id: <input type="text" name="user_id" value="666"><br>
+        name: <input type="text" name="name" value="proofdev"><br>
+        surname: <input type="text" name="surname" value="proofdev"><br>
+        email: <input type="text" name="email" value="proofdev@proofdev.com"><br>
+        username: <input type="text" name="username" value="proofdev"><br>
+        password: <input type="text" name="password" value="proofdev"><br>
+        enabled: <input type="text" name="password" value="0"><br>
+        trust_value: <input type="text" name="trust_value" value="666"><br>
+        role_id: <input type="text" name="role_id" value="666"><br>
+        language: <input type="text" name="language" value="en"><br>
+            
+        <input type="submit" name="button" value="Save">
+        <input type="submit" name="button" value="Remove">
+        <input type="submit" name="button" value="Modify">
+    </fieldset>
+</form>
+<br /><br />
+<%--END FORM USER SECTION-----------------------------------------------------%> 
+
+<%--TABLE USERS SECTION-------------------------------------------------------%> 
+<sql:query dataSource="${snapshot}" var="columnNames">
+    <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
+    <%--select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = '${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')}';--%>
+    select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = 'users';
+</sql:query>
+<sql:query dataSource="${snapshot}" var="result">
+    <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
+    <%--select * from ${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')};--%>
+    select * from users;
+</sql:query>
+    
 <table border="1" width="100%">
     <tr>
-        <th>User ID</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Email</th>
+        <c:forEach var="rowHeader" items="${columnNames.rows}">
+            <th><c:out value="${rowHeader.COLUMN_NAME}"/></th>
+        </c:forEach>
     </tr>
-    <c:forEach var="row" items="${result.rows}">
+
+    <c:forEach var="rowBody" items="${result.rows}">
+            <%--Get row ordered alphabetically-- ¿?¿? WHY--%>
+            <%--<tr><c:forEach var="cell" items="${rowBody}">
+                <td><c:out value="${cell}"/></td>
+            </c:forEach></tr>--%>
         <tr>
-            <td><c:out value="${row.user_id}"/></td>
-            <td><c:out value="${row.username}"/></td>
-            <td><c:out value="${row.password}"/></td>
-            <td><c:out value="${row.email}"/></td>
+            <td><c:out value="${rowBody.user_id}"/></td>
+            <td><c:out value="${rowBody.name}"/></td>
+            <td><c:out value="${rowBody.surname}"/></td>
+            <td><c:out value="${rowBody.email}"/></td>
+            <td><c:out value="${rowBody.username}"/></td>
+            <td><c:out value="${rowBody.password}"/></td>
+            <td><c:out value="${rowBody.enabled}"/></td>
+            <td><c:out value="${rowBody.trust_value}"/></td>
+            <td><c:out value="${rowBody.role_id}"/></td>
+            <td><c:out value="${rowBody.language}"/></td>
         </tr>
     </c:forEach>
-</table>
+ </table>
+<%--END TABLE USERS SECTION---------------------------------------------------%>     
 
-<%--it's crossed in the middle of table.--%>
-<%-- <jsp:include page="modules/footer.jsp"></jsp:include> --%>
+<%--Debug post parameters--%>
+<%--<c:out value="${param}"/>--%>
+<jsp:include page="modules/footer.jsp"></jsp:include>
