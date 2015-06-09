@@ -16,16 +16,11 @@
                    url="jdbc:mysql://localhost/muses"
                    user="muses"  password="muses11"/>
 
-<sql:query dataSource="${snapshot}" var="columnNames">
-    <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
-    select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = '${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')}';
-    <%--select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = 'user_behaviour';--%>
-</sql:query>
-
 <sql:query dataSource="${snapshot}" var="result">
-    <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
-    select * from ${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')};
-    <%--select * from user_behaviour;--%>
+    SELECT users.user_id, devices.device_id, users.name, users.surname FROM simple_events LEFT JOIN users ON users.user_id=simple_events.user_id LEFT JOIN devices ON devices.device_id=simple_events.device_id;
+    <%--The column name in users and devices give problems when print the second name (devices.name)--%>
+    <%--the AS clausure in the select query dont solve the problem¿?¿?--%>
+    <%--SELECT users.user_id, devices.device_id, users.name, devices.name AS name2 FROM simple_events LEFT JOIN users ON users.user_id=simple_events.user_id LEFT JOIN devices ON devices.device_id=simple_events.device_id;--%>
 </sql:query>
 
 <jsp:include page="modules/header.jsp"></jsp:include>
@@ -33,27 +28,20 @@
 
 <table border="1" width="100%">
     <tr>
-        <c:forEach var="rowHeader" items="${columnNames.rows}">
-            <th><c:out value="${rowHeader.COLUMN_NAME}"/></th>
-        </c:forEach>
+        <th>user_id</th>
+        <th>device_id</th>
+        <th>user name</th>
+        <%--<th>device name</th>--%>
+        <th>user surname</th>
     </tr>
-
     <c:forEach var="rowBody" items="${result.rows}">
-            <%--Get row ordered alphabetically-- ¿?¿? WHY--%>
-            <%--<tr><c:forEach var="cell" items="${rowBody}">
-                <td><c:out value="${cell}"/></td>
-            </c:forEach></tr>--%>
         <tr>
             <td><c:out value="${rowBody.user_id}"/></td>
+            <td><c:out value="${rowBody.device_id}"/></td>
             <td><c:out value="${rowBody.name}"/></td>
+            <%--<td><c:out value="${rowBody.name2}"/></td>--%>
             <td><c:out value="${rowBody.surname}"/></td>
-            <td><c:out value="${rowBody.email}"/></td>
-            <td><c:out value="${rowBody.username}"/></td>
-            <td><c:out value="${rowBody.password}"/></td>
-            <td><c:out value="${rowBody.enabled}"/></td>
-            <td><c:out value="${rowBody.trust_value}"/></td>
-            <td><c:out value="${rowBody.role_id}"/></td>
-            <td><c:out value="${rowBody.language}"/></td>
+            
         </tr>
     </c:forEach>
  </table>
