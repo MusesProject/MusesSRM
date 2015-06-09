@@ -45,7 +45,8 @@
                             <a class="item" href="behaviour.jsp">User Behaviour</a>
                             <a class="item" href="assets.jsp">Assets</a>
                             <a class="item" href="users.jsp">User/Devices</a>
-                            <a class="item" href="policies.jsp">Policies/Rules</a>
+                            <a class="item" href="policies.jsp">Policies</a>
+                            <a class="item" href="rules.jsp">Rules</a>
                         </div>
                     </div>
                     <a class="item">New Rules</a>
