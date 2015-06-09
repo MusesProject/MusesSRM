@@ -19,13 +19,11 @@
 <sql:query dataSource="${snapshot}" var="columnNames">
     <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
     <%--select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = '${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')}';--%>
-    select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = 'corporate_policies';
+    SELECT column_name FROM information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = 'corporate_policies';
 </sql:query>
 
 <sql:query dataSource="${snapshot}" var="result">
-    <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
-    <%--select * from ${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')};--%>
-    select * from corporate_policies ;
+    SELECT * FROM corporate_policies;
 </sql:query>
 
 <jsp:include page="modules/header.jsp"></jsp:include>
@@ -39,10 +37,6 @@
     </tr>
 
     <c:forEach var="rowBody" items="${result.rows}">
-            <%--Get row ordered alphabetically-- ¿?¿? WHY--%>
-            <%--<tr><c:forEach var="cell" items="${rowBody}">
-                <td><c:out value="${cell}"/></td>
-            </c:forEach></tr>--%>
         <tr>
             <td><c:out value="${rowBody.corporate_policy_id}"/></td>
             <td><c:out value="${rowBody.name}"/></td>
@@ -54,4 +48,3 @@
  </table>
 
 <jsp:include page="modules/footer.jsp"></jsp:include>
-

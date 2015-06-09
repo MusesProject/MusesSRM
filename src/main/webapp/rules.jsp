@@ -18,13 +18,13 @@
 <sql:query dataSource="${snapshot}" var="columnNames">
     <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
     <%--select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = '${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')}';--%>
-    select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = 'security_rules';
+    SELECT column_name FROM information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = 'security_rules';
 </sql:query>
 
 <sql:query dataSource="${snapshot}" var="result">
     <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
     <%--select * from ${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')};--%>
-    select * from security_rules ;
+    SELECT * FROM security_rules;
 </sql:query>
 
 <jsp:include page="modules/header.jsp"></jsp:include>
@@ -44,12 +44,13 @@
             <td><c:out value="${rowBody.description}"/></td>
             <td><c:out value="${rowBody.file}"/></td>
             <td><c:out value="${rowBody.status}"/></td>
+            <%--Strage value returned [B@43de6a4f instead of 0 or 1--%>
             <td><c:out value="${rowBody.refined}"/></td>
             <td><c:out value="${rowBody.source_id}"/></td>
             <td><c:out value="${rowBody.modification}"/></td>
         </tr>
     </c:forEach>
  </table>
-<c:out value="${result}"/>
+
 <jsp:include page="modules/footer.jsp"></jsp:include>
 
