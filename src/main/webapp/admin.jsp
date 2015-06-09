@@ -159,7 +159,7 @@
 <sql:query dataSource="${snapshot}" var="result">
     <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
     <%--select * from ${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')};--%>
-    SELECT * FROM users;
+    SELECT user_id, name, surname, email, username, SHA2(password,512) AS password, enabled, trust_value, role_id, language FROM users;
 </sql:query>
     
 <table border="1" width="100%">
@@ -168,7 +168,7 @@
             <th><c:out value="${rowHeader.COLUMN_NAME}"/></th>
         </c:forEach>
     </tr>
-
+    
     <c:forEach var="rowBody" items="${result.rows}">
             <%--Get row ordered alphabetically-- ¿?¿? WHY--%>
             <%--<tr><c:forEach var="cell" items="${rowBody}">
