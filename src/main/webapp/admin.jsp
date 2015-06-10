@@ -113,6 +113,9 @@
 <%--END CONTROL SECTION-------------------------------------------------------%>
 
 <%--FORM USER SECTION---------------------------------------------------------%>         
+<sql:query dataSource="${snapshot}" var="result">
+    SELECT role_id,name FROM roles;
+</sql:query>
 <form name="usuario" method="post" action="admin.jsp">
     <fieldset>
         user_id: <input type="text" name="user_id" value="666"><br />
@@ -121,9 +124,15 @@
         email: <input type="text" name="email" value="proofdev@proofdev.com"><br />
         username: <input type="text" name="username" value="proofdev"><br />
         password: <input type="text" name="password" value="proofdev"><br />
-        enabled: <input type="text" name="password" value="0"><br />
+        enabled: <input type="text" name="enabled" value="0"><br />
         trust_value: <input type="text" name="trust_value" value="666"><br />
-        role_id: <input type="text" name="role_id" value="666"><br />
+        role:
+        <select name="role_id">
+            <c:forEach var="rowRoles" items="${result.rows}">
+                <option value="<c:out value="${rowRoles.role_id}"/>"><c:out value="${rowRoles.name}"/></option>
+            </c:forEach>
+        </select>
+        <br />
         language: <input type="text" name="language" value="en"><br />
             
         <input type="submit" name="button" value="New User">
@@ -218,5 +227,5 @@
 <%--END TABLE ROLE SECTION---------------------------------------------------%>     
 
 <%--Debug post parameters--%>
-<%--<c:out value="${param}"/>--%>
+<c:out value="${param}"/>
 <jsp:include page="modules/footer.jsp"></jsp:include>
