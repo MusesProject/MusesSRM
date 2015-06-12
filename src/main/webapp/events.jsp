@@ -59,6 +59,6 @@
             <td><c:out value="${rowBody.KRS_can_access}"/></td>
         </tr>
     </c:forEach>
- </table>
+ </table><br /><br />
 
 <jsp:include page="modules/footer.jsp"></jsp:include>

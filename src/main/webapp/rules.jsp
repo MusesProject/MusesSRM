@@ -15,6 +15,30 @@
                    url="jdbc:mysql://localhost/muses"
                    user="muses"  password="muses11"/>
 
+<jsp:include page="modules/header.jsp"></jsp:include>
+<jsp:include page="modules/menu.jsp"></jsp:include>
+
+
+<%--CHECK ALL NEW RULES IN REFINED RULES--------------------------------------%>
+<sql:query dataSource="${snapshot}" var="check">
+    select security_rules.security_rule_id, security_rules.status FROM security_rules WHERE security_rules.security_rule_id  IN (SELECT refined_security_rules.original_security_rule_id FROM refined_security_rules) AND security_rules.status="VALIDATED";
+</sql:query>
+    
+<c:if test="${fn:length(check.rows) != 0}">
+    <h3>Warning: "NEW" rules are not in refined rules table.</h3>           
+    <table border="1" width="100%">
+    <tr>
+        <c:forEach var="row" items="${check.rows}">
+            <td><c:out value="${row.security_rule_id}"/></th>
+            <td><c:out value="${row.status}"/></th>
+        </c:forEach>
+    </tr>
+    </table><br /><br />
+</c:if>
+<%--END CHECK ALL NEW RULES IN REFINED RULES----------------------------------%>
+
+
+<%--TABLE RULES---------------------------------------------------------------%>
 <sql:query dataSource="${snapshot}" var="columnNames">
     <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
     <%--select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = '${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')}';--%>
@@ -26,9 +50,6 @@
     <%--select * from ${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')};--%>
     SELECT * FROM security_rules;
 </sql:query>
-
-<jsp:include page="modules/header.jsp"></jsp:include>
-<jsp:include page="modules/menu.jsp"></jsp:include>
 
 <table border="1" width="100%">
     <tr>
@@ -50,7 +71,8 @@
             <td><c:out value="${rowBody.modification}"/></td>
         </tr>
     </c:forEach>
- </table>
+ </table><br /><br />
+<%--END TABLE RULES-----------------------------------------------------------%>
 
 <jsp:include page="modules/footer.jsp"></jsp:include>
 

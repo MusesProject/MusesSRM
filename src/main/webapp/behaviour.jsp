@@ -53,6 +53,6 @@
             <td><c:out value="${rowBody.additional_info}"/></td>
         </tr>
     </c:forEach>
- </table>
+ </table><br /><br />
 
 <jsp:include page="modules/footer.jsp"></jsp:include>

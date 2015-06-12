@@ -196,7 +196,7 @@
             <td><c:out value="${rowBody.language}"/></td>
         </tr>
     </c:forEach>
- </table>
+ </table><br /><br />
 <%--END TABLE USERS SECTION---------------------------------------------------%>
 <br /><br />
 
@@ -223,7 +223,7 @@
             <td><c:out value="${rowBody.security_level}"/></td>
         </tr>
     </c:forEach>
- </table>
+ </table><br /><br />
 <%--END TABLE ROLE SECTION---------------------------------------------------%>     
 
 <%--Debug post parameters--%>
