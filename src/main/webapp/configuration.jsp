@@ -91,7 +91,7 @@
 <%--END SILENT MODE STATUS----------------------------------------------------%>
 
 
-<%--CONNECTIONS CONFIG TABLE--------------------------------------------------%> 
+<%--CONNECTIONS CONFIG FORM--------------------------------------------------%> 
 <sql:query dataSource="${snapshot}" var="result">
     SELECT * FROM connection_config WHERE config_id = "1";
 </sql:query>
@@ -118,10 +118,10 @@
         <input type="submit" name="button" value="Modify Config">
     </fieldset>
 </form><br /><br />
-<%--CONNECTIONS CONFIG TABLE--------------------------------------------------%> 
+<%--CONNECTIONS CONFIG FORM---------------------------------------------------%> 
+
 
 <%--Debug post parameters--%>
-<c:out value="${param}"/>
-<c:out value="${result.rows[0].polling_enabled}"/>
+<%--<c:out value="${param}"/>--%>
 <jsp:include page="modules/footer.jsp"></jsp:include>
 
