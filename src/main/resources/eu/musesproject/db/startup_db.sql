@@ -392,6 +392,7 @@ CREATE TABLE `patterns_krs` (
   `wifiencryption` varchar(30) COMMENT 'When sending an asset, information about encryption of the wifi network',
   `wifienabled` int(11) COMMENT 'When sending an asset, information about wifi connection being enabled',
   `wificonnected` int(11) COMMENT 'When sending an asset, information about wifi being connected',
+  `bluetoothconnected` int(11) COMMENT 'When sending an asset, information about bluetooth being connected',
   PRIMARY KEY (`log_entry_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Patterns built with the extracted information from the events';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -782,6 +783,19 @@ CREATE TABLE `zone` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+--
+-- Table structure for table `message`
+--
+
+DROP TABLE IF EXISTS `message`;
+
+CREATE TABLE `message` (
+  `idmessage` INT NOT NULL,
+  `key` VARCHAR(2000) NULL,
+  `language` VARCHAR(45) NULL,
+  `translation` VARCHAR(5000) NULL,
+  PRIMARY KEY (`idmessage`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Internationalization of messages associated to corporate policies';
 
 ALTER TABLE `assets` CHANGE `confidential_level` `confidential_level` 
 enum('PUBLIC','INTERNAL','CONFIDENTIAL','STRICTLY_CONFIDENTIAL','NONE') NOT NULL;
