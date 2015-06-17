@@ -21,11 +21,11 @@
 
 <%--CHECK ALL NEW RULES IN REFINED RULES--------------------------------------%>
 <sql:query dataSource="${snapshot}" var="check">
-    select security_rules.security_rule_id, security_rules.status FROM security_rules WHERE security_rules.security_rule_id  IN (SELECT refined_security_rules.original_security_rule_id FROM refined_security_rules) AND security_rules.status="VALIDATED";
+    select refined_security_rules.refined_security_rules_id, refined_security_rules.original_security_rule_id FROM refined_security_rules WHERE refined_security_rules.original_security_rule_id IN (SELECT security_rules.security_rule_id FROM security_rules);
 </sql:query>
     
 <c:if test="${fn:length(check.rows) != 0}">
-    <h3>Warning: "NEW" rules are not in refined rules table.</h3>           
+    <h3>Warning: Some refined rules do not match with any entry in security rules table</h3>           
     <table border="1" width="100%">
     <tr>
         <c:forEach var="row" items="${check.rows}">
