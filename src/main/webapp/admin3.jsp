@@ -97,55 +97,84 @@
 <sql:query dataSource="${snapshot}" var="result">
     SELECT role_id,name FROM roles;
 </sql:query>
-<form name="usuario" method="post" action="admin2.jsp">
+<form class="ui form" name="usuario" method="post" action="admin2.jsp">
     <fieldset>
-        <table>
-            <tr>
-                <td><label>user_id:</label></td>
-                <td><input type="text" name="user_id" value="666"></td>
-            </tr>
-            <tr>
-                <td><label>name:</label></td>
-                <td><input type="text" name="name" value="proofdev"></td>
-            </tr>
-            <tr>
-                <td><label>surname:</label></td>
-                <td><input type="text" name="surname" value="proofdev"></td>
-            </tr>
-            <tr>
-                <td><label>email:</label></td>
-                <td><input type="text" name="email" value="proofdev@proofdev.com"></td>
-            </tr>
-            <tr>
-                <td><label>username:</label></td>
-                <td><input type="text" name="username" value="proofdev"></td>
-            </tr>
-            <tr>
-                <td><label>password:</label></td>
-                <td><input type="text" name="password" value="proofdev"></td>
-            </tr>
-            <tr>
-                <td><label>enabled:</label></td>
-                <td><input type="text" name="enabled" value="0"><br /></td>
-            </tr>
-            <tr>
-                <td><label>trust_value:</label></td>
-                <td><input type="text" name="trust_value" value="666"></td>
-            </tr>
         
-            <tr>
-                <td><label>role:</label></td>
-                <td><select name="role_id">
-                    <c:forEach var="rowRoles" items="${result.rows}">
-                        <option value="<c:out value="${rowRoles.role_id}"/>"><c:out value="${rowRoles.name}"/></option>
-                    </c:forEach>
-                </select></td>
-            </tr>
-            <tr>
-               <td><label>language:</label></td>
-               <td><input type="text" name="language" value="en"></td>
-            </tr>
-        </table>
+        <div class="field">
+           <label>user_id:</label>
+        </div>
+        <div class="field">
+            <input type="text" name="user_id" value="666"> 
+        </div>
+        
+        <div class="field">
+           <label>name:</label>
+        </div>
+        <div class="field">
+            <input type="text" name="name" value="proofdev"> 
+        </div>
+        
+        <div class="field">
+           <label>surname:</label>
+        </div>
+        <div class="field">
+            <input type="text" name="surname" value="proofdev">
+        </div>
+        
+        <div class="field">
+           <label>email:</label>
+        </div>
+        <div class="field">
+            <input type="text" name="email" value="proofdev@proofdev.com">
+        </div>
+        
+        <div class="field">
+            <label>username:</label>
+        </div>
+        <div class="field">
+            <input type="text" name="username" value="proofdev">
+        </div>
+        
+        <div class="field">
+            <label>password:</label>
+        </div>
+        <div class="field">
+            <input type="text" name="password" value="proofdev">
+        </div>
+        
+        <div class="field">
+            <label>enabled:</label>
+        </div>
+        <div class="field">
+            <input type="text" name="enabled" value="0">
+        </div>
+        
+        <div class="field">
+            <label>trust_value:</label>
+        </div>
+        <div class="field">
+            <input type="text" name="trust_value" value="666">
+        </div>
+        
+        <div class="field">
+            <label>role:</label>
+        </div>
+        <div class="field">
+            <select name="role_id">
+                <c:forEach var="rowRoles" items="${result.rows}">
+                    <option value="<c:out value="${rowRoles.role_id}"/>"><c:out value="${rowRoles.name}"/></option>
+                </c:forEach>
+            </select>
+        </div>
+        
+        
+        <div class="field">
+            <label>language:</label>
+        </div>
+        <div class="field">
+            <input type="text" name="language" value="en">
+        </div>
+   
         <input type="submit" name="button" value="New User">
         <input type="submit" name="button" value="Remove User">
     </fieldset>
