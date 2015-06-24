@@ -190,6 +190,9 @@
     <fieldset>
         <table>
             <tr>
+                <td><img src="./resources/profile.png"></td>
+            </tr>
+            <tr>
                 <td>name:</td>
                 <td><c:out value="${rowBody.name}"/></td>
             </tr>
@@ -206,6 +209,7 @@
         <input type="submit" name="button" value="Profile">
     </fieldset>
 </form>
+<br />        
 </c:forEach>
 <%--END USER PREVIEW LIST-----------------------------------------------------%>     
 <br /><br />

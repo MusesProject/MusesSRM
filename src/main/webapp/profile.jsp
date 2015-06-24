@@ -28,19 +28,53 @@
             SELECT user_id, name, surname, email, username, SHA2(password,512) AS password, enabled, trust_value, role_id, language FROM users WHERE user_id = ?;
             <sql:param value="${param.user_id}" />
         </sql:query>
+        
         <form name="usuario" method="post" action="profile.jsp">
-            <fieldset>
-            <legend>USER PROFILE:</legend>
-                ID:<input type="text" name="user_id" value="${rowBody.rows[0].user_id}"/><br /><br />
-                Name:<input type="text" name="name" value="${rowBody.rows[0].name}"/><br /><br />
-                Surname:<input type="text" name="surname" value="${rowBody.rows[0].surname}"/><br /><br />
-                Email:<input type="text" name="email" value="${rowBody.rows[0].email}"/><br /><br />
-                Username:<input type="text" name="username" value="${rowBody.rows[0].username}"/><br /><br />
-                Password:<input type="text" name="password" value=""/><br /><br />
-                Enable:<input type="text" name="enabled" value="${rowBody.rows[0].enabled}"/><br /><br />
-                Trust:<input type="text" name="trust_value" value="${rowBody.rows[0].trust_value}"/><br /><br />
-                ID Role:<input type="text" name="role_id" value="${rowBody.rows[0].role_id}"/><br /><br />
-                Laguage:<input type="text" name="language" value="${rowBody.rows[0].language}"/><br /><br />
+            <fieldset> 
+                <table>
+                    <tr>
+                        <td><label>ID:</label></td>
+                        <td><input type="text" name="user_id" value="${rowBody.rows[0].user_id}"/></td>
+                    </tr>  
+                    <tr>
+                        <td><label>Name:</label></td>   
+                        <td><input type="text" name="name" value="${rowBody.rows[0].name}"/></td>
+                    </tr>
+                   
+                    <tr>
+                        <td><label>Surname:</label></td>
+                        <td><input type="text" name="surname" value="${rowBody.rows[0].surname}"/></td>  
+                    </tr>
+                    <tr>
+                        <td><label>Email:</label></td>
+                        <td><input type="text" name="email" value="${rowBody.rows[0].email}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Username:</label></td>
+                        <td><input type="text" name="username" value="${rowBody.rows[0].username}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Password:</label></td>
+                        <td><input type="text" name="password" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Enable:</label></td>
+                        <td><input type="text" name="enabled" value="${rowBody.rows[0].enabled}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Trust:</label></td>
+                        <td><input type="text" name="trust_value" value="${rowBody.rows[0].trust_value}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>ID Role:</label></td>
+                        <td><input type="text" name="role_id" value="${rowBody.rows[0].role_id}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Laguage:</label></td>
+                        <td><input type="text" name="language" value="${rowBody.rows[0].language}"/></td>
+                    </tr>
+                </table>
+                    
                 <input type="hidden" name="user_id" value="${rowBody.rows[0].user_id}">
                 <input type="submit" name="button" value="Modify User">
             </fieldset>
@@ -70,17 +104,50 @@
 
         <form name="usuario" method="post" action="profile.jsp">
             <fieldset>
-            <legend>USER PROFILE:</legend>
-                ID:<input type="text" name="user_id" value="${rowBody.rows[0].user_id}"/><br /><br />
-                Name:<input type="text" name="name" value="${rowBody.rows[0].name}"/><br /><br />
-                Surname:<input type="text" name="surname" value="${rowBody.rows[0].surname}"/><br /><br />
-                Email:<input type="text" name="email" value="${rowBody.rows[0].email}"/><br /><br />
-                Username:<input type="text" name="username" value="${rowBody.rows[0].username}"/><br /><br />
-                Password:<input type="text" name="password" value=""/><br /><br />
-                Enable:<input type="text" name="trust_value" value="${rowBody.rows[0].enabled}"/><br /><br />
-                Trust:<input type="text" name="trust_value" value="${rowBody.rows[0].trust_value}"/><br /><br />
-                ID Role:<input type="text" name="role_id" value="${rowBody.rows[0].role_id}"/><br /><br />
-                Laguage:<input type="text" name="language" value="${rowBody.rows[0].language}"/><br /><br />
+            
+                <table>
+                    <tr>
+                        <td><label>ID:</label></td>
+                        <td><input type="text" name="user_id" value="${rowBody.rows[0].user_id}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Name:</label></td>
+                        <td><input type="text" name="name" value="${rowBody.rows[0].name}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Surname:</label></td>   
+                        <td><input type="text" name="surname" value="${rowBody.rows[0].surname}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Email:</label></td>
+                        <td><input type="text" name="email" value="${rowBody.rows[0].email}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Username:</label></td>
+                        <td><input type="text" name="username" value="${rowBody.rows[0].username}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Password:</label></td>
+                        <td><input type="text" name="password" value=""/></td>
+                    </tr>  
+                    <tr>
+                        <td><label>Enable:</label></td>    
+                        <td><input type="text" name="trust_value" value="${rowBody.rows[0].enabled}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>Trust:</label></td>
+                        <td><input type="text" name="trust_value" value="${rowBody.rows[0].trust_value}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>ID Role:</label></td>
+                        <td><input type="text" name="role_id" value="${rowBody.rows[0].role_id}"/></td>
+                    </tr>  
+                    <tr>
+                        <td><label>Laguage:</label></td>
+                        <td><input type="text" name="language" value="${rowBody.rows[0].language}"/></td>
+                    </tr>
+                </table>    
+
                 <input type="hidden" name="user_id" value="${rowBody.rows[0].user_id}">
                 <input type="submit" name="button" value="Modify User">
             </fieldset>
