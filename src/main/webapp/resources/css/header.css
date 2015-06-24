@@ -68,6 +68,19 @@ html {
   height: 10rem;
 }
 
+fieldset {
+  display: inline-block;
+}
+
+input[type="submit"]{
+  margin: 20px 3px 3px 3px;
+  width: 100px;
+}
+
+input[type="text"]{
+  width: 150px;
+}
+
 /*--------------
     Footer
 ---------------*/
