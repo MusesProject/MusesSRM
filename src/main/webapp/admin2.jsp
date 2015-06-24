@@ -99,46 +99,87 @@
 </sql:query>
 <form name="usuario" method="post" action="admin2.jsp">
     <fieldset>
-        user_id: <input type="text" name="user_id" value="666"><br />
-        name: <input type="text" name="name" value="proofdev"><br />
-        surname: <input type="text" name="surname" value="proofdev"><br />
-        email: <input type="text" name="email" value="proofdev@proofdev.com"><br />
-        username: <input type="text" name="username" value="proofdev"><br />
-        password: <input type="text" name="password" value="proofdev"><br />
-        enabled: <input type="text" name="enabled" value="0"><br />
-        trust_value: <input type="text" name="trust_value" value="666"><br />
-        role:
-        <select name="role_id">
-            <c:forEach var="rowRoles" items="${result.rows}">
-                <option value="<c:out value="${rowRoles.role_id}"/>"><c:out value="${rowRoles.name}"/></option>
-            </c:forEach>
-        </select>
-        <br />
-        language: <input type="text" name="language" value="en"><br />
-            
+        <table>
+            <tr>
+                <td><label>user_id:</label></td>
+                <td><input type="text" name="user_id" value="666"></td>
+            </tr>
+            <tr>
+                <td><label>name:</label></td>
+                <td><input type="text" name="name" value="proofdev"></td>
+            </tr>
+            <tr>
+                <td><label>surname:<label></td>
+                <td><input type="text" name="surname" value="proofdev"></td>
+            </tr>
+            <tr>
+                <td><label>email:</label></td>
+                <td><input type="text" name="email" value="proofdev@proofdev.com"></td>
+            </tr>
+            <tr>
+                <td><label>username:<label></td>
+                <td><input type="text" name="username" value="proofdev"></td>
+            </tr>
+            <tr>
+                <td><label>password:</label></td>
+                <td><input type="text" name="password" value="proofdev"></td>
+            </tr>
+            <tr>
+                <td><label>enabled:<label></td>
+                <td><input type="text" name="enabled" value="0"><br /></td>
+            </tr>
+            <tr>
+                <td><label>trust_value:<label></td>
+                <td><input type="text" name="trust_value" value="666"></td>
+            </tr>
+        
+            <tr>
+                <td><label>role:<label></td>
+                <td><select name="role_id">
+                    <c:forEach var="rowRoles" items="${result.rows}">
+                        <option value="<c:out value="${rowRoles.role_id}"/>"><c:out value="${rowRoles.name}"/></option>
+                    </c:forEach>
+                </select></td>
+            </tr>
+            <tr>
+               <td><label>language:</label></td>
+               <td><input type="text" name="language" value="en"></td>
+            </tr>
+        </table>
         <input type="submit" name="button" value="New User">
         <input type="submit" name="button" value="Remove User">
     </fieldset>
 </form>
-<%--END FORM USER SECTION-----------------------------------------------------%> 
+<%--END FORM USER SECTION-----------------------------------------------------%>
 <br /><br />
-
 <%--FORM ROLE SECTION---------------------------------------------------------%> 
 <form name="rol" method="post" action="admin2.jsp">
     <fieldset>
-        role_id: <input type="text" name="role_id" value="666"><br />
-        name: <input type="text" name="name" value="The name of the role"><br />
-        description: <input type="text" name="description" value="this is a description"><br />
-        security_level: <input type="text" name="security_level" value="1"><br />
+        <table>
+            <tr>
+                <td><label>role_id:<label></td>
+                <td><input type="text" name="role_id" value="666"></td>
+            </tr>
+            <tr>
+                <td><label>name:</label></td>
+                <td><input type="text" name="name" value="The name of the role"></td>
+            </tr>
+            <tr>
+                <td><label>description:</label></td>
+                <td><input type="text" name="description" value="this is a description"></td>
+            </tr>
+            <tr>
+                <td><label>security_level:</label></td>
+                <td><input type="text" name="security_level" value="1"></td>
+            </tr>
+        </table>
         <input type="submit" name="button" value="New Role">
         <input type="submit" name="button" value="Remove Role">
         <input type="submit" name="button" value="Modify Role">
     </fieldset>
 </form>
-<br /><br />
 <%--END FORM ROLE SECTION-----------------------------------------------------%> 
 <br /><br />
-
 <%--USERS PREVIEW LIST--------------------------------------------------------%> 
 <sql:query dataSource="${snapshot}" var="result">
     SELECT user_id, name, surname, email FROM users;
@@ -147,17 +188,27 @@
 <c:forEach var="rowBody" items="${result.rows}">
 <form name="rol" method="post" action="profile.jsp">
     <fieldset>
-        name: <c:out value="${rowBody.name}"/><br />
-        surname: <c:out value="${rowBody.surname}"/><br />
-        email: <c:out value="${rowBody.email}"/><br />
+        <table>
+            <tr>
+                <td>name:</td>
+                <td><c:out value="${rowBody.name}"/></td>
+            </tr>
+            <tr>
+                <td>surname:</td>
+                <td><c:out value="${rowBody.surname}"/></td>
+            </tr>
+            <tr>
+                <td>email:</td>
+                <td><c:out value="${rowBody.email}"/></td>
+            </tr>
+        </table>
         <input type="hidden" name="user_id" value="${rowBody.user_id}">
         <input type="submit" name="button" value="Profile">
     </fieldset>
 </form>
-<br /><br />
 </c:forEach>
 <%--END USER PREVIEW LIST-----------------------------------------------------%>     
-
+<br /><br />
 <%--TABLE ROLE SECTION--------------------------------------------------------%> 
 <sql:query dataSource="${snapshot}" var="columnNames">
     SELECT column_name FROM information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = 'roles';
