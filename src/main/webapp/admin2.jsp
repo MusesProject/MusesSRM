@@ -2,6 +2,7 @@
     Document   : admin2.jsp
     Created on : 19-jun-2015, 8:32:09
     Author     : Juan Luis Martin Acal <jlmacal@gmail.com>
+    Comment    : Admin GUI improved with calls to web profiles.
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>

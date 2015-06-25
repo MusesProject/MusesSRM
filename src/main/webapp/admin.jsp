@@ -3,6 +3,7 @@
     Created on : Mar 25, 2015, 4:43:29 PM
     Author     : Vahid
     Author     : Juan Luis Martin Acal <jlmacal@gmail.com>
+    Comment    : Basic Admin GUI for testing features
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
