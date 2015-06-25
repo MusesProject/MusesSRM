@@ -2,6 +2,7 @@
     Document   : profile
     Created on : 19-jun-2015, 9:12:38
     Author     : Juan Luis Martin Acal <jlmacal@gmail.com>
+    Comment    : Admin GUI test improved by semantic.css library
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
