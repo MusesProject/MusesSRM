@@ -38,6 +38,25 @@
 <%--END CHECK ALL NEW RULES IN REFINED RULES----------------------------------%>
 
 
+<%--CHECK DRAFT RULES---------------------------------------------------------%>
+<sql:query dataSource="${snapshot}" var="check">
+    select refined_security_rules_id, original_security_rule_id FROM refined_security_rules WHERE status="DRAFT";
+</sql:query>
+    
+<c:if test="${fn:length(check.rows) != 0}">
+    <h3>Warning: There are still rules in DRAFT status.</h3>           
+    <table border="1" width="100%">
+    <tr>
+        <c:forEach var="row" items="${check.rows}">
+            <td><c:out value="${row.refined_security_rules_id}"/></th>
+            <td><c:out value="${row.original_security_rule_id}"/></th>
+        </c:forEach>
+    </tr>
+    </table><br /><br />
+</c:if>
+<%--END CHECK DRAFT RULES-----------------------------------------------------%>
+
+
 <%--TABLE RULES---------------------------------------------------------------%>
 <sql:query dataSource="${snapshot}" var="columnNames">
     <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>

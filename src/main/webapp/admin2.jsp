@@ -183,6 +183,8 @@
 <br /><br />
 <%--USERS PREVIEW LIST--------------------------------------------------------%> 
 <sql:query dataSource="${snapshot}" var="result">
+    <%--It is necessary to include the path of each picture in DB--%>
+    <%--SELECT user_id, name, pathPicture...--%>
     SELECT user_id, name, surname, email FROM users;
 </sql:query>
       
@@ -191,6 +193,8 @@
     <fieldset>
         <table>
             <tr>
+                <%--picture path gotten from DB--%>
+                <%--<img src="<c:out value="${rowBody.pathPicture}"/>"></td>--%>
                 <td><img src="./resources/profile.png"></td>
             </tr>
             <tr>
