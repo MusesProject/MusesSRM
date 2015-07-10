@@ -79,7 +79,7 @@
                     <td><label>Password:</label></td>
                     <td><input type="text" name="password" value=""/></td>
                 </tr>  
-                <tr>
+                <tr><%--Bug modify user.trust_value corrected--%>
                     <td><label>Enabled:</label></td>    
                     <td><input type="text" name="enabled" value="${rowBody.rows[0].enabled}"/></td>
                 </tr>
