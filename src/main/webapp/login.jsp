@@ -21,6 +21,7 @@
             <label>Username</label>
                 <div class="field">
                     <input type="text" name="j_username" placeholder="Your username">
+                </div>
             <label>Password</label>
                 <div class="field">
                     <input type="password" name="j_password" placeholder="Your password">
