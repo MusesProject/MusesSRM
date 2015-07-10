@@ -27,13 +27,14 @@
 <c:choose><c:when test="${param.button=='New User'}">
     <c:catch var ="catchException">
     <sql:update dataSource="${snapshot}" var="result">
-        INSERT INTO users(user_id,name,surname,email,username,password,trust_value,role_id,language) VALUES (?,?,?,?,?,?,?,?,?);
+        INSERT INTO users(user_id,name,surname,email,username,password,enabled,trust_value,role_id,language) VALUES (?,?,?,?,?,?,?,?,?,?);
         <sql:param value="${param.user_id}" />
         <sql:param value="${param.name}" />
         <sql:param value="${param.surname}" />
         <sql:param value="${param.email}" />
         <sql:param value="${param.username}" />
         <sql:param value="${param.password}" />
+        <sql:param value="${param.enabled}" />
         <sql:param value="${param.trust_value}" />
         <sql:param value="${param.role_id}" />
         <sql:param value="${param.language}" />
@@ -64,7 +65,7 @@
     </c:catch>
 </c:when></c:choose>
       
-<%--Remove user submited--%>
+<%--Remove role submited--%>
 <c:choose><c:when test="${param.button=='Remove Role'}">
     <c:catch var ="catchException">
     <sql:update dataSource="${snapshot}" var="result">
@@ -98,7 +99,7 @@
 <sql:query dataSource="${snapshot}" var="result">
     SELECT role_id,name FROM roles;
 </sql:query>
-<form name="usuario" method="post" action="admin2.jsp">
+<form name="usuario" method="post" action="admin.jsp">
     <fieldset>
         <table>
             <tr>

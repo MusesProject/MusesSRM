@@ -27,12 +27,13 @@
     <c:choose><c:when test="${param.button=='Modify User'}">
         <c:catch var ="catchException">
         <sql:update dataSource="${snapshot}" var="result">
-            UPDATE users SET name = ?, surname = ?, email = ?, username = ?, password = ?, trust_value = ?, role_id = ?, language = ? WHERE user_id = ?;
+            UPDATE users SET name = ?, surname = ?, email = ?, username = ?, password = ?, enabled = ?, trust_value = ?, role_id = ?, language = ? WHERE user_id = ?;
             <sql:param value="${param.name}" />
             <sql:param value="${param.surname}" />
             <sql:param value="${param.email}" />
             <sql:param value="${param.username}" />
             <sql:param value="${param.password}" />
+            <sql:param value="${param.enabled}" />
             <sql:param value="${param.trust_value}" />
             <sql:param value="${param.role_id}" />
             <sql:param value="${param.language}" />
@@ -79,8 +80,8 @@
                     <td><input type="text" name="password" value=""/></td>
                 </tr>  
                 <tr>
-                    <td><label>Enable:</label></td>    
-                    <td><input type="text" name="trust_value" value="${rowBody.rows[0].enabled}"/></td>
+                    <td><label>Enabled:</label></td>    
+                    <td><input type="text" name="enabled" value="${rowBody.rows[0].enabled}"/></td>
                 </tr>
                 <tr>
                     <td><label>Trust:</label></td>
