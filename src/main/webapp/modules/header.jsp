@@ -49,6 +49,7 @@
                             <a class="item" href="rules.jsp">Rules</a>
                         </div>
                     </div>
+                    <a class="item" href="chart.jsp">Charts</a>
                     <a class="item" href="configuration.jsp">Configuration</a>
                     <a class="item" href="admin.jsp">Login</a>
                 </div>
