@@ -16,6 +16,30 @@
                    url="jdbc:mysql://localhost/muses"
                    user="muses"  password="muses11"/>
 
+<%--CONTROL SECTION-----------------------------------------------------------%>    
+<%--POST catched--%>
+<c:if test="${pageContext.request.method=='POST'}">
+
+<%--Save user submited--%>
+<c:choose><c:when test="${param.button=='New Incident'}">
+    <c:catch var ="catchException">
+    <sql:update dataSource="${snapshot}" var="result">
+        INSERT INTO security_incident(name,decision_id,event_id,device_id,user_id,modification) VALUES (?,?,?,?,?,?);
+        <sql:param value="${param.name}" />
+        <sql:param value="${param.decision_id}" />
+        <sql:param value="${param.event_id}" />
+        <sql:param value="${param.device_id}" />
+        <sql:param value="${param.user_id}" />
+        <sql:param value="${param.modification}" />
+    </sql:update>
+    </c:catch>
+</c:when></c:choose>
+<%--A exception was catched--%>
+<c:choose><c:when test = "${catchException != null}">
+    <h3>There is an exception: ${catchException.message}</h3>
+</c:when></c:choose>
+</c:if>
+
 <sql:query dataSource="${snapshot}" var="columnNames">
     <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
     <%--select column_name from information_schema.COLUMNS WHERE TABLE_SCHEMA LIKE 'muses' AND TABLE_NAME = '${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')}';--%>
@@ -30,7 +54,23 @@
 
 <jsp:include page="modules/header.jsp"></jsp:include>
 <jsp:include page="modules/menu.jsp"></jsp:include>
- 	 	 	 	 	
+
+<%--FORM DATE EVENT-----------------------------------------------------------%>  
+<form name="usuario" method="post" action="profile_s_incident.jsp">
+    <fieldset>
+        <table>
+            <tr>
+                <td><label>Date:</label></td>
+                <td><input type="text" name="date" value="YYYY-MM-DD"/></td>
+            </tr>
+        </table>    
+
+        <input type="submit" name="button" value="New Incident">
+    </fieldset>
+</form>    
+<%--END FORM DATE EVENT-------------------------------------------------------%>
+
+<%--TABLE SECURITY EVEN-------------------------------------------------------%>
 <table border="1" width="100%">
     <tr>
         <c:forEach var="rowHeader" items="${columnNames.rows}">
@@ -54,6 +94,9 @@
         </tr>
     </c:forEach>
  </table><br /><br />
+<%--END TABLE SECURITY EVEN---------------------------------------------------%>
 
+<%--Debug post parameters--%>
+<c:out value="${param}"/>
 <jsp:include page="modules/footer.jsp"></jsp:include>
 
