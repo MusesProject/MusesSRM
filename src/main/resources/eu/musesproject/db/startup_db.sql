@@ -146,9 +146,9 @@ DROP TABLE IF EXISTS `connection_config`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `connection_config` (
   `config_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `timeout` int(10) unsigned NOT NULL DEFAULT '5000',
-  `poll_timeout` int(10) unsigned NOT NULL DEFAULT '10000',
-  `sleep_poll_timeout` int(10) unsigned NOT NULL DEFAULT '10000',
+  `timeout` int(10) unsigned NOT NULL DEFAULT '10000',
+  `poll_timeout` int(10) unsigned NOT NULL DEFAULT '5000',
+  `sleep_poll_timeout` int(10) unsigned NOT NULL DEFAULT '60000',
   `polling_enabled` tinyint(1) NOT NULL COMMENT 'Specify whether the polling is enabled or not',
   `login_attempts` int(10) unsigned NOT NULL DEFAULT '5',
   PRIMARY KEY (`config_id`)
@@ -389,7 +389,7 @@ CREATE TABLE `patterns_krs` (
   `mail_contains_cc_allowed` int(11) COMMENT 'If the event is about sending an email, specify whether the mail contains (1) or not (0) someone in CC',
   `mail_contains_bcc_allowed` int(11) COMMENT 'If the event is about sending an email, specify whether the mail contains (1) or not (0) someone in BCC',
   `mail_has_attachment` int(11) COMMENT 'If the event is about sending an email, specify whether the mail contains (1) or not (0) an attachment',
-  `wifiencryption` varchar(30) COMMENT 'When sending an asset, information about encryption of the wifi network',
+  `wifiencryption` varchar(50) COMMENT 'When sending an asset, information about encryption of the wifi network',
   `wifienabled` int(11) COMMENT 'When sending an asset, information about wifi connection being enabled',
   `wificonnected` int(11) COMMENT 'When sending an asset, information about wifi being connected',
   `bluetoothconnected` int(11) COMMENT 'When sending an asset, information about bluetooth being connected',

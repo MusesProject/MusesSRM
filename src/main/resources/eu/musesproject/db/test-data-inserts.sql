@@ -40,7 +40,7 @@ INSERT INTO `domains` VALUES (7,'domain','desc','CONFIDENTIAL');
 
 --
 
-INSERT INTO `event_type` VALUES (1,'LOG_IN','SIMPLE_EVENT'),(2,'LOG_OUT','SIMPLE_EVENT'),(3,'START','SIMPLE_EVENT'),(4,'RESUME','SIMPLE_EVENT'),(5,'STOP','SIMPLE_EVENT'),(6,'RESTART','SIMPLE_EVENT'),(7,'ACTION_REMOTE_FILE_ACCESS','SIMPLE_EVENT'),(8,'CONTEXT_SENSOR_CONNECTIVITY','SIMPLE_EVENT'),(9,'CONTEXT_SENSOR_DEVICE_PROTECTION','SIMPLE_EVENT'),(10,'ACTION_APP_OPEN','SIMPLE_EVENT'),(11,'ACTION_SEND_MAIL','SIMPLE_EVENT'),(12,'VIRUS_FOUND','SIMPLE_EVENT'),(13,'VIRUS_CLEANED','SIMPLE_EVENT'),(14,'SECURITY_PROPERTY_CHANGED','SIMPLE_EVENT'),(15,'SAVE_ASSET','SIMPLE_EVENT'),(16,'CONTEXT_SENSOR_PACKAGE','SIMPLE_EVENT'),(17,'SECURITY_VIOLATION','COMPLEX_EVENT'),(18,'SECURITY_INCIDENT','COMPLEX_EVENT'),(19,'CONFIGURATION_CHANGE','COMPLEX_EVENT'),(20,'DECISION','COMPLEX_EVENT'),(21,'DEVICE_POLICY_SENT','COMPLEX_EVENT'),(22,'CLUE_DETECTED','COMPLEX_EVENT'),(23,'CONTEXT_SENSOR_APP','SIMPLE_EVENT'),(24,'user_entered_password_field','SIMPLE_EVENT'),(25,'CONTEXT_SENSOR_PERIPHERAL','SIMPLE_EVENT'),(26,'add_note','SIMPLE_EVENT'),(27,'USER_BEHAVIOR','SIMPLE_EVENT');
+INSERT INTO `event_type` VALUES (1,'LOG_IN','SIMPLE_EVENT'),(2,'LOG_OUT','SIMPLE_EVENT'),(3,'START','SIMPLE_EVENT'),(4,'RESUME','SIMPLE_EVENT'),(5,'STOP','SIMPLE_EVENT'),(6,'RESTART','SIMPLE_EVENT'),(7,'ACTION_REMOTE_FILE_ACCESS','SIMPLE_EVENT'),(8,'CONTEXT_SENSOR_CONNECTIVITY','SIMPLE_EVENT'),(9,'CONTEXT_SENSOR_DEVICE_PROTECTION','SIMPLE_EVENT'),(10,'ACTION_APP_OPEN','SIMPLE_EVENT'),(11,'ACTION_SEND_MAIL','SIMPLE_EVENT'),(12,'VIRUS_FOUND','SIMPLE_EVENT'),(13,'VIRUS_CLEANED','SIMPLE_EVENT'),(14,'SECURITY_PROPERTY_CHANGED','SIMPLE_EVENT'),(15,'SAVE_ASSET','SIMPLE_EVENT'),(16,'CONTEXT_SENSOR_PACKAGE','SIMPLE_EVENT'),(17,'SECURITY_VIOLATION','COMPLEX_EVENT'),(18,'SECURITY_INCIDENT','COMPLEX_EVENT'),(19,'CONFIGURATION_CHANGE','COMPLEX_EVENT'),(20,'DECISION','COMPLEX_EVENT'),(21,'DEVICE_POLICY_SENT','COMPLEX_EVENT'),(22,'CLUE_DETECTED','COMPLEX_EVENT'),(23,'CONTEXT_SENSOR_APP','SIMPLE_EVENT'),(24,'user_entered_password_field','SIMPLE_EVENT'),(25,'CONTEXT_SENSOR_PERIPHERAL','SIMPLE_EVENT');
 
 --
 
@@ -87,10 +87,11 @@ INSERT INTO `risk_treatment` VALUES (1,'opensensitivedocumentinunsecurenetwork',
 
 INSERT INTO `roles` VALUES (145,'role','desc',1);
 
-
 --
 
-INSERT INTO `sensor_configuration` VALUES (1,'CONTEXT_SENSOR_DEVICE_PROTECTION','trustedav','com.avast.android.mobilesecurity'),(2,'CONTEXT_SENSOR_DEVICE_PROTECTION','trustedav','Mobile Security & Antivirus'),(3,'CONTEXT_SENSOR_DEVICE_PROTECTION','trustedav','com.avira.android'),(4,'CONTEXT_SENSOR_DEVICE_PROTECTION','trustedav','com.symantec.mobilesecurity'),(5,'CONTEXT_SENSOR_DEVICE_PROTECTION','trustedav','com.cleanmaster.security'),(6,'CONTEXT_SENSOR_DEVICE_PROTECTION','enabled','true'),(7,'CONTEXT_SENSOR_LOCATION','mindistance','10'),(8,'CONTEXT_SENSOR_LOCATION','mindtime','400'),(9,'CONTEXT_SENSOR_LOCATION','radius','12.0'),(10,'CONTEXT_SENSOR_LOCATION','enabled','true'),(11,'CONTEXT_SENSOR_FILEOBSERVER','path','/SWE/'),(12,'CONTEXT_SENSOR_FILEOBSERVER','enabled','true'),(13,'CONTEXT_SENSOR_APP','enabled','true'),(14,'CONTEXT_SENSOR_CONNECTIVITY','enabled','true'),(15,'CONTEXT_SENSOR_INTERACTION','enabled','true'),(16,'CONTEXT_SENSOR_PACKAGE','enabled','true'),(17,'CONTEXT_SENSOR_SETTINGS','enabled','true'),(18,'CONTEXT_SENSOR_NOTIFICATION','enabled','true');
+
+
+INSERT INTO `sensor_configuration` VALUES (1,'CONTEXT_SENSOR_DEVICE_PROTECTION','trustedav','avast! Mobile Security'),(2,'CONTEXT_SENSOR_DEVICE_PROTECTION','trustedav','Mobile Security & Antivirus'),(3,'CONTEXT_SENSOR_DEVICE_PROTECTION','trustedav','Avira Antivirus Security'),(4,'CONTEXT_SENSOR_DEVICE_PROTECTION','trustedav','Norton Security & Antivirus'),(5,'CONTEXT_SENSOR_DEVICE_PROTECTION','trustedav','CM Security & Find My Phone'),(6,'CONTEXT_SENSOR_DEVICE_PROTECTION','enabled','true'),(7,'CONTEXT_SENSOR_LOCATION','mindistance','10'),(8,'CONTEXT_SENSOR_LOCATION','mindtime','400'),(9,'CONTEXT_SENSOR_LOCATION','radius','12.0'),(10,'CONTEXT_SENSOR_LOCATION','enabled','true'),(11,'CONTEXT_SENSOR_FILEOBSERVER','path','/SWE/'),(12,'CONTEXT_SENSOR_FILEOBSERVER','enabled','true'),(13,'CONTEXT_SENSOR_APP','enabled','true'),(14,'CONTEXT_SENSOR_CONNECTIVITY','enabled','true'),(15,'CONTEXT_SENSOR_INTERACTION','enabled','true'),(16,'CONTEXT_SENSOR_PACKAGE','enabled','true'),(17,'CONTEXT_SENSOR_SETTINGS','enabled','true'),(18,'CONTEXT_SENSOR_NOTIFICATION','enabled','true');
 
 --
 
@@ -131,6 +132,7 @@ INSERT INTO `list_ofpossible_risktreatments` (`listofpossiblerisktreatment_id`, 
 (6, 'There is too much risk in your context situation.\\n The probability of a threat leading to a security incident is too high.\\n In your context situation your are not secure enough.', 'Está trabajando en un entorno con un nivel de riesgo elevado.\\n La probabilidad de una amenaza que provoque un incidente de seguridad es demasiado alta.\\n Su actual entorno no ofrece suficiente seguridad', 'de', 'fr'),
 (25, 'You may use an Opportunity in your situation.\\n If oyur Oppportunity is higher that the risk of lossing the value of the asset, you will have access to the asset.\\n Please your Opportunity.', '', 'de', 'fr');
 
+
 --
 
 
@@ -163,7 +165,6 @@ INSERT INTO `muses`.`simple_events` (`event_id`, `event_type_id`, `user_id`, `de
 INSERT INTO `muses`.`simple_events` (`event_id`, `event_type_id`, `user_id`, `device_id`, `app_id`, `asset_id`, `data`,`date`,`time`) VALUES ('24', '24', '1', '1', '117', '1', 'Default event', date(now()),time(now()));
 INSERT INTO `muses`.`simple_events` (`event_id`, `event_type_id`, `user_id`, `device_id`, `app_id`, `asset_id`, `data`,`date`,`time`) VALUES ('25', '25', '1', '1', '117', '1', 'Default event', date(now()),time(now()));
 INSERT INTO `muses`.`simple_events` (`event_id`, `event_type_id`, `user_id`, `device_id`, `app_id`, `asset_id`, `data`,`date`,`time`) VALUES ('26', '25', '1', '1', '117', '1', 'Default event', '2015-01-09','16:00:00');
-INSERT INTO `muses`.`simple_events` (`event_id`, `event_type_id`, `user_id`, `device_id`, `app_id`, `asset_id`, `data`,`date`,`time`) VALUES ('27', '26', '1', '1', '117', '1', 'Default event', '2015-01-09','16:00:00');
 
 
 INSERT INTO `message` (`idmessage`,`key`,`language`,`translation`) VALUES (1,'Zone 1 application restriction','en','You are in a restricted area\nYou are trying to use an application that is forbidden in the current zone. If you need to use your camera, you should go outside the restricted area. Please, do not proceed.');
