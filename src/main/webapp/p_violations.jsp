@@ -25,7 +25,7 @@
 <sql:query dataSource="${snapshot}" var="result">
     <%--Uncomment if the name of the tables is the same as the name of the jsp files--%>
     <%--select * from ${fn:replace(fn:replace(pageContext.request.servletPath,'.jsp',''),'/','')};--%>
-    select * from security_violation;
+    select user_id,message, modeText, detection from security_violation;
 </sql:query>
 
 <jsp:include page="modules/header.jsp"></jsp:include>
