@@ -44,14 +44,9 @@
                 <td><c:out value="${cell}"/></td>
             </c:forEach></tr>--%>
         <tr>
-            <td><c:out value="${rowBody.security_violation_id}"/></td>
-            <td><c:out value="${rowBody.message}"/></td>
-            <td><c:out value="${rowBody.conditionText}"/></td>
-            <td><c:out value="${rowBody.modeText}"/></td>
             <td><c:out value="${rowBody.user_id}"/></td>
-            <td><c:out value="${rowBody.decision_id}"/></td>
-            <td><c:out value="${rowBody.event_id}"/></td>
-            <td><c:out value="${rowBody.device_id}"/></td>
+            <td><c:out value="${rowBody.message}"/></td>
+            <td><c:out value="${rowBody.modeText}"/></td>
             <td><c:out value="${rowBody.detection}"/></td>
         </tr>
     </c:forEach>
