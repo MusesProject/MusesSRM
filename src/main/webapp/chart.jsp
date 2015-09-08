@@ -95,7 +95,7 @@
       ]);
 
       // Set chart options
-      var options = {'title':'Number of Access Request (ordered by year and month)',
+      var options = {'title':'Number of Simple Events (ordered by year and month)',
                      'width':600,
                      'height':300,
                      'colors': ['#B5478B']                 
@@ -139,7 +139,7 @@
       ]);
 
       // Set chart options
-      var options = {'title':'Number of Access Request (ordered by year and month)',
+      var options = {'title':'Number of Security Violations (ordered by year and month)',
                      'width':600,
                      'height':300,
                      'colors': ['#B5478B']                 
