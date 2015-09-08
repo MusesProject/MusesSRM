@@ -488,6 +488,7 @@ optgroup {
  */
 
 table {
+  width: 95%;
   border-collapse: collapse;
   border-spacing: 0;
   -moz-border-radius:3px;
@@ -503,7 +504,7 @@ table th {
 }
 
 tr:nth-child(even) {
-    background-color: #222;
+    background-color: #eee;
 }
 
 td,

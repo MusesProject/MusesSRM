@@ -31,11 +31,9 @@
 <jsp:include page="modules/header.jsp"></jsp:include>
 <jsp:include page="modules/menu.jsp"></jsp:include>
 	 	 	 	 	 	 	
-<table border="1" width="100%">
+<table>
     <tr>
-        <c:forEach var="rowHeader" items="${columnNames.rows}">
-            <th><c:out value="${rowHeader.COLUMN_NAME}"/></th>
-        </c:forEach>
+        <th><td>User ID</td><td>Message</td><td>Allow/Deny</td><td>Date and time</td></th>
     </tr>
 
     <c:forEach var="rowBody" items="${result.rows}">
