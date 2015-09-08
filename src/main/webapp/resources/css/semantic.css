@@ -484,16 +484,32 @@ optgroup {
 
 /**
  * Remove most spacing between table cells.
+ * Lines taken from http://johnsardine.com/freebies/dl-html-css/simple-little-tab/
  */
 
 table {
   border-collapse: collapse;
   border-spacing: 0;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  border-radius:3px;
+  border:#ccc 1px solid;
+}
+
+table th {
+    background: #ededed;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+    background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+}
+
+tr:nth-child(even) {
+    background-color: #222;
 }
 
 td,
 th {
   padding: 0;
+  border: none;
 }
 
 /*******************************
