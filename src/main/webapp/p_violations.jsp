@@ -33,7 +33,7 @@
 	 	 	 	 	 	 	
 <table>
     <tr>
-        <th><td>User ID</td><td>Message</td><td>Allow/Deny</td><td>Date and time</td></th>
+        <th>User ID</th><th>Message</th><th>Allow/Deny</th><th>Date and time</th>
     </tr>
 
     <c:forEach var="rowBody" items="${result.rows}">
