@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	 version="3.0">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
     <session-config>
         <session-timeout>
             30
@@ -11,7 +11,7 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
-        </welcome-file-list>
+    </welcome-file-list>
     <resource-ref>
         <res-ref-name>jdbc/MUSESSRM</res-ref-name>
         <res-type>javax.sql.ConnectionPoolDataSource</res-type>
@@ -22,6 +22,13 @@
         <web-resource-collection>
             <web-resource-name>login</web-resource-name>
             <url-pattern>/login</url-pattern>
+        </web-resource-collection>
+        <!-- OMIT auth-constraint -->
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>resources</web-resource-name>
+            <url-pattern>/resources/*</url-pattern>
         </web-resource-collection>
         <!-- OMIT auth-constraint -->
     </security-constraint>
@@ -41,9 +48,20 @@
             <form-error-page>/error.jsp</form-error-page>
         </form-login-config>
     </login-config>
-
     <security-role>
         <description/>
         <role-name>admin</role-name>
     </security-role>
-    </web-app>
+    <mime-mapping>
+        <extension>ico</extension>
+        <mime-type>image/x-icon</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>css</extension>
+        <mime-type>text/css</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>js</extension>
+        <mime-type>text/javascript</mime-type>
+    </mime-mapping>
+</web-app>
