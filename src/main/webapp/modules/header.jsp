@@ -5,6 +5,7 @@
     Author     : Juan Luis Martin Acal <jlmacal@gmail.com>
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -51,7 +52,12 @@
                     </div>
                     <a class="item" href="chart.jsp">Charts</a>
                     <a class="item" href="configuration.jsp">Configuration</a>
-                    <a class="item" href="admin.jsp">Login</a>
+                    <c:if test="${pageContext['request'].userPrincipal == null}">
+                        <a class="item" href="admin.jsp">Login</a>
+                    </c:if>
+                    <c:if test="${pageContext['request'].userPrincipal != null}">
+                        <a class="item" href="logout.jsp">Logout</a>
+                    </c:if>
                 </div>
             </div>
 
