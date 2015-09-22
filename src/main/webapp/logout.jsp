@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <jsp:include page="modules/header.jsp"></jsp:include>
 <jsp:include page="modules/menu.jsp"></jsp:include>
-User '<%=request.getRemoteUser()%>' has been logged out.
+You have been successfully logged out.
 <% session.invalidate();%>
 <br/>
 <a href="index.jsp">Click here to go to index page</a>
