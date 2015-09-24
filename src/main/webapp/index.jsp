@@ -159,19 +159,20 @@
         <div id="chart_violations"></div>
         <div class="ui divider"></div>
         
-        <div class="muses">Quick Menu: <div class="ui purple animated button" tabindex="0">
+        
+        <div class="muses">Quick Menu: <div class="ui purple animated button" tabindex="0" onclick="location.href = 'users.jsp'">
             <div class="visible content">User Management</div>
             <div class="hidden content">
                 <i class="right arrow icon"></i>
             </div>
         </div>        
-        <div class="ui purple animated button" tabindex="0">
+            <div class="ui purple animated button" tabindex="0" onclick="location.href = 'policies.jsp'">
             <div class="visible content">Add Policy</div>
             <div class="hidden content">
                 <i class="right arrow icon"></i>
             </div>
         </div>        
-        <div class="ui purple animated button" tabindex="0">
+        <div class="ui purple animated button" tabindex="0"  onclick="location.href = 'rules.jsp'>
             <div class="visible content">Check for new rules</div>
             <div class="hidden content">
                 <i class="right arrow icon"></i>

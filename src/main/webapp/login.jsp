@@ -36,7 +36,7 @@
             <input class='ui submit button' type="reset" value="Reset"/>
         </div>
     
-</form>
+    </form>
 
 
 <jsp:include page="modules/footer.jsp"></jsp:include>
