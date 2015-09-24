@@ -12,38 +12,90 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
-<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-                   url="jdbc:mysql://localhost/muses"
-                   user="muses"  password="muses11"/>
+<html>
+    <head>
 
-<sql:query dataSource="${snapshot}" var="result">
-    SELECT users.user_id, devices.device_id, users.name, users.surname FROM simple_events LEFT JOIN users ON users.user_id=simple_events.user_id LEFT JOIN devices ON devices.device_id=simple_events.device_id;
-    <%--The column name in users and devices give problems when print the second name (devices.name)--%>
-    <%--the AS clausure in the select query dont solve the problem¿?¿?--%>
-    <%--SELECT users.user_id, devices.device_id, users.name, devices.name AS name2 FROM simple_events LEFT JOIN users ON users.user_id=simple_events.user_id LEFT JOIN devices ON devices.device_id=simple_events.device_id;--%>
-</sql:query>
+        <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
+                           url="jdbc:mysql://localhost/muses"
+                           user="muses"  password="muses11"/>
 
-<jsp:include page="modules/header.jsp"></jsp:include>
-<jsp:include page="modules/menu.jsp"></jsp:include>
 
-<table border="1" width="100%">
-    <tr>
-        <th>user_id</th>
-        <th>device_id</th>
-        <th>user name</th>
-        <%--<th>device name</th>--%>
-        <th>user surname</th>
-    </tr>
-    <c:forEach var="rowBody" items="${result.rows}">
-        <tr>
-            <td><c:out value="${rowBody.user_id}"/></td>
-            <td><c:out value="${rowBody.device_id}"/></td>
-            <td><c:out value="${rowBody.name}"/></td>
-            <%--<td><c:out value="${rowBody.name2}"/></td>--%>
-            <td><c:out value="${rowBody.surname}"/></td>
-            
-        </tr>
-    </c:forEach>
- </table><br /><br />
 
-<jsp:include page="modules/footer.jsp"></jsp:include>
+        <sql:query dataSource="${snapshot}" var="users">
+            SELECT user_id, name, surname FROM users;
+        </sql:query>
+    
+        <title>MUSES tool for CSOs - User Management</title>
+    </head>
+    <body>
+
+        <jsp:include page="modules/header.jsp"></jsp:include>
+        <jsp:include page="modules/menu.jsp"></jsp:include>
+
+        <h2 class="ui center aligned icon header">
+                <i class="users icon"></i>
+                <div class="content">
+                    User Management
+                </div>
+                </h2>
+        <div class="ui divider"></div>
+                <br>
+
+        <div class="ui middle aligned divided list">
+          <c:forEach var="user" items="${users.rows}">
+            <div class="item">
+              <div class="right floated content">
+                <div class="ui button">Modify</div>
+              </div>
+              <img class="ui avatar image" src="./resources/profile.png">
+              <div class="content">
+                #<c:out value="${user.user_id}"/> - <c:out value="${user.surname}"/>, <c:out value="${user.name}"/>
+              </div>
+            </div>
+          </c:forEach>
+        </div>
+
+
+
+
+
+        <table class="ui celled table">
+            <thead><tr>
+                <th>user_id</th>
+
+                <th>user name</th>
+                <%--<th>device name</th>--%>
+                <th>user surname</th>
+            </tr></thead>
+            <tbody>
+            <c:forEach var="rowBody" items="${users.rows}">
+                <tr>
+                    <td><c:out value="${rowBody.user_id}"/></td>
+                    <td><c:out value="${rowBody.name}"/></td>
+                    <%--<td><c:out value="${rowBody.name2}"/></td>--%>
+                    <td><c:out value="${rowBody.surname}"/></td>
+
+                </tr>
+            </c:forEach>
+            </tbody>
+            <tfoot>
+            <tr><th colspan="3">
+              <div class="ui right floated pagination menu">
+                <a class="icon item">
+                  <i class="left chevron icon"></i>
+                </a>
+                <a class="item">1</a>
+                <a class="item">2</a>
+                <a class="item">3</a>
+                <a class="item">4</a>
+                <a class="icon item">
+                  <i class="right chevron icon"></i>
+                </a>
+              </div>
+            </th>
+          </tr></tfoot>
+         </table><br /><br />
+
+        <jsp:include page="modules/footer.jsp"></jsp:include>
+    </body>
+</html>

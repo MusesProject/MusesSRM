@@ -172,7 +172,7 @@
                 <i class="right arrow icon"></i>
             </div>
         </div>        
-        <div class="ui purple animated button" tabindex="0"  onclick="location.href = 'rules.jsp'>
+        <div class="ui purple animated button" tabindex="0"  onclick="location.href = 'rules.jsp'">
             <div class="visible content">Check for new rules</div>
             <div class="hidden content">
                 <i class="right arrow icon"></i>
