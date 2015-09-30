@@ -26,72 +26,13 @@
         <jsp:include page="modules/header.jsp"></jsp:include>
         <jsp:include page="modules/menu.jsp"></jsp:include>
         
-        <script>
-            function displayUser(user_id) {
-                <sql:query dataSource="${snapshot}" var="categories" scope="session">
-                    SELECT user_id, name, surname, username, role_id, email, trust_value FROM users;
-                </sql:query>
-                    
-                var parent = document.getElementById("list");
-                var child1 = document.getElementById("userlist");
-                var child2 = document.getElementById("pages");
-                parent.removeChild(child1);
-                parent.removeChild(child2);
-                
-                <c:forEach var="data" items="${categories.rows}">
-                    var profile = document.createElement("div");
-                    profile.setAttribute("class", "ui items");
-                    var item = document.createElement("div");
-                    item.setAttribute("class", "item");
-                    var image = document.createElement("div");
-                    image.setAttribute("class", "image");
-                    var img_src = document.createElement("img");
-                    img_src.setAttribute("src", "./resources/profile.png");
-                    image.appendChild(img_src);
-                    var content = document.createElement("div");
-                    content.setAttribute("class", "content");
-                    var header = document.createElement("div");
-                    header.setAttribute("class", "header");
-                    var header_text = document.createTextNode("#${data.user_id} - ${data.name} ${data.surname}");
-                    header.appendChild(header_text);
-                    var meta = document.createElement("div");
-                    meta.setAttribute("class", "meta");
-                    var username = document.createElement("span");
-                    username.setAttribute("class", "stay");
-                    var username_text = document.createTextNode("${data.username}");
-                    username.appendChild(username_text);
-                    meta.appendChild(username);
-                    var description = document.createElement("div");
-                    description.setAttribute("class", "description");
-                    var role = document.createElement("p");
-                    var role_text = document.createTextNode("Role: ${data.role_id}");
-                    role.appendChild(role_text);
-                    var email = document.createElement("p");
-                    var email_text = document.createTextNode("${data.email}");
-                    email.appendChild(email_text);
-                    var trust = document.createElement("p");
-                    var trust_text = document.createTextNode("Updated trust value = ${data.trust_value}");
-                    trust.appendChild(trust_text);
-                    description.appendChild(role);
-                    description.appendChild(email);
-                    description.appendChild(trust);
-                    content.appendChild(header);
-                    content.appendChild(meta);
-                    content.appendChild(description);
-                    item.appendChild(image);
-                    item.appendChild(content);
-                    profile.appendChild(item);
-                </c:forEach>
-                parent.appendChild(profile);
-            }
-        </script>
-
+        
         <h2 class="ui center aligned icon header">
-                <i class="users icon"></i>
-                <div class="content">
-                    User Management
-                </div>
-                </h2>
+            <i class="users icon"></i>
+            <div class="content">
+                User Management
+            </div>
+        </h2>
         <div class="ui divider"></div>
         <br>
         
@@ -110,7 +51,7 @@
             <c:forEach var="user" items="${categories.rows}" begin="${param.start}" end="${param.start+perPage}">
                 <div class="item">
                     <div class="right floated content">
-                        <div class="ui button" onclick="displayUser(${user.user_id})">View</div>
+                        <div class="ui button" onclick="location.href = 'user_profile.jsp?userid=${user.user_id}'">View</div>
                     </div>
                     <img class="ui avatar image" src="./resources/profile.png">
                     <div class="content">
