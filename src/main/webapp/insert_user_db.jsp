@@ -33,12 +33,6 @@
         </h2>
         <div class="ui divider"></div>
         <br>
-        
-        <div class="ui segment">
-            <div class="ui active dimmer">
-                <div class="ui text loader">Saving</div>
-            </div>
-        </div>
                 
                 <c:if test="${ empty param.name or empty param.surname or 
                                empty param.username or empty param.email or 
