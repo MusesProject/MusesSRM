@@ -45,8 +45,8 @@
                             <a class="item" href="s_incidents.jsp">Security Incidents</a>
                             <a class="item" href="behaviour.jsp">User Behaviour</a>
                             <a class="item" href="assets.jsp">Assets</a>
-                            <a class="item" href="users.jsp">User/Devices</a>
-                            <a class="item" href="policies.jsp">Policies</a>
+                            <a class="item" href="users.jsp">Users</a>
+                            <a class="item" href="sec_rules.jsp">Security Rules</a>
                             <a class="item" href="rules.jsp">Rules</a>
                         </div>
                     </div>
