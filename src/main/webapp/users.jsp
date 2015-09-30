@@ -34,7 +34,22 @@
             </div>
         </h2>
         <div class="ui divider"></div>
-        <br>
+        
+        <c:if test="${not empty param.susMsg}">
+            <c:out value="${param.susMsg}" />
+        </c:if>
+        
+        <div class="ui grid">
+            <div class="row">
+            <div class="ui purple animated right floated button" onclick="location.href = 'user_add.jsp'">
+                <div class="visible content">New User</div>
+                <div class="hidden content">
+                    <i class="add user icon"></i>
+                </div>
+            </div>
+            </div>
+        </div>
+        
         
         <sql:query dataSource="${snapshot}" var="categories" scope="session">
    		SELECT user_id, name, surname FROM users;
@@ -45,6 +60,7 @@
         <c:set var="totalPages" scope="session" value="${totalCount/perPage}"/>
 
         <c:set var="pageIndex" scope="session" value="${param.start/perPage+1}"/>
+        
         
         <div  id="list">
         <div class="ui middle aligned divided list" id="userlist">
@@ -89,8 +105,7 @@
             </a>
         </c:if>
         
-        </div>
-        
+        </div>        
         
 
         <jsp:include page="modules/footer.jsp"></jsp:include>
