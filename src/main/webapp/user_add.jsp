@@ -77,20 +77,12 @@
                     <i class="lock icon"></i>
                 </div>
             </div>
-            <div class="inline fields">
-            <label for="enable">Do you like to enable the account now?</label>
-                <div class="field">
-                <div class="ui radio checkbox">
-                    <input class="hidden" tabindex="0" name="enable" value="1" checked="" type="radio">
-                    <label>Yes</label>
-                </div>
-                </div>
-                <div class="six wide field">
-                <div class="ui radio checkbox">
-                    <input class="hidden" tabindex="0" name="enable" value="0" checked="" type="radio">
-                    <label>No</label>
-                </div>
-                </div>
+            <div class="six wide field">
+                <label>Do you like to enable the account now?</label>
+                <select class="ui dropdown" name="language">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
             </div>
             <div class="six wide field">
                 <label>User role</label>

@@ -75,7 +75,7 @@
             </div>
         </div>
                     
-        <div class="ui purple animated button" tabindex="0" onclick="convertToForm()">
+        <div class="ui purple animated button" tabindex="0" onclick="location.href = 'user_update.jsp?id=${data.user_id}'">
             <div class="visible content">Update User</div>
             <div class="hidden content">
                 <i class="edit icon"></i>
