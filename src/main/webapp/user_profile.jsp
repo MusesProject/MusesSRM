@@ -16,7 +16,15 @@
 
         <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://localhost/muses"
-                           user="muses"  password="muses11"/>      
+                           user="muses"  password="muses11"/>
+        
+        <script>
+            function confirmGo(m,u) {
+                if ( confirm(m) ) {
+                    window.location = u;
+                }
+            }
+        </script>
     
         <title>MUSES tool for CSOs - User Management</title>
     </head>
@@ -42,11 +50,11 @@
         
         <div class="ui items">
             <c:forEach var="data" items="${user.rows}">
-            <div class="item">
+            <div class="item" id="profile">
                 <div class="image">
                     <img src="./resources/profile.png">
                 </div>
-                <div class="content">
+                <div class="content" id="content">
                     <a class="header">#${data.user_id} - ${data.name} ${data.surname}</a>
                     <div class="meta">
                         <span>${data.username}</span>
@@ -65,18 +73,15 @@
                     </div>
                 </div>
             </div>
-            </c:forEach>
         </div>
-        
-        
                     
-        <div class="ui purple animated button" tabindex="0" onclick="location.href = 'policies.jsp'">
+        <div class="ui purple animated button" tabindex="0" onclick="convertToForm()">
             <div class="visible content">Update User</div>
             <div class="hidden content">
                 <i class="edit icon"></i>
             </div>
         </div>        
-        <div class="ui purple animated button" tabindex="0"  onclick="location.href = 'rules.jsp'">
+        <div class="ui purple animated button" tabindex="0"  onclick="javascript:confirmGo('Are you sure that you want to delete the user #<c:out value='${data.user_id}'/>?','user_delete.jsp?id=<c:out value='${data.user_id}'/>')">
             <div class="visible content">Delete User</div>
             <div class="hidden content">
                 <i class="remove user icon"></i>
@@ -88,7 +93,7 @@
                 <i class="left arrow icon"></i>
             </div>
         </div>
-        
+        </c:forEach>
         
 
         <jsp:include page="modules/footer.jsp"></jsp:include>
