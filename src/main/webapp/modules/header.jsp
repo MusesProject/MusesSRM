@@ -33,7 +33,7 @@
                         <div class="menu" tabindex="-1">
                             
                             
-                            <a class="item" href="admin.jsp">Login</a>
+                            <a class="item" href="index.jsp">Login</a>
                         </div>
                     </div>
                     <div class="ui dropdown link item" tabindex="0">
@@ -53,7 +53,7 @@
                     <a class="item" href="chart.jsp">Charts</a>
                     <a class="item" href="configuration.jsp">Configuration</a>
                     <c:if test="${pageContext['request'].userPrincipal == null}">
-                        <a class="item" href="admin.jsp">Login</a>
+                        <a class="item" href="index.jsp">Login</a>
                     </c:if>
                     <c:if test="${pageContext['request'].userPrincipal != null}">
                         <a class="item" href="logout.jsp">Logout</a>
