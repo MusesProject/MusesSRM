@@ -9,6 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="java.io.*,java.text.*,java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -144,6 +145,16 @@
         <jsp:include page="modules/menu.jsp"></jsp:include>
         <jsp:include page="modules/musesintro.jsp"></jsp:include>
         
+        <%
+        // Page will be auto refresh after 1 seconds
+        response.setIntHeader("Refresh", 30);
+
+        // Get Current Time
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        //Calendar cal = Calendar.getInstance();
+        //out.println(dateFormat.format(cal.getTime()));
+        %>
+        
         <div class="ui divider"></div>
         <h2 class="ui center aligned icon header">
         <i class="settings icon"></i>
@@ -160,19 +171,25 @@
         <div class="ui divider"></div>
         
         
-        <div class="muses">Quick Menu: <div class="ui purple animated button" tabindex="0" onclick="location.href = 'users.jsp'">
+        <div class="muses">Quick Menu: <div class="ui purple animated button" onclick="location.href = 'events.jsp'">
+            <div class="visible content">Events Information</div>
+            <div class="hidden content">
+                <i class="right arrow icon"></i>
+            </div>
+        </div>
+        <div class="ui purple animated button" onclick="location.href = 'users.jsp'">
             <div class="visible content">User Management</div>
             <div class="hidden content">
                 <i class="right arrow icon"></i>
             </div>
         </div>        
-            <div class="ui purple animated button" tabindex="0" onclick="location.href = 'policies.jsp'">
+            <div class="ui purple animated button" onclick="location.href = 'policies.jsp'">
             <div class="visible content">Add Policy</div>
             <div class="hidden content">
                 <i class="right arrow icon"></i>
             </div>
         </div>        
-        <div class="ui purple animated button" tabindex="0"  onclick="location.href = 'rules.jsp'">
+        <div class="ui purple animated button" onclick="location.href = 'rules.jsp'">
             <div class="visible content">Check for new rules</div>
             <div class="hidden content">
                 <i class="right arrow icon"></i>
