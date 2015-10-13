@@ -116,15 +116,24 @@
         
         <script>
             $(function() {
-		$("#datepicker_start").datepicker();
-		$("#datepicker_start").datepicker("setDate", new Date);
-		$("#datepicker_end").datepicker();
+		$("#datepicker_start").datepicker({
+                    dateFormat: "yy-mm-dd",
+                });
+                var today = new Date;
+                var yesterday = today.getDate() - 30;
+		$("#datepicker_start").datepicker("setDate", yesterday);
+		$("#datepicker_end").datepicker({
+                    dateFormat: "yy-mm-dd",
+                    beforeShowDay: function(date) {
+					return [date < new Date, ""];
+				}
+                });
 		$("#datepicker_end").datepicker("setDate", new Date);
             });
 	</script>
 	
         
-        <div class="ui purple animated button" tabindex="0" onclick="location.href = 'event_date.jsp?start=${datepicker_start}?end=${datepicker_end}'">
+        <div class="ui purple animated button" tabindex="0" onclick="location.href = 'event_date.jsp?startD=${datepicker_start}?endD=${datepicker_end}'">
             <div class="visible content">Show Events</div>
             <div class="hidden content">
                 <i class="right arrow icon"></i>
