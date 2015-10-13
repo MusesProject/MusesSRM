@@ -111,8 +111,25 @@
         <div id="chart_events" class="fifteen wide column"></div></div>
         <div class="ui divider"></div>
         <p>For more details in a table, please choose between dates:</p>
-        <p>Start date: <input type="text" id="datepicker"></p>
-        <p>End date: <input type="text" id="datepicker"></p>
+        <p>Start date: <input type="text" id="datepicker_start">
+        End date: <input type="text" id="datepicker_end"></p>
+        
+        <script>
+            $(function() {
+		$("#datepicker_start").datepicker();
+		$("#datepicker_start").datepicker("setDate", new Date);
+		$("#datepicker_end").datepicker();
+		$("#datepicker_end").datepicker("setDate", new Date);
+            });
+	</script>
+	
+        
+        <div class="ui purple animated button" tabindex="0" onclick="location.href = 'event_date.jsp?start=${datepicker_start}?end=${datepicker_end}'">
+            <div class="visible content">Show Events</div>
+            <div class="hidden content">
+                <i class="right arrow icon"></i>
+            </div>
+        </div>
 
         <jsp:include page="modules/footer.jsp"></jsp:include>
     </body>

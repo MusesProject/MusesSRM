@@ -17,7 +17,9 @@
         <link rel="stylesheet" type="text/css" href="resources/css/semantic.css">
         <link rel="stylesheet" type="text/css" href="resources/css/header.css">
         <link rel="shortcut icon" href="resources/favicon.ico" type="image/x-icon" />
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+        <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
         <script src="resources/js/semantic.js"></script>
         <script src="resources/js/header.js"></script>
 
@@ -37,7 +39,7 @@
                         </div>
                     </div>
                     <div class="ui dropdown link item" tabindex="0">
-                        Stats
+                        Stats Menu
                         <i class="dropdown icon"></i>
                         <div class="menu" tabindex="-1">
                             <a class="item" href="events.jsp">Simple Events</a>
