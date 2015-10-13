@@ -110,35 +110,42 @@
 
         <div id="chart_events" class="fifteen wide column"></div></div>
         <div class="ui divider"></div>
-        <p>For more details in a table, please choose between dates:</p>
-        <p>Start date: <input type="text" id="datepicker_start">
-        End date: <input type="text" id="datepicker_end"></p>
+        <c:if test="${not empty param.errMsg}">
+            <div class="ui negative message"><c:out value="${param.errMsg}" /></div>
+            <br>
+        </c:if>
+        <form class="ui form" method="POST" action="event_date.jsp">
+            <h4 class="ui dividing header">For more details in a table, please choose between dates:</h4>
+            <div class="fields">
+                <div class="field">
+                    <label>Start date:</label>
+                    <input type="text" name="startD" id="datepicker_start">
+                </div>
+                <div class="field">
+                    <label>End date:</label>
+                    <input type="text" name="endD" id="datepicker_end">
+                </div>
         
-        <script>
-            $(function() {
-		$("#datepicker_start").datepicker({
-                    dateFormat: "yy-mm-dd",
-                });
-                var today = new Date;
-                var yesterday = today.getDate() - 30;
-		$("#datepicker_start").datepicker("setDate", yesterday);
-		$("#datepicker_end").datepicker({
-                    dateFormat: "yy-mm-dd",
-                    beforeShowDay: function(date) {
-					return [date < new Date, ""];
-				}
-                });
-		$("#datepicker_end").datepicker("setDate", new Date);
-            });
-	</script>
-	
-        
-        <div class="ui purple animated button" tabindex="0" onclick="location.href = 'event_date.jsp?startD=${datepicker_start}?endD=${datepicker_end}'">
-            <div class="visible content">Show Events</div>
-            <div class="hidden content">
-                <i class="right arrow icon"></i>
-            </div>
-        </div>
+                <script>
+                    $(function() {
+                        $("#datepicker_start").datepicker({
+                            dateFormat: "yy-mm-dd"
+                        });
+                        var today = new Date;
+                        var yesterday = today.getDate() - 31;
+                        $("#datepicker_start").datepicker("setDate", yesterday);
+                        $("#datepicker_end").datepicker({
+                            dateFormat: "yy-mm-dd",
+                            beforeShowDay: function(date) {
+                                                return [date < new Date, ""];
+                                        }
+                        });
+                        $("#datepicker_end").datepicker("setDate", new Date);
+                    });
+                </script>
+            </div>      
+            <button class="ui purple button" type="submit" value="submit">Show Events</button>
+        </form>
 
         <jsp:include page="modules/footer.jsp"></jsp:include>
     </body>
