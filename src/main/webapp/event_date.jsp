@@ -55,29 +55,33 @@
         <c:set var="totalPages" scope="session" value="${totalCount/perPage}"/>
 
         <c:set var="pageIndex" scope="session" value="${param.start/perPage+1}"/>
+        
+        <div class="ui purple animated button" align="right" onclick="location.href = 'events.jsp'">
+            <div class="visible content">Back to date picking</div>
+            <div class="hidden content">
+                <i class="left arrow icon"></i>
+            </div>
+        </div>
 
         <table class="ui celled table">
-            <thead><tr>
-                <c:forEach var="rowHeader" items="${columnNames.rows}">
-                    <th><c:out value="${rowHeader.COLUMN_NAME}"/></th>
-                </c:forEach>
-            </tr></thead>
+            <thead>
+                <tr>
+                    <th>#Event</th>
+                    <th>Type</th>
+                    <th>#User</th>
+                    <th>#Device</th>
+                    <th>#App</th>
+                    <th>#Asset</th>
+                    <th>JSON message</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>#Source</th>
+                    <th>EP</th>
+                    <th>RT2AE</th>
+                    <th>KRS</th>
+                </tr>
+            </thead>
         <tbody>
-            <tr>
-                <td>#Event</td>
-                <td>Type</td>
-                <td>#User</td>
-                <td>#Device</td>
-                <td>#App</td>
-                <td>#Asset</td>
-                <td>JSON message</td>
-                <td>Date</td>
-                <td>Time</td>
-                <td>#Source</td>
-                <td>EP</td>
-                <td>RT2AE</td>
-                <td>KRS</td>
-            </tr>
         <c:forEach var="rowBody" items="${eventList.rows}" begin="${param.start}" end="${param.start+perPage}">
             <tr>
                 <td><c:out value="${rowBody.event_id}"/></td>
@@ -86,7 +90,20 @@
                 <td><c:out value="${rowBody.device_id}"/></td>
                 <td><c:out value="${rowBody.app_id}"/></td>
                 <td><c:out value="${rowBody.asset_id}"/></td>
-                <td><c:out value="${rowBody.data}"/></td>
+                <td>
+                    <c:choose>
+                        <c:when test="${fn:length(rowBody.data)>200}">
+                            <c:set var="string" value="${fn:substring(rowBody.data, 0, 100)}" />
+                            <c:out value="${string}"/>...
+                            <div class="ui warning message">
+                                Text is too long, use a MySQL client.
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <c:out value="${rowBody.data}"/>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
                 <td><c:out value="${rowBody.date}"/></td>
                 <td><c:out value="${rowBody.time}"/></td>
                 <td><c:out value="${rowBody.source_id}"/></td>
@@ -97,7 +114,8 @@
         </c:forEach>
         </tbody>
         
- </table>
+ </table>       
+        
         
  <div class="ui purple right floated pagination inverted menu" id="pages">
     <c:if test="${!empty param.start && param.start >(perPage-1) && param.start !=0 }">
