@@ -132,7 +132,8 @@
                             dateFormat: "yy-mm-dd"
                         });
                         var today = new Date;
-                        var yesterday = today.getDate() - 31;
+                        var yesterday = new Date;
+                        yesterday.setMonth(today.getMonth() - 1);
                         $("#datepicker_start").datepicker("setDate", yesterday);
                         $("#datepicker_end").datepicker({
                             dateFormat: "yy-mm-dd",
