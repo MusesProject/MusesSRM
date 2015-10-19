@@ -23,14 +23,6 @@
                            url="jdbc:mysql://localhost/muses"
                            user="muses"  password="muses11"/> 
         
-        <!-- Obtaining today's date -->
-        <jsp:useBean id="date" class="java.util.Date" />
-        <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" var="currentDate" />
-        
-        <sql:query dataSource="${snapshot}" var="result">
-            SELECT count(*) as e, date FROM simple_events WHERE date(date)<='${currentDate}' AND date(date)>'${pastDate}' GROUP BY date;
-        </sql:query>
-        
         <sql:query dataSource="${snapshot}" var="sources">
    		SELECT source_id, name FROM sources;
         </sql:query>
