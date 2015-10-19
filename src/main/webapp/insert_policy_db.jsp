@@ -7,6 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.Calendar" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -50,7 +51,7 @@
         </c:if>
  
         <sql:update dataSource="${snapshot}" var="result">
-            INSERT INTO security_rules(name,description,file,status,refined,source_id,modification) VALUES (?,?,?,'VALIDATED',?,?,?);
+            INSERT INTO security_rules(name,description,file,status,refined,source_id,modification) VALUES (?,?,?,'VALIDATED',0,?,?);
             <sql:param value="${param.name}" />
             <sql:param value="${param.description}" />
             <sql:param value="${param.file}" />
