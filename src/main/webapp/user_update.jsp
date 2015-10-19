@@ -42,7 +42,7 @@
         <div class="ui divider"></div>
         <br>
         <c:if test="${not empty param.errMsg}">
-            <c:out value="${param.errMsg}" />
+            <div class="ui negative message"><c:out value="${param.errMsg}" /></div>
             <div class="ui purple animated button" onclick="location.href = 'users.jsp'">
                 <div class="visible content">Back to User list</div>
                 <div class="hidden content">

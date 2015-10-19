@@ -36,7 +36,7 @@
         <div class="ui divider"></div>
         
         <c:if test="${not empty param.susMsg}">
-            <c:out value="${param.susMsg}" />
+            <div class="ui positive message"><c:out value="${param.susMsg}" /></div>
         </c:if>
         
         <div class="ui grid">
