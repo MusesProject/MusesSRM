@@ -40,7 +40,7 @@
                        empty param.surname and empty param.role_id and 
                        empty param.language}">
             <c:redirect url="user_update?id=${param.id}.jsp" >
-                <c:param name="errMsg" value="You are not changing any information" />
+                <c:param name="errMsg" value="You are not changing any information." />
             </c:redirect>
         </c:if>
         

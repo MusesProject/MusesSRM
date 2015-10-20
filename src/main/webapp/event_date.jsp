@@ -129,55 +129,54 @@
                     <th>KRS</th>
                 </tr>
             </thead>
-        <tbody>
-        <c:forEach var="rowBody" items="${eventList.rows}" begin="${param.start}" end="${param.start+perPage}">
-            <tr>
-                <td><c:out value="${rowBody.event_id}"/></td>
-                <td><c:out value="${rowBody.event_type_id}"/></td>
-                <td><c:out value="${rowBody.user_id}"/></td>
-                <td><c:out value="${rowBody.device_id}"/></td>
-                <td><c:out value="${rowBody.app_id}"/></td>
-                <td><c:out value="${rowBody.asset_id}"/></td>
-                <td>
-                    <c:choose>
-                        <c:when test="${fn:length(rowBody.data)>130}">
-                            <c:set var="string" value="${fn:substring(rowBody.data, 0, 130)}" />
-                            <c:out value="${string}"/>...
-                            <div class="ui warning message">
-                                Text is too long, use a MySQL client.
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <c:out value="${rowBody.data}"/>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-                <td><c:out value="${rowBody.date}"/></td>
-                <td><c:out value="${rowBody.time}"/></td>
-                <td><c:out value="${rowBody.source_id}"/></td>
-                <td><c:out value="${rowBody.EP_can_access}"/></td>
-                <td><c:out value="${rowBody.RT2AE_can_access}"/></td>
-                <td><c:out value="${rowBody.KRS_can_access}"/></td>
-            </tr>
-        </c:forEach>
-        </tbody>
+            <tbody>
+            <c:forEach var="rowBody" items="${eventList.rows}" begin="${param.start}" end="${param.start+perPage}">
+                <tr>
+                    <td><c:out value="${rowBody.event_id}"/></td>
+                    <td><c:out value="${rowBody.event_type_id}"/></td>
+                    <td><c:out value="${rowBody.user_id}"/></td>
+                    <td><c:out value="${rowBody.device_id}"/></td>
+                    <td><c:out value="${rowBody.app_id}"/></td>
+                    <td><c:out value="${rowBody.asset_id}"/></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${fn:length(rowBody.data)>130}">
+                                <c:set var="string" value="${fn:substring(rowBody.data, 0, 130)}" />
+                                <c:out value="${string}"/>...
+                                <div class="ui warning message">
+                                    Text is too long, use a MySQL client.
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <c:out value="${rowBody.data}"/>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td><c:out value="${rowBody.date}"/></td>
+                    <td><c:out value="${rowBody.time}"/></td>
+                    <td><c:out value="${rowBody.source_id}"/></td>
+                    <td><c:out value="${rowBody.EP_can_access}"/></td>
+                    <td><c:out value="${rowBody.RT2AE_can_access}"/></td>
+                    <td><c:out value="${rowBody.KRS_can_access}"/></td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>       
         
- </table>       
         
-        
- <div class="ui purple right floated pagination inverted menu" id="pages">
-    <c:if test="${!empty param.start && param.start >(perPage-1) && param.start !=0 }">
-      <a class="icon item" href="?start=<c:out value="${param.start - perPage}"/>&startD=<c:out value='${param.startD}'/>&endD=<c:out value='${param.endD}'/>">
-           <i class="left chevron icon"></i>
-      </a>
-    </c:if>
+        <div class="ui purple right floated pagination inverted menu" id="pages">
+           <c:if test="${!empty param.start && param.start >(perPage-1) && param.start !=0 }">
+             <a class="icon item" href="?start=<c:out value="${param.start - perPage}"/>&startD=<c:out value='${param.startD}'/>&endD=<c:out value='${param.endD}'/>">
+                  <i class="left chevron icon"></i>
+             </a>
+           </c:if>
 
-    <c:if test="${empty param.start || param.start<(totalCount-perPage)}">
-        <a class="icon item" href="?start=<c:out value='${param.start + perPage}'/>&startD=<c:out value='${param.startD}'/>&endD=<c:out value='${param.endD}'/>">
-             <i class="right chevron icon"></i>
-        </a>
-    </c:if>
-</div>
+           <c:if test="${empty param.start || param.start<(totalCount-perPage)}">
+               <a class="icon item" href="?start=<c:out value='${param.start + perPage}'/>&startD=<c:out value='${param.startD}'/>&endD=<c:out value='${param.endD}'/>">
+                    <i class="right chevron icon"></i>
+               </a>
+           </c:if>
+        </div>
         <br /><br />
 
         <jsp:include page="modules/footer.jsp"></jsp:include>
