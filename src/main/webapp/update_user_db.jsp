@@ -34,15 +34,14 @@
         <div class="ui divider"></div>
         <br>
                 
-                <c:if test="${ empty param.name and empty param.surname and 
-                               empty param.username and empty param.email and 
-                               empty param.password and empty param.enable and 
-                               empty param.surname and empty param.role_id and 
-                               empty param.language}">
-                <c:redirect url="user_update?id=${param.id}.jsp" >
+        <c:if test="${ empty param.name and empty param.surname and 
+                       empty param.username and empty param.email and 
+                       empty param.password and empty param.enable and 
+                       empty param.surname and empty param.role_id and 
+                       empty param.language}">
+            <c:redirect url="user_update?id=${param.id}.jsp" >
                 <c:param name="errMsg" value="You are not changing any information" />
             </c:redirect>
- 
         </c:if>
         
         <sql:query dataSource="${snapshot}" var="data" scope="session">

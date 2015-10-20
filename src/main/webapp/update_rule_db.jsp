@@ -40,14 +40,21 @@
         <br>
                 
         <sql:update dataSource="${snapshot}" var="result">
-            UPDATE security_rules SET status = 'VALIDATED' WHERE security_rule_id='${param.id}';
+            UPDATE security_rules SET status = ? WHERE security_rule_id='${param.id}';
+            <sql:param value="${param.status}" />
         </sql:update>
         
         <c:if test="${result>=1}">
-            <c:redirect url="policies.jsp" >
-                <c:param name="susMsg" value="The rule has been successfully validated." />
+            <c:redirect url="rules.jsp" >
+                <c:param name="susMsg" value="The rule has been successfully marked as ${param.status}." />
             </c:redirect>
-        </c:if>     
+        </c:if>
+        
+        <c:if test="${result<1}">
+            <c:redirect url="rules.jsp" >
+                <c:param name="errMsg" value="There has been an error updating the database." />
+            </c:redirect>
+        </c:if>
 
         <jsp:include page="modules/footer.jsp"></jsp:include>
     </body>

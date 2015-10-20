@@ -39,7 +39,15 @@
         <jsp:include page="modules/header.jsp"></jsp:include>
         <jsp:include page="modules/menu.jsp"></jsp:include>
         
-        
+        <%
+        // Page will be auto refresh after 1 seconds
+        response.setIntHeader("Refresh", 10);
+
+        // Get Current Time
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        //Calendar cal = Calendar.getInstance();
+        //out.println(dateFormat.format(cal.getTime()));
+        %>
         
         <h2 class="ui center aligned icon header">
             <i class="file text icon"></i>           
@@ -59,58 +67,71 @@
         <c:if test="${not empty param.susMsg}">
             <div class="ui positive message"><c:out value="${param.susMsg}" /></div>
         </c:if>
-        
-        <c:set var="totalCount" scope="session" value="${result.rowCount}"/>
-        <c:set var="perPage" scope="session" value="10"/>
-        <c:set var="totalPages" scope="session" value="${totalCount/perPage}"/>
+            
+        <c:choose>
+            <c:when test="${result.rowCount>0}">
+                <c:set var="totalCount" scope="session" value="${result.rowCount}"/>
+                <c:set var="perPage" scope="session" value="10"/>
+                <c:set var="totalPages" scope="session" value="${totalCount/perPage}"/>
 
-        <c:set var="pageIndex" scope="session" value="${param.start/perPage+1}"/>
-        
-        
-        <div  id="list">
-        <div class="ui middle aligned divided list" id="userlist">
-            <c:forEach var="rule" items="${result.rows}" begin="${param.start}" end="${param.start+perPage}">
-                <div class="item">
-                    <div class="right floated content">
-                        <div class="ui button" onclick="location.href = 'update_rule_db.jsp?id=${rule.security_rule_id}'">Approve</div>
-                    </div>
-                    <img class="ui avatar image" src="./resources/rule_profile.png">
-                    <div class="content">
-                        #<c:out value="${rule.security_rule_id}"/> - <c:out value="${rule.description}"/> (<c:out value="${rule.modification}"/>)
-                    </div>
+                <c:set var="pageIndex" scope="session" value="${param.start/perPage+1}"/>
+
+
+                <div  id="list">
+                <div class="ui middle aligned divided list" id="userlist">
+                    <c:forEach var="rule" items="${result.rows}" begin="${param.start}" end="${param.start+perPage}">
+                        <div class="item">
+                            <div class="right floated content">
+                                <div class="ui button" onclick="location.href = 'update_rule_db.jsp?id=${rule.security_rule_id}&status=VALIDATED'">Approve</div>
+                                <div class="ui button" onclick="location.href = 'update_rule_db.jsp?id=${rule.security_rule_id}&status=EXPIRED'">Reject</div>
+                            </div>
+                            <img class="ui avatar image" src="./resources/rule_profile.png">
+                            <div class="content">
+                                #<c:out value="${rule.security_rule_id}"/> - <c:out value="${rule.description}"/> (<c:out value="${rule.modification}"/>)
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
-            </c:forEach>
-        </div>
 
-        <div class="ui purple right floated pagination inverted menu" id="pages">
-        <c:if test="${!empty param.start && param.start >(perPage-1) && param.start !=0 }">
-          <a class="icon item" href="?start=<c:out value="${param.start - perPage}"/>">
-               <i class="left chevron icon"></i>
-          </a>
-        </c:if>
+                <div class="ui purple right floated pagination inverted menu" id="pages">
+                <c:if test="${!empty param.start && param.start >(perPage-1) && param.start !=0 }">
+                  <a class="icon item" href="?start=<c:out value="${param.start - perPage}"/>">
+                       <i class="left chevron icon"></i>
+                  </a>
+                </c:if>
 
-        <c:forEach var="boundaryStart" varStatus="status" begin="0" end="${totalCount - 1}" step="${perPage}">
-            <c:choose>
-                <c:when test="${status.count>0 && status.count != pageIndex}">
-                    <a class="item" href="?start=<c:out value='${boundaryStart}'/>">
-                        <c:out value="${status.count}"/>
+                <c:forEach var="boundaryStart" varStatus="status" begin="0" end="${totalCount - 1}" step="${perPage}">
+                    <c:choose>
+                        <c:when test="${status.count>0 && status.count != pageIndex}">
+                            <a class="item" href="?start=<c:out value='${boundaryStart}'/>">
+                                <c:out value="${status.count}"/>
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="active item">
+                                <c:out value="${status.count}"/>
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+
+                <c:if test="${empty param.start || param.start<(totalCount-perPage)}">
+                    <a class="icon item" href="?start=<c:out value="${param.start + perPage}"/>">
+                         <i class="right chevron icon"></i>
                     </a>
-                </c:when>
-                <c:otherwise>
-                    <a class="active item">
-                        <c:out value="${status.count}"/>
-                    </a>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
+                </c:if>
 
-        <c:if test="${empty param.start || param.start<(totalCount-perPage)}">
-            <a class="icon item" href="?start=<c:out value="${param.start + perPage}"/>">
-                 <i class="right chevron icon"></i>
-            </a>
-        </c:if>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="ui message">
+                    <div class="header">KRS notification</div>
+                    <p>There are no new generated rules.</p>
+                </div>
+            </c:otherwise>
+        </c:choose>
         
-        </div> 
+         
 
         <jsp:include page="modules/footer.jsp"></jsp:include>
     </body>

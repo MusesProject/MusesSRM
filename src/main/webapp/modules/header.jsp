@@ -49,7 +49,7 @@
                             <a class="item" href="assets.jsp">Assets</a>
                             <a class="item" href="users.jsp">Users</a>
                             <a class="item" href="sec_rules.jsp">Security Rules</a>
-                            <a class="item" href="rules.jsp">Rules</a>
+                            <a class="item" href="rules.jsp">New Rules</a>
                         </div>
                     </div>
                     <a class="item" href="chart.jsp">Charts</a>
