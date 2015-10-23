@@ -160,7 +160,7 @@
             <h4 class="ui dividing header">Also, statistics can be shown per user:</h4>
             <div class="fields">
                 <div class="six wide field">
-                    <select class="ui dropdown" name="role_id">
+                    <select class="ui dropdown" name="user_id">
                         <option value="">Select User...</option>
                         <c:forEach var="user" items="${users.rows}">
                         <option value="<c:out value='${user.user_id}'/>">#<c:out value="${user.user_id}"/> - <c:out value="${user.surname}"/>, <c:out value="${user.name}"/></option>

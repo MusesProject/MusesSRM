@@ -2,7 +2,6 @@
     Document   : assets
     Created on : 26-mar-2015, 16:03:53
     Author     : unintendedbear
-    Author     : Juan Luis Martin Acal <jlmacal@gmail.com>
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
