@@ -11,7 +11,12 @@ During the installation of NetBeans is important to remember that in the section
 ### After the installation of Netbeans
 
 0. Install MySQL server.
-1. Make sure you have a database called "muses" and another called "tomcat_realm" in your MySQL server. If not, go to (https://github.com/MusesProject/MusesSRM/tree/master/src/main/resources/eu/musesproject/db) and run all the scripts in that folder.
+1. Make sure you have a database called "muses" and another called "tomcat_realm" in your MySQL server. If not, go to (https://github.com/MusesProject/MusesSRM/tree/master/src/main/resources/eu/musesproject/db) and run all the scripts in that folder (in the following order:)
+	* ``startup_db.sql`` will create the structure of the "Muses" BD
+	* ``db_tomcat_startup.sql`` will generate "tomcat_realm" BD
+	* ``test-data-inserts.sql`` will add some data to "Muses" BD
+	* ``init_db.sql`` will add more data to "Muses" BD
+
 2. Make NetBeans aware of where the Tomcat folder is: Netbeans > Tools > Servers > Add Server > Apache Tomcat.
 Then browse to Tomcat folder > Open. And finally enter _musesadmin_ as username and _musespass_ as password.
 The Tomcat Folder is also called CATALINA_HOME.
