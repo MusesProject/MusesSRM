@@ -22,11 +22,50 @@
         
         <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://localhost/muses"
-                           user="muses"  password="muses11"/> 
+                           user="muses"  password="muses11"/>
+        
+        <!-- Obtaining today's date -->
+        <jsp:useBean id="date" class="java.util.Date" />
+        <fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH:mm:ss" var="currentDate" />
         
         <sql:query dataSource="${snapshot}" var="result" scope="session" >
             SELECT * FROM connection_config;
         </sql:query>
+            
+        <sql:query dataSource="${snapshot}" var="resultSilent" scope="session" >
+            SELECT silent_mode, access_attempts_before_blocking FROM muses_config ORDER BY date DESC LIMIT 1;
+        </sql:query>
+            
+        <c:forEach var="row" items="${resultSilent.rows}">
+            <c:set var="silentMode" value="${row.silent_mode}"/>
+            <c:set var="maxLogin" value="${row.access_attempts_before_blocking}"/>
+        </c:forEach>
+            
+        <c:if test="${not empty param.silent and param.silent != silentMode}">
+            <sql:update dataSource="${snapshot}" var="insert" scope="session" >
+                INSERT INTO muses_config(config_name, silent_mode, access_attempts_before_blocking, date) VALUES (?,?,?,?);
+                <c:choose>
+                    <c:when test="${param.silent == 0}">
+                        <sql:param value="VERBOSE" />
+                    </c:when>
+                    <c:otherwise>
+                        <sql:param value="SILENT" />
+                    </c:otherwise>
+                </c:choose>
+                <sql:param value="${param.silent}" />
+                <sql:param value="${maxLogin}" />
+                <sql:param value="${currentDate}" />
+            </sql:update>
+                
+            <sql:query dataSource="${snapshot}" var="resultSilent" scope="session" >
+                SELECT silent_mode, access_attempts_before_blocking FROM muses_config ORDER BY date DESC LIMIT 1;
+            </sql:query>
+
+            <c:forEach var="row" items="${resultSilent.rows}">
+                <c:set var="silentMode" value="${row.silent_mode}"/>
+                <c:set var="maxLogin" value="${row.access_attempts_before_blocking}"/>
+            </c:forEach>
+        </c:if>
 
         <title>MUSES tool for CSOs - MUSES Configuration</title>
     </head>
@@ -51,14 +90,6 @@
         </c:if>
         
         <c:set var="totalCount" scope="session" value="${result.rowCount}"/>
-        
-        <script>
-            $( document ).ready( function() {
-                if ("${result.rowCount}" === 0) {
-                    alert("No connection configurations in the database.");
-                }
-            });
-        </script>
                     
         <c:if test="${totalCount > 0 }">
             <c:set var="perPage" scope="session" value="10"/>
@@ -68,9 +99,34 @@
         </c:if>        
         
         <div class="ui toggle checkbox">
-            <input name="public" type="checkbox">
+            <input name="silent" type="checkbox">
             <label>Silent Mode</label>
         </div>
+        
+        <script>
+            $( document ).ready( function() {
+                $('.ui.toggle.checkbox').checkbox();
+                var status = parseInt("${silentMode}");
+                if (status === 1) {
+                    $('.ui.toggle.checkbox').checkbox('check');
+                } else {
+                    $('.ui.toggle.checkbox').checkbox('uncheck');
+                }
+                $('.ui.toggle.checkbox').first().checkbox({
+                    onChange: function() {
+                        var value = $('.ui.toggle.checkbox').checkbox('is checked');
+                        if(value) {
+                            window.location.href = 'configuration.jsp?silent=1';
+                        } else {
+                            window.location.href = 'configuration.jsp?silent=0';
+                        }
+                    }
+                });
+                if ("${result.rowCount}" === 0) {
+                    alert("No configurations in the database.");
+                }
+            });
+        </script>
 
         <table class="ui celled table">
             <thead>
