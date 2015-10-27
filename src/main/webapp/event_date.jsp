@@ -25,7 +25,7 @@
         </sql:query>
             
          <sql:query dataSource="${snapshot}" var="eventList">
-            SELECT * FROM simple_events WHERE date(date)<='${param.endD}' AND date(date)>='${param.startD}';
+            SELECT * FROM simple_events WHERE date(date)<='${param.endD}' AND date(date)>='${param.startD}' ORDER BY date, time DESC;
         </sql:query>
         
         <!-- Google Charts API -->
