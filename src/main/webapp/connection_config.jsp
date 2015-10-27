@@ -78,7 +78,9 @@
                 <tr>
                     <td><c:out value="${rowBody.config_id}"/></td>
                     <c:choose>
-                        <c:when test="${not empty param.configid and rowBody.config_id == param.configid}">
+                        <c:when test="${not empty param.configid 
+                                        and rowBody.config_id == param.configid 
+                                        and param.parameter == 'timeout'}">
                             <td>
                                 <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}">
                                     <div class="field">
@@ -91,13 +93,15 @@
                         <c:otherwise>
                             <td><c:out value="${rowBody.timeout}"/> 
                                 <div class="right floated content">
-                                    <div class="ui button" onclick="location.href = 'connection_config.jsp?configid=${rowBody.config_id}'">Change</div>
+                                    <div class="ui button" onclick="location.href = 'connection_config.jsp?configid=${rowBody.config_id}&parameter=timeout'">Change</div>
                                 </div>
                             </td>
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
-                        <c:when test="${not empty param.configid and rowBody.config_id == param.configid}">
+                        <c:when test="${not empty param.configid 
+                                        and rowBody.config_id == param.configid 
+                                        and param.parameter == 'pollTimeout'}">
                             <td>
                                 <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}">
                                     <div class="field">
@@ -110,13 +114,15 @@
                         <c:otherwise>
                             <td><c:out value="${rowBody.poll_timeout}"/> 
                                 <div class="right floated content">
-                                    <div class="ui button" onclick="location.href = 'connection_config.jsp?configid=${rowBody.config_id}'">Change</div>
+                                    <div class="ui button" onclick="location.href = 'connection_config.jsp?configid=${rowBody.config_id}&parameter=pollTimeout'">Change</div>
                                 </div>
                             </td>
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
-                        <c:when test="${not empty param.configid and rowBody.config_id == param.configid}">
+                        <c:when test="${not empty param.configid 
+                                        and rowBody.config_id == param.configid 
+                                        and param.parameter == 'sleepPollTimeout'}">
                             <td>
                                 <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}">
                                     <div class="field">
@@ -129,13 +135,15 @@
                         <c:otherwise>
                             <td><c:out value="${rowBody.sleep_poll_timeout}"/> 
                                 <div class="right floated content">
-                                    <div class="ui button" onclick="location.href = 'connection_config.jsp?configid=${rowBody.config_id}'">Change</div>
+                                    <div class="ui button" onclick="location.href = 'connection_config.jsp?configid=${rowBody.config_id}&parameter=sleepPollTimeout'">Change</div>
                                 </div>
                             </td>
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
-                        <c:when test="${not empty param.configid and rowBody.config_id == param.configid}">
+                        <c:when test="${not empty param.configid 
+                                        and rowBody.config_id == param.configid 
+                                        and param.parameter == 'pollingEnabled'}">
                             <td>
                                 <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}">
                                     <div class="field">
@@ -148,13 +156,15 @@
                         <c:otherwise>
                             <td><c:out value="${rowBody.polling_enabled}"/> 
                                 <div class="right floated content">
-                                    <div class="ui button" onclick="location.href = 'connection_config.jsp?configid=${rowBody.config_id}'">Change</div>
+                                    <div class="ui button" onclick="location.href = 'connection_config.jsp?configid=${rowBody.config_id}&parameter=pollingEnabled'">Change</div>
                                 </div>
                             </td>
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
-                        <c:when test="${not empty param.configid and rowBody.config_id == param.configid}">
+                        <c:when test="${not empty param.configid 
+                                        and rowBody.config_id == param.configid 
+                                        and param.parameter == 'loginAttempts'}">
                             <td>
                                 <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}">
                                     <div class="field">
@@ -167,7 +177,7 @@
                         <c:otherwise>
                             <td><c:out value="${rowBody.login_attempts}"/> 
                                 <div class="right floated content">
-                                    <div class="ui button" onclick="location.href = 'connection_config.jsp?configid=${rowBody.config_id}'">Change</div>
+                                    <div class="ui button" onclick="location.href = 'connection_config.jsp?configid=${rowBody.config_id}&parameter=loginAttempts'">Change</div>
                                 </div>
                             </td>
                         </c:otherwise>
