@@ -43,20 +43,30 @@
         
         <br/>
                 
-                <c:if test="${ empty param.name or empty param.event_id or 
-                               empty param.decision_id}">
-                <c:redirect url="incident_date.jsp" >
-                <c:param name="errMsg" value="Please Enter All information" />
+        <c:if test="${ empty param.name or empty param.event_id or 
+                       empty param.decision_id}">
+            <c:redirect url="s_incidents.jsp" >
+                <c:param name="errMsg" value="Please Enter All information." />
             </c:redirect>
- 
         </c:if>
  
         <sql:update dataSource="${snapshot}" var="result">
-            INSERT INTO security_rules(name,description,file,status,refined,source_id,modification) VALUES (?,?,?,'VALIDATED',0,?,?);
+            INSERT INTO security_incident(name,decision_id,event_id,device_id,user_id,modification) VALUES (?,?,?,?,?,?);
             <sql:param value="${param.name}" />
-            <sql:param value="${param.description}" />
-            <sql:param value="${param.file}" />
-            <sql:param value="${param.source_id}" />
+            <sql:param value="${param.decision_id}" />
+            <sql:param value="${param.event_id}" />
+            <sql:query dataSource="${snapshot}" var="eventData" scope="session">
+                SELECT device_id, user_id FROM simple_events WHERE event_id = '${param.event_id}';
+            </sql:query>
+            <c:if test="${eventData.rowCount <= 0}">
+                <c:redirect url="s_incidents.jsp" >
+                    <c:param name="errMsg" value="There has been an error in the Database." />
+                </c:redirect>
+            </c:if>
+            <c:forEach var="data" items="${eventData.rows}">
+                <sql:param value="${device_id}" />
+                <sql:param value="${user_id}" />
+            </c:forEach>
             <sql:param value="${currentDate}" />
         </sql:update>
         
