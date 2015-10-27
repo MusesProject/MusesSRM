@@ -60,7 +60,7 @@
             </sql:query>
             <c:if test="${eventData.rowCount <= 0}">
                 <c:redirect url="s_incidents.jsp" >
-                    <c:param name="errMsg" value="There has been an error in the Database." />
+                    <c:param name="errMsg" value="There has been an error retrieving information from event #${param.event_id}. Please try again." />
                 </c:redirect>
             </c:if>
             <c:forEach var="data" items="${eventData.rows}">
