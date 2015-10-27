@@ -64,8 +64,8 @@
                 </c:redirect>
             </c:if>
             <c:forEach var="data" items="${eventData.rows}">
-                <sql:param value="${device_id}" />
-                <sql:param value="${user_id}" />
+                <sql:param value="${data.device_id}" />
+                <sql:param value="${data.user_id}" />
             </c:forEach>
             <sql:param value="${currentDate}" />
         </sql:update>

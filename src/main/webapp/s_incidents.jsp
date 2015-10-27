@@ -46,7 +46,7 @@
             <i class="warning sign icon"></i>           
             <div class="content">
                 Security Incidents Management
-                <div class="sub header">Report here any security incident to be taken into account</div>
+                <div class="sub header">Report or analyse here any Security Incident</div>
             </div>
         </h2>
         <div class="ui divider"></div>
@@ -63,7 +63,7 @@
         </c:if>
             
         <form class="ui form" method="POST" action="incident_date.jsp">
-            <h4 class="ui dividing header">Please select the date when the security incident occurred:</h4>
+            <h4 class="ui dividing header">Please select the date when the security incident occurred, or was reported:</h4>
             <div class="fields">
                 <div class="field">
                     <label>Select date:</label>
@@ -101,6 +101,7 @@
                 });
             </script>      
             <button class="ui purple button" type="submit" value="submit">Create new Security Incident</button>
+            <button class="ui purple button" onclick="location.href = 'incident_info.jsp'">Check for Security Incidents</button>
         </form>
             
         <br/><br/>
