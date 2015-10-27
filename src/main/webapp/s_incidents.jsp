@@ -101,9 +101,16 @@
                 });
             </script>      
             <button class="ui purple button" type="submit" value="submit">Create new Security Incident</button>
-            <button class="ui purple button" onclick="location.href = 'incident_info.jsp'">Check for Security Incidents</button>
         </form>
-            
+        <br/>
+        
+        <button class="ui purple button" id="button">Check for Security Incidents</button>
+        <script>
+            $("#button").click(function(){
+               var date = $("#datepicker").val();
+               window.location.href = "incident_info.jsp?date="+date;
+            });
+        </script>
         <br/><br/>
 
         <jsp:include page="modules/footer.jsp"></jsp:include>
