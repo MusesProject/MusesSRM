@@ -53,7 +53,7 @@
             ]);
 
             var options = {
-                title: 'Security Incidents statistics until ${currentDate}',
+                title: 'Security Incidents statistics until ${param.date}',
                 height: '400',
                 hAxis: {
                   title: 'Date',
@@ -123,6 +123,7 @@
         <div id="chart_events" class="fifteen wide column"></div></div>
 
         <table class="ui celled table">
+            <label>Security Incidents statistics for ${param.date}</label>
             <thead>
                 <tr>
                     <th>#Security Incident</th>
