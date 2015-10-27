@@ -26,7 +26,7 @@ The Tomcat Folder is also called CATALINA_HOME.
 <user password="tomcat" roles="manager, manager-script, admin" username="tomcat"/>
 ```
 4. Start the Apache server by going to Netbeans, then to Window > Services > Servers > Apache Tomcat or TomEE > Right-click and choose start.
-5.  In case Tomcat fails to start, remove the double quote on noJuliConfig and noJuliManager in CATALIBA_HOME/bin/catalina.bat. This is a bug http://stackoverflow.com/questions/22225764/starting-of-tomcat-failed-from-netbeans
+5.  In case Tomcat fails to start, remove the double quote on _noJuliConfig_ and _noJuliManager_ in CATALINA_HOME/bin/catalina.bat. This is a bug http://stackoverflow.com/questions/22225764/starting-of-tomcat-failed-from-netbeans
 6. Download [this library](http://mvnrepository.com/artifact/mysql/mysql-connector-java/5.1.30) and place it in CATALINA_HOME/lib. This is a Maven dependency in the SRM project, but by placing it in this folder manually, we prevent from possible future errors.
 7. Go again to CATALINA_HOME/conf and open the file _server.xml_ in a text editor. Copy this under the _Realm_ tag. Feel free to modify the values if you have another configurations on your machine.
 ```
