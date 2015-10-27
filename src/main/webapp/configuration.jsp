@@ -84,11 +84,6 @@
         
         <br>
         
-        <c:if test="${not empty param.errMsg}">
-            <div class="ui negative message"><c:out value="${param.errMsg}" /></div>
-            <br>
-        </c:if>
-        
         <c:set var="totalCount" scope="session" value="${result.rowCount}"/>
                     
         <c:if test="${totalCount > 0 }">
@@ -127,6 +122,15 @@
                 }
             });
         </script>
+                    
+        <c:if test="${not empty param.errMsg}">
+            <div class="ui negative message"><c:out value="${param.errMsg}" /></div>
+            <br>
+        </c:if>
+            
+        <c:if test="${not empty param.susMsg}">
+            <div class="ui positive message"><c:out value="${param.susMsg}" /></div>
+        </c:if>
 
         <table class="ui celled table">
             <thead>
@@ -148,7 +152,7 @@
                                         and rowBody.config_id == param.configid 
                                         and param.parameter == 'timeout'}">
                             <td>
-                                <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}">
+                                <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}&parameter=timeout">
                                     <div class="field">
                                         <input placeholder="${rowBody.timeout}" name="newTimeout" type="text">
                                     </div>
@@ -169,7 +173,7 @@
                                         and rowBody.config_id == param.configid 
                                         and param.parameter == 'pollTimeout'}">
                             <td>
-                                <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}">
+                                <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}&parameter=pollTimeout">
                                     <div class="field">
                                         <input placeholder="${rowBody.poll_timeout}" name="newPollTimeout" type="text">
                                     </div>
@@ -190,7 +194,7 @@
                                         and rowBody.config_id == param.configid 
                                         and param.parameter == 'sleepPollTimeout'}">
                             <td>
-                                <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}">
+                                <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}&parameter=sleepPollTimeout">
                                     <div class="field">
                                         <input placeholder="${rowBody.sleep_poll_timeout}" name="newSleepPollTimeout" type="text">
                                     </div>
@@ -211,7 +215,7 @@
                                         and rowBody.config_id == param.configid 
                                         and param.parameter == 'pollingEnabled'}">
                             <td>
-                                <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}">
+                                <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}&parameter=pollingEnabled">
                                     <div class="field">
                                         <input placeholder="${rowBody.polling_enabled}" name="newPollingEnabled" type="text">
                                     </div>
@@ -232,7 +236,7 @@
                                         and rowBody.config_id == param.configid 
                                         and param.parameter == 'loginAttempts'}">
                             <td>
-                                <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}">
+                                <form class="ui form" method="POST" action="update_configuration_db.jsp?configid=${rowBody.config_id}&parameter=loginAttempts">
                                     <div class="field">
                                         <input placeholder="${rowBody.login_attempts}" name="newLoginAttempts" type="text">
                                     </div>

@@ -48,6 +48,10 @@
             <div class="ui negative message"><c:out value="${param.errMsg}" /></div>
             <br>
         </c:if>
+            
+        <c:if test="${not empty param.susMsg}">
+            <div class="ui positive message"><c:out value="${param.susMsg}" /></div>
+        </c:if>
         
         <c:set var="totalCount" scope="session" value="${result.rowCount}"/>
         
