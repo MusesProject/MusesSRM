@@ -149,7 +149,7 @@
         <br/>
         
         <form class="ui form" method="POST" action="insert_incident_db.jsp">
-            <h4 class="ui dividing header">Please, insert the following data:</h4>
+            <h4 class="ui dividing header">Please, insert the data for the incident on ${param.date}:</h4>
             <div class="fields">
                 <div class="six wide field">
                     <c:choose>
