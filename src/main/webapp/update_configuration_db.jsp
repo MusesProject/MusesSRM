@@ -41,12 +41,56 @@
                     <c:param name="errMsg" value="Please enter a valid ${parameter} number." />
                 </c:redirect>
             </c:when>
-            <c:otherwise>
+            <c:when test="${param.parameter == 'timeout' and not empty param.newTimeout}">
                 <sql:update dataSource="${snapshot}" var="result">
                     UPDATE connection_config SET timeout = ? WHERE config_id = '${param.configid}';
                     <sql:param value="${param.newTimeout}" />
                 </sql:update>
-            </c:otherwise>
+            </c:when>
+            <c:when test="${param.parameter == 'pollTimeout' and empty param.newPollTimeout}">
+                <c:redirect url="configuration.jsp" >
+                    <c:param name="errMsg" value="Please enter a valid ${parameter} number." />
+                </c:redirect>
+            </c:when>
+            <c:when test="${param.parameter == 'pollTimeout' and not empty param.newPollTimeout}">
+                <sql:update dataSource="${snapshot}" var="result">
+                    UPDATE connection_config SET poll_timeout = ? WHERE config_id = '${param.configid}';
+                    <sql:param value="${param.newPollTimeout}" />
+                </sql:update>
+            </c:when>
+            <c:when test="${param.parameter == 'sleepPollTimeout' and empty param.newSleepPollTimeout}">
+                <c:redirect url="configuration.jsp" >
+                    <c:param name="errMsg" value="Please enter a valid ${parameter} number." />
+                </c:redirect>
+            </c:when>
+            <c:when test="${param.parameter == 'sleepPollTimeout' and not empty param.newSleepPollTimeout}">
+                <sql:update dataSource="${snapshot}" var="result">
+                    UPDATE connection_config SET sleep_poll_timeout = ? WHERE config_id = '${param.configid}';
+                    <sql:param value="${param.newSleepPollTimeout}" />
+                </sql:update>
+            </c:when>
+            <c:when test="${param.parameter == 'pollingEnabled' and empty param.newPollingEnabled}">
+                <c:redirect url="configuration.jsp" >
+                    <c:param name="errMsg" value="Please enter a valid ${parameter} number." />
+                </c:redirect>
+            </c:when>
+            <c:when test="${param.parameter == 'pollingEnabled' and not empty param.newPollingEnabled}">
+                <sql:update dataSource="${snapshot}" var="result">
+                    UPDATE connection_config SET polling_enabled = ? WHERE config_id = '${param.configid}';
+                    <sql:param value="${param.newPollingEnabled}" />
+                </sql:update>
+            </c:when>
+            <c:when test="${param.parameter == 'loginAttempts' and empty param.newLoginAttempts}">
+                <c:redirect url="configuration.jsp" >
+                    <c:param name="errMsg" value="Please enter a valid ${parameter} number." />
+                </c:redirect>
+            </c:when>
+            <c:when test="${param.parameter == 'loginAttempts' and not empty param.newLoginAttempts}">
+                <sql:update dataSource="${snapshot}" var="result">
+                    UPDATE connection_config SET login_attempts = ? WHERE config_id = '${param.configid}';
+                    <sql:param value="${param.newLoginAttempts}" />
+                </sql:update>
+            </c:when>
         </c:choose>        
         
         <c:if test="${result>=1}">
