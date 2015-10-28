@@ -33,8 +33,12 @@
         <jsp:setProperty name="otherDate" property="time" value="${otherDate.time - 2592000000}"/>
         <fmt:formatDate value="${otherDate}" pattern="yyyy-MM-dd" var="pastDate" />
         
-        <sql:query dataSource="${snapshot}" var="labels">
-            SELECT DISTINCT value FROM decision;
+        <sql:query dataSource="${snapshot}" var="devicesOS">
+            SELECT distinct OS_name FROM devices WHERE OS_name IS NOT NULL AND OS_name != 'a';
+        </sql:query>
+            
+        <sql:query dataSource="${snapshot}" var="devicesModel">
+            SELECT distinct model FROM devices WHERE model IS NOT NULL AND model != 'domemodel' AND model != '1222' AND model != '1223';
         </sql:query>
         
         <title>MUSES tool for CSOs - Main Page</title>
@@ -183,8 +187,10 @@
                         case "devices":
                             switch(yAxis) {
                                 case "OS":
+                                    drawPieChart("os");
                                     break;
                                 case "model":
+                                    drawPieChart("model");
                                     break;                                
                             }
                             break;
@@ -228,9 +234,55 @@
                         legend: { position: 'top', maxLines: 3 },
                         bar: { groupWidth: '75%' },
                         isStacked: true,
+                        colors: ['green','red'],
                     };
 
                     var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                    chart.draw(data, options);
+                }
+                
+                google.load("visualization", "1", {packages:["corechart"]});
+                
+                function drawPieChart(type) {
+                
+                    var data;
+                
+                    if (type == "os") {
+                        data = google.visualization.arrayToDataTable([
+                        ['OS', '#Devices'],
+                        <c:forEach var="OS" items="${devicesOS.rows}">
+                              <sql:query dataSource="${snapshot}" var="total">
+                                 SELECT OS_name, count(*) as c FROM devices WHERE OS_name = '${OS.OS_name}';
+                              </sql:query>
+                              <c:forEach var="row" items="${total.rows}">
+                                  ['${row.OS_name}', ${row.c}],
+                              </c:forEach>
+                          </c:forEach>
+                      ]);
+                    } else {
+                        data = google.visualization.arrayToDataTable([
+                        ['Model', '#Devices'],
+                        <c:forEach var="model" items="${devicesModel.rows}">
+                              <sql:query dataSource="${snapshot}" var="total">
+                                 SELECT model, count(*) as c FROM devices WHERE model = '${model.model}';
+                              </sql:query>
+                              <c:forEach var="row" items="${total.rows}">
+                                  ['${row.model}', ${row.c}],
+                              </c:forEach>
+                          </c:forEach>
+                      ]);                    
+                    }                   
+
+                    var options = {
+                      title: 'MUSES custom Graph',
+                        width: 1000,
+                        height: 1000,
+                        is3D: true,
+
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+
                     chart.draw(data, options);
                 }
 
