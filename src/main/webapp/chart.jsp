@@ -30,7 +30,7 @@
         <jsp:useBean id="date" class="java.util.Date" />
         <jsp:useBean id="otherDate" class="java.util.Date" />
         <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" var="currentDate" />
-        <jsp:setProperty name="otherDate" property="time" value="${otherDate.time - 2592000000}"/>
+        <jsp:setProperty name="otherDate" property="time" value="${otherDate.time - 15552000000}"/>
         <fmt:formatDate value="${otherDate}" pattern="yyyy-MM-dd" var="pastDate" />
         
         <sql:query dataSource="${snapshot}" var="devicesOS">
@@ -43,6 +43,14 @@
             
         <sql:query dataSource="${snapshot}" var="roles">
             SELECT role_id, name FROM roles WHERE name IS NOT NULL AND name != 'role';
+        </sql:query>
+            
+        <sql:query dataSource="${snapshot}" var="eventsTime">
+            SELECT count(*) as e, date FROM simple_events WHERE date(date)<='${currentDate}' AND date(date)>='${pastDate}' GROUP BY date;
+        </sql:query>
+            
+        <sql:query dataSource="${snapshot}" var="eventsUser">
+            SELECT user_id, count(user_id) as c FROM simple_events WHERE date(date)<='${currentDate}' AND date(date)>='${pastDate}' GROUP BY user_id ORDER BY c;
         </sql:query>
         
         <title>MUSES tool for CSOs - Main Page</title>
@@ -165,12 +173,14 @@
                     switch(xAxis) {
                         case "events":
                             switch(yAxis) {
-                                case "Time":                                        
+                                case "Time":
+                                    drawNormalGraph("eventTime");
                                     break;
                                 case "Decisions":
-                                drawSpecialColChart();
+                                    drawSpecialColChart();
                                     break;
                                 case "Users":
+                                    drawNormalGraph("eventUser");
                                     break;
                                 case "Devices":
                                     break;
@@ -208,7 +218,7 @@
 
                 });
 
-                google.load('visualization', '1', {packages: ['corechart', 'bar']});
+                google.load("visualization", "1", {packages:["corechart"]});
 
                 function drawSpecialColChart() {
                     var data = google.visualization.arrayToDataTable([
@@ -244,8 +254,6 @@
                     var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
                     chart.draw(data, options);
                 }
-                
-                google.load("visualization", "1", {packages:["corechart"]});
                 
                 function drawPieChart(type) {
                 
@@ -298,6 +306,52 @@
 
                     var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
+                    chart.draw(data, options);
+                }
+        
+                function drawNormalGraph(type) {
+
+                    var data;
+                    
+                    if (type == "eventTime") {
+                        data = google.visualization.arrayToDataTable([
+                        ['Date', '#Events'],
+                        <c:forEach var="count" items="${eventsTime.rows}">
+                            ['${count.date}', ${count.e}],
+                        </c:forEach>
+                        ]);
+                    } else if (type == "eventUser") {
+                        data = google.visualization.arrayToDataTable([
+                        ['User', '#Events'],
+                        <c:forEach var="count" items="${eventsUser.rows}">
+                            ['${count.user_id}', ${count.c}],
+                        </c:forEach>
+                        ]);                        
+                    } else if (type == "eventDevice") {                        
+                    } else if (type == "violationsTime") {                        
+                    } else if (type == "violationsUser") {                        
+                    } else if (type == "violationsDevice") {                        
+                    } else {                        
+                    }                    
+
+                    var options = {
+                        title: 'MUSES custom Graph, last three months',
+                        height: '400',
+                        hAxis: {
+                          title: yAxis,
+                          viewWindowMode: 'pretty',
+                        },
+                        vAxis: {
+                          title: xAxis,
+                          minValue: 0,
+                        },
+                        bar: {
+                          groupWidth: '90%'
+                        },
+                        colors: ['#ab207d']
+                    };
+
+                    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
                     chart.draw(data, options);
                 }
 
