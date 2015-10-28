@@ -36,15 +36,6 @@
         <sql:query dataSource="${snapshot}" var="labels">
             SELECT DISTINCT value FROM decision;
         </sql:query>
-            
-        <sql:query dataSource="${snapshot}" var="event_ids">
-            SELECT event_id FROM simple_events;
-        </sql:query>
-        <c:forEach var="id" items="${event_ids.rows}">
-            <sql:query dataSource="${snapshot}" var="event_ids">
-               SELECT value FROM decision WHERE access_request_id in (SELECT access_request_id FROM access_request WHERE event_id = '${id.event_id}');
-            </sql:query> 
-        </c:forEach>
         
         <title>MUSES tool for CSOs - Main Page</title>
     </head>
@@ -52,16 +43,6 @@
         
         <jsp:include page="modules/header.jsp"></jsp:include>
         <jsp:include page="modules/menu.jsp"></jsp:include>
-        
-        <%
-        // Page will be auto refresh after 1 seconds
-        response.setIntHeader("Refresh", 30);
-
-        // Get Current Time
-        //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        //Calendar cal = Calendar.getInstance();
-        //out.println(dateFormat.format(cal.getTime()));
-        %>
         
         <div class="ui divider"></div>
         <h2 class="ui center aligned icon header">
@@ -91,138 +72,174 @@
                     <option value="">Select Subject...</option>
                 </select>
             </div>
-            <div class="fields">
-                <div class="field">
-                    <label>Start date:</label>
-                    <input type="text" name="startD" id="datepicker_start">
-                </div>
-                <div class="field">
-                    <label>End date:</label>
-                    <input type="text" name="endD" id="datepicker_end">
-                </div>
         
-                <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-                <script type="text/javascript">
-                    $(function() {
-                        $("#datepicker_start").datepicker({
-                            dateFormat: "yy-mm-dd"
-                        });
-                        var today = new Date;
-                        var yesterday = new Date;
-                        yesterday.setMonth(today.getMonth() - 1);
-                        $("#datepicker_start").datepicker("setDate", yesterday);
-                        $("#datepicker_end").datepicker({
-                            dateFormat: "yy-mm-dd",
-                            beforeShowDay: function(date) {
-                                                return [date < new Date, ""];
-                                        }
-                        });
-                        $("#datepicker_end").datepicker("setDate", new Date);
-                    });                    
-                    
-                    var xAxis, yAxis;
-
-                    $("#X").change( function() {
-                        $("#Y").empty();
-                        xAxis = $("#X").val();
-                        var yDropdown = document.getElementById("Y");
-                        switch(xAxis) {
-                            case "events":
-                                var option1 = document.createElement("option");
-                                var option2 = document.createElement("option");
-                                var option3 = document.createElement("option");
-                                var option4 = document.createElement("option");
-                                var option5 = document.createElement("option");
-                                option1.text = "Time";
-                                option2.text = "Decisions";
-                                option3.text = "Users";
-                                option4.text = "Devices";
-                                option5.text = "Type";
-                                yDropdown.add(option1);
-                                yDropdown.add(option2);
-                                yDropdown.add(option3);
-                                yDropdown.add(option4);
-                                yDropdown.add(option5);
-                                break;
-                            case "violations":
-                                var option1 = document.createElement("option");
-                                var option2 = document.createElement("option");
-                                var option3 = document.createElement("option");
-                                option1.text = "Time";
-                                option2.text = "Users";
-                                option3.text = "Devices";
-                                yDropdown.add(option1);
-                                yDropdown.add(option2);
-                                yDropdown.add(option3);
-                                break;
-                            case "devices":
-                                var option1 = document.createElement("option");
-                                var option2 = document.createElement("option");
-                                option1.text = "OS distribution";
-                                option1.value = "OS";
-                                option2.text = "Model distribution";
-                                option2.value = "model";
-                                yDropdown.add(option1);
-                                yDropdown.add(option2);
-                                break;
-                            case "users":
-                                var option = document.createElement("option");
-                                option.text = "Roles distribution";
-                                option.value = "roles";
-                                yDropdown.add(option);
-                                break;
-                            case "incidents":
-                                var option = document.createElement("option");
-                                option.text = "Time";
-                                yDropdown.add(option);
-                                break;
-                        }
+            <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+            <script type="text/javascript">
+                $(function() {
+                    $("#datepicker_start").datepicker({
+                        dateFormat: "yy-mm-dd"
                     });
-
-                    $("#Y").change( function() { 
-                        yAxis = $("#Y").val();
-                        
+                    var today = new Date;
+                    var yesterday = new Date;
+                    yesterday.setMonth(today.getMonth() - 1);
+                    $("#datepicker_start").datepicker("setDate", yesterday);
+                    $("#datepicker_end").datepicker({
+                        dateFormat: "yy-mm-dd",
+                        beforeShowDay: function(date) {
+                                            return [date < new Date, ""];
+                                    }
                     });
-                    
-                    google.load('visualization', '1', {packages: ['corechart', 'bar']});
-                    google.setOnLoadCallback(drawColColors);
+                    $("#datepicker_end").datepicker("setDate", new Date);
+                });                    
 
-                    function drawColColors() {
-                        var data = google.visualization.arrayToDataTable([
-                            ['Genre', 
-                            <c:forEach var="label" items="${labels.rows}">
-                            '${label.value}', 
-                            </c:forEach>
-                            { role: 'annotation' } ],
-                            ['2010', 10, 24,  ''],
-                            ['2020', 16, 22, ''],
-                            ['2030', 28, 19, '']
-                        ]);
-                        var options = {
-                            title: 'MUSES custom Graph',
-                            width: 600,
-                            height: 400,
-                            legend: { position: 'top', maxLines: 3 },
-                            bar: { groupWidth: '75%' },
-                            isStacked: true,
-                        };
-                        
-                        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-                        chart.draw(data, options);
+                var xAxis, yAxis;
+
+                $("#X").change( function() {
+                    $("#Y").empty();
+                    xAxis = $("#X").val();
+                    var yDropdown = document.getElementById("Y");
+                    switch(xAxis) {
+                        case "events":
+                            var option1 = document.createElement("option");
+                            var option2 = document.createElement("option");
+                            var option3 = document.createElement("option");
+                            var option4 = document.createElement("option");
+                            var option5 = document.createElement("option");
+                            option1.text = "Time";
+                            option2.text = "Decisions";
+                            option3.text = "Users";
+                            option4.text = "Devices";
+                            option5.text = "Type";
+                            yDropdown.add(option1);
+                            yDropdown.add(option2);
+                            yDropdown.add(option3);
+                            yDropdown.add(option4);
+                            yDropdown.add(option5);
+                            break;
+                        case "violations":
+                            var option1 = document.createElement("option");
+                            var option2 = document.createElement("option");
+                            var option3 = document.createElement("option");
+                            option1.text = "Time";
+                            option2.text = "Users";
+                            option3.text = "Devices";
+                            yDropdown.add(option1);
+                            yDropdown.add(option2);
+                            yDropdown.add(option3);
+                            break;
+                        case "devices":
+                            var option1 = document.createElement("option");
+                            var option2 = document.createElement("option");
+                            option1.text = "OS distribution";
+                            option1.value = "OS";
+                            option2.text = "Model distribution";
+                            option2.value = "model";
+                            yDropdown.add(option1);
+                            yDropdown.add(option2);
+                            break;
+                        case "users":
+                            var option = document.createElement("option");
+                            option.text = "Roles distribution";
+                            option.value = "roles";
+                            yDropdown.add(option);
+                            break;
+                        case "incidents":
+                            var option = document.createElement("option");
+                            option.text = "Time";
+                            yDropdown.add(option);
+                            break;
                     }
-                    
-                </script>
-                
-            </div>
-            <button class="ui purple button" type="submit" value="submit">Show Graph</button>
+                });
+
+                $("#Y").change( function() {
+                    $("#chart_div").empty();
+                    yAxis = $("#Y").val();
+                    switch(xAxis) {
+                        case "events":
+                            switch(yAxis) {
+                                case "Time":                                        
+                                    break;
+                                case "Decisions":
+                                drawSpecialColChart();
+                                    break;
+                                case "Users":
+                                    break;
+                                case "Devices":
+                                    break;
+                                case "Type":
+                                    break;
+                            }
+                            break;
+                        case "violations":
+                            switch(yAxis) {
+                                case "Time":
+                                    break;
+                                case "Users":
+                                    break;
+                                case "Devices":
+                                    break;                                
+                            }
+                            break;
+                        case "devices":
+                            switch(yAxis) {
+                                case "OS":
+                                    break;
+                                case "model":
+                                    break;                                
+                            }
+                            break;
+                        case "users":
+
+                            break;
+                        case "incidents":
+
+                            break;
+                    }
+
+                });
+
+                google.load('visualization', '1', {packages: ['corechart', 'bar']});
+
+                function drawSpecialColChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Genre', 'GRANTED', 'STRONGDENY', { role: 'annotation' } ],                    
+                        <sql:query dataSource="${snapshot}" var="dates">
+                            SELECT DISTINCT date(event_detection) as d FROM patterns_krs;
+                        </sql:query>
+                        <c:forEach var="day" items="${dates.rows}">
+                            <sql:query dataSource="${snapshot}" var="total">
+                               SELECT t1.allow, t2.deny FROM (SELECT count(*) as allow FROM patterns_krs WHERE label = 'GRANTED' AND date(event_detection) = '${day.d}') as t1, (SELECT count(*) as deny FROM patterns_krs WHERE label = 'STRONGDENY' AND date(event_detection) = '${day.d}') as t2;
+                            </sql:query>
+                            <c:forEach var="row" items="${total.rows}">
+                                ['${day.d}', ${row.allow}, ${row.deny}, ''],
+                            </c:forEach>
+                        </c:forEach>
+                    ]);
+                    var options = {
+                        title: 'MUSES custom Graph',
+                        width: 1500,
+                        height: 800,
+                        hAxis: {
+                            title: 'Date'
+                        },
+                        vAxis: {
+                            title: '#Events'
+                        },
+                        legend: { position: 'top', maxLines: 3 },
+                        bar: { groupWidth: '75%' },
+                        isStacked: true,
+                    };
+
+                    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                    chart.draw(data, options);
+                }
+
+            </script>
         </form>
         
         <br /> 
         
-        <div class="ui divider"></div>
-        
-        <br />
-        
+        <div class="ui divider"></div>        
         <div id="chart_div" align="center"></div>
         
         <jsp:include page="modules/footer.jsp"></jsp:include>
