@@ -33,104 +33,19 @@
         <jsp:setProperty name="otherDate" property="time" value="${otherDate.time - 2592000000}"/>
         <fmt:formatDate value="${otherDate}" pattern="yyyy-MM-dd" var="pastDate" />
         
-        <sql:query dataSource="${snapshot}" var="result">
-            SELECT count(*) as u, user_id, count(user_id) as c FROM simple_events WHERE date(date)='${currentDate}' GROUP BY user_id ORDER BY c;
+        <sql:query dataSource="${snapshot}" var="labels">
+            SELECT DISTINCT value FROM decision;
         </sql:query>
-        
-        <sql:query dataSource="${snapshot}" var="users">
-            SELECT count(distinct user_id) as c FROM simple_events WHERE date(date)='${currentDate}';
-        </sql:query>
-            <c:forEach var="u" items="${users.rows}"><c:set var="u_n" value="${u.c*26}"/></c:forEach>
-        
-        <sql:query dataSource="${snapshot}" var="result2">
-            SELECT user_id, count(user_id) as c FROM security_violation WHERE date(detection)='${currentDate}' GROUP BY user_id ORDER BY c;
-        </sql:query>
-        
-        <sql:query dataSource="${snapshot}" var="users2">
-            SELECT count(distinct user_id) FROM security_violation WHERE date(detection)='${currentDate}';
-        </sql:query>
-            <c:forEach var="u2" items="${users2.rows}"><c:set var="u2_n" value="${u2.c*26}"/></c:forEach>
-        
-        <!-- Google Charts API -->
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript">
             
-        google.load('visualization', '1', {packages: ['corechart', 'bar']});
-        google.setOnLoadCallback(drawEventsGraph);
-        google.setOnLoadCallback(drawViolationsGraph);
+        <sql:query dataSource="${snapshot}" var="event_ids">
+            SELECT event_id FROM simple_events;
+        </sql:query>
+        <c:forEach var="id" items="${event_ids.rows}">
+            <sql:query dataSource="${snapshot}" var="event_ids">
+               SELECT value FROM decision WHERE access_request_id in (SELECT access_request_id FROM access_request WHERE event_id = '${id.event_id}');
+            </sql:query> 
+        </c:forEach>
         
-        function drawEventsGraph() {
-            
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'User #');
-            data.addColumn('number', '# Events');
-            data.addRows([
-                <c:forEach var="count" items="${result.rows}">
-                            ['<c:out value="${count.user_id}"/>', <c:out value="${count.c}"/>],
-                                                                            <c:set var="max" value="${count.c}"/>
-                </c:forEach>                
-            ]);
-
-            var options = {
-                title: 'Events statistics for ${currentDate}',
-                chartArea: {width: '75%'},
-                height: '${u_n}',
-                hAxis: {
-                  title: 'Number of events',
-                  minValue: 0,
-                  viewWindow: { max: ${max}+20 }
-                },
-                vAxis: {
-                  title: 'User'
-                },
-                bar: {
-                  groupWidth: '90%'
-                },
-                colors: ['#ab207d']
-            };
-
-            var chart = new google.visualization.BarChart(document.getElementById('chart_events'));
-
-            chart.draw(data, options);
-        }
-        
-        function drawViolationsGraph() {
-            
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'User #');
-            data.addColumn('number', '# Security Violations');
-            data.addRows([
-                <c:forEach var="count2" items="${result2.rows}">
-                            ['<c:out value="${count2.user_id}"/>', <c:out value="${count2.c}"/>],
-                                                                            <c:set var="max2" value="${count2.c}"/>
-                </c:forEach>                
-            ]);
-
-            var options = {
-                title: 'Security Violation statistics for ${currentDate}',
-                chartArea: {width: '75%'},
-                height: '${u2_n}',
-                hAxis: {
-                  title: 'Number of Security Violations',
-                  minValue: 0,
-                  viewWindow: { max: ${max2}+20 }
-                },
-                vAxis: {
-                  title: 'User'
-                },
-                bar: {
-                  groupWidth: '90%'
-                },
-                colors: ['#ab207d']
-            };
-
-            var chart = new google.visualization.BarChart(document.getElementById('chart_violations'));
-
-            chart.draw(data, options);
-        }
-        
-        </script>
-
         <title>MUSES tool for CSOs - Main Page</title>
     </head>
     <body>
@@ -186,7 +101,8 @@
                     <input type="text" name="endD" id="datepicker_end">
                 </div>
         
-                <script>
+                <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+                <script type="text/javascript">
                     $(function() {
                         $("#datepicker_start").datepicker({
                             dateFormat: "yy-mm-dd"
@@ -265,18 +181,49 @@
 
                     $("#Y").change( function() { 
                         yAxis = $("#Y").val();
-                        alert(xAxis+" VS "+yAxis);
+                        
                     });
                     
+                    google.load('visualization', '1', {packages: ['corechart', 'bar']});
+                    google.setOnLoadCallback(drawColColors);
+
+                    function drawColColors() {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Genre', 
+                            <c:forEach var="label" items="${labels.rows}">
+                            '${label.value}', 
+                            </c:forEach>
+                            { role: 'annotation' } ],
+                            ['2010', 10, 24,  ''],
+                            ['2020', 16, 22, ''],
+                            ['2030', 28, 19, '']
+                        ]);
+                        var options = {
+                            title: 'MUSES custom Graph',
+                            width: 600,
+                            height: 400,
+                            legend: { position: 'top', maxLines: 3 },
+                            bar: { groupWidth: '75%' },
+                            isStacked: true,
+                        };
+                        
+                        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                        chart.draw(data, options);
+                    }
+                    
                 </script>
+                
             </div>
-            <button class="ui purple button" type="submit" value="submit">Show Events</button>
+            <button class="ui purple button" type="submit" value="submit">Show Graph</button>
         </form>
         
-        <div id="chart_events"></div>
+        <br /> 
+        
         <div class="ui divider"></div>
-        <div id="chart_violations"></div>
-        <div class="ui divider"></div>
+        
+        <br />
+        
+        <div id="chart_div" align="center"></div>
         
         <jsp:include page="modules/footer.jsp"></jsp:include>
     </body>
