@@ -50,15 +50,27 @@
         </sql:query>
             
         <sql:query dataSource="${snapshot}" var="eventsTime">
-            SELECT count(*) as e, date FROM simple_events WHERE date(date)<='${currentDate}' AND date(date)>='${pastDate}' GROUP BY date;
+            SELECT count(*) as e, date FROM simple_events WHERE date<='${currentDate}' AND date>='${pastDate}' GROUP BY date;
         </sql:query>
             
         <sql:query dataSource="${snapshot}" var="eventsUser">
-            SELECT user_id, count(user_id) as c FROM simple_events WHERE date(date)<='${currentDate}' AND date(date)>='${pastDate}' GROUP BY user_id ORDER BY c;
+            SELECT user_id, count(user_id) as c FROM simple_events WHERE date<='${currentDate}' AND date>='${pastDate}' GROUP BY user_id ORDER BY c;
         </sql:query>
             
         <sql:query dataSource="${snapshot}" var="eventsDevice">
-            SELECT device_id, count(device_id) as c FROM simple_events WHERE date(date)<='${currentDate}' AND date(date)>='${pastDate}' GROUP BY device_id ORDER BY c;
+            SELECT device_id, count(device_id) as c FROM simple_events WHERE date<='${currentDate}' AND date>='${pastDate}' GROUP BY device_id ORDER BY c;
+        </sql:query>
+            
+        <sql:query dataSource="${snapshot}" var="violationsTime">
+            SELECT count(*) as e, date(detection) as d FROM security_violation WHERE date(detection)<='${currentDate}' AND date(detection)>='${pastDate}' GROUP BY date(detection);
+        </sql:query>
+            
+        <sql:query dataSource="${snapshot}" var="violationsUser">
+            SELECT user_id, count(user_id) as c FROM security_violation WHERE date(detection)<='${currentDate}' AND date(detection)>='${pastDate}' GROUP BY user_id ORDER BY c;
+        </sql:query>
+            
+        <sql:query dataSource="${snapshot}" var="violationsDevice">
+            SELECT device_id, count(device_id) as c FROM security_violation WHERE date(detection)<='${currentDate}' AND date(detection)>='${pastDate}' GROUP BY device_id ORDER BY c;
         </sql:query>
         
         <title>MUSES tool for CSOs - Charts Page</title>
@@ -201,10 +213,13 @@
                         case "violations":
                             switch(yAxis) {
                                 case "Time":
+                                    drawNormalGraph("violationsTime");
                                     break;
                                 case "Users":
+                                    drawNormalGraph("violationsUser");
                                     break;
                                 case "Devices":
+                                    drawNormalGraph("violationsDevice");
                                     break;                                
                             }
                             break;
@@ -357,9 +372,27 @@
                             ['${count.device_id}', ${count.c}],
                         </c:forEach>
                         ]);                        
-                    } else if (type == "violationsTime") {                        
-                    } else if (type == "violationsUser") {                        
-                    } else if (type == "violationsDevice") {                        
+                    } else if (type == "violationsTime") {
+                        data = google.visualization.arrayToDataTable([
+                        ['Date', '#Violations'],
+                        <c:forEach var="count" items="${violationsTime.rows}">
+                            ['${count.d}', ${count.e}],
+                        </c:forEach>
+                        ]);                        
+                    } else if (type == "violationsUser") {
+                        data = google.visualization.arrayToDataTable([
+                        ['User', '#Violations'],
+                        <c:forEach var="count" items="${violationsUser.rows}">
+                            ['${count.user_id}', ${count.c}],
+                        </c:forEach>
+                        ]);                        
+                    } else if (type == "violationsDevice") {
+                        data = google.visualization.arrayToDataTable([
+                        ['Device', '#Violations'],
+                        <c:forEach var="count" items="${violationsDevice.rows}">
+                            ['${count.device_id}', ${count.c}],
+                        </c:forEach>
+                        ]);                        
                     } else {                        
                     }                    
 
