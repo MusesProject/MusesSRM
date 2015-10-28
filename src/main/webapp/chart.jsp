@@ -45,6 +45,10 @@
             SELECT role_id, name FROM roles WHERE name IS NOT NULL AND name != 'role';
         </sql:query>
             
+        <sql:query dataSource="${snapshot}" var="eventTypes">
+            SELECT event_type_id, event_type_key FROM event_type;
+        </sql:query>
+            
         <sql:query dataSource="${snapshot}" var="eventsTime">
             SELECT count(*) as e, date FROM simple_events WHERE date(date)<='${currentDate}' AND date(date)>='${pastDate}' GROUP BY date;
         </sql:query>
@@ -52,8 +56,12 @@
         <sql:query dataSource="${snapshot}" var="eventsUser">
             SELECT user_id, count(user_id) as c FROM simple_events WHERE date(date)<='${currentDate}' AND date(date)>='${pastDate}' GROUP BY user_id ORDER BY c;
         </sql:query>
+            
+        <sql:query dataSource="${snapshot}" var="eventsDevice">
+            SELECT device_id, count(device_id) as c FROM simple_events WHERE date(date)<='${currentDate}' AND date(date)>='${pastDate}' GROUP BY device_id ORDER BY c;
+        </sql:query>
         
-        <title>MUSES tool for CSOs - Main Page</title>
+        <title>MUSES tool for CSOs - Charts Page</title>
     </head>
     <body>
         
@@ -183,8 +191,10 @@
                                     drawNormalGraph("eventUser");
                                     break;
                                 case "Devices":
+                                    drawNormalGraph("eventDevice");
                                     break;
                                 case "Type":
+                                    drawPieChart("eventType");
                                     break;
                             }
                             break;
@@ -283,7 +293,7 @@
                               </c:forEach>
                           </c:forEach>
                       ]);                    
-                    } else {
+                    } else if (type == "users"){
                         data = google.visualization.arrayToDataTable([
                         ['Role', '#Users'],
                         <c:forEach var="role" items="${roles.rows}">
@@ -294,7 +304,20 @@
                                   ['${role.name}', ${row.c}],
                               </c:forEach>
                           </c:forEach>
-                      ]);}                  
+                      ]);
+                    } else {
+                        data = google.visualization.arrayToDataTable([
+                        ['Type', '#Events'],
+                        <c:forEach var="type" items="${eventTypes.rows}">
+                              <sql:query dataSource="${snapshot}" var="total">
+                                 SELECT count(*) as c FROM simple_events WHERE event_type_id = '${type.event_type_id}';
+                              </sql:query>
+                              <c:forEach var="row" items="${total.rows}">
+                                  ['${type.event_type_key}', ${row.c}],
+                              </c:forEach>
+                          </c:forEach>
+                      ]);
+                    }                  
 
                     var options = {
                       title: 'MUSES custom Graph',
@@ -327,7 +350,13 @@
                             ['${count.user_id}', ${count.c}],
                         </c:forEach>
                         ]);                        
-                    } else if (type == "eventDevice") {                        
+                    } else if (type == "eventDevice") {
+                        data = google.visualization.arrayToDataTable([
+                        ['Device', '#Events'],
+                        <c:forEach var="count" items="${eventsDevice.rows}">
+                            ['${count.device_id}', ${count.c}],
+                        </c:forEach>
+                        ]);                        
                     } else if (type == "violationsTime") {                        
                     } else if (type == "violationsUser") {                        
                     } else if (type == "violationsDevice") {                        
