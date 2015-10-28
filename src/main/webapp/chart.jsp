@@ -30,7 +30,7 @@
         <jsp:useBean id="date" class="java.util.Date" />
         <jsp:useBean id="otherDate" class="java.util.Date" />
         <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" var="currentDate" />
-        <jsp:setProperty name="otherDate" property="time" value="${otherDate.time - 15552000000}"/>
+        <jsp:setProperty name="otherDate" property="time" value="${otherDate.time - 7776000000}"/>
         <fmt:formatDate value="${otherDate}" pattern="yyyy-MM-dd" var="pastDate" />
         
         <sql:query dataSource="${snapshot}" var="devicesOS">
@@ -71,6 +71,10 @@
             
         <sql:query dataSource="${snapshot}" var="violationsDevice">
             SELECT device_id, count(device_id) as c FROM security_violation WHERE date(detection)<='${currentDate}' AND date(detection)>='${pastDate}' GROUP BY device_id ORDER BY c;
+        </sql:query>
+            
+        <sql:query dataSource="${snapshot}" var="incidentsTime">
+            SELECT count(*) as e, date(modification) as d FROM security_incident WHERE date(modification)<='${currentDate}' AND date(modification)>='${pastDate}' GROUP BY date(modification);
         </sql:query>
         
         <title>MUSES tool for CSOs - Charts Page</title>
@@ -237,7 +241,7 @@
                             drawPieChart("users");
                             break;
                         case "incidents":
-
+                            drawNormalGraph("incidentsTime");
                             break;
                     }
 
@@ -374,26 +378,32 @@
                         ]);                        
                     } else if (type == "violationsTime") {
                         data = google.visualization.arrayToDataTable([
-                        ['Date', '#Violations'],
+                        ['Date', '#Security Violations'],
                         <c:forEach var="count" items="${violationsTime.rows}">
                             ['${count.d}', ${count.e}],
                         </c:forEach>
                         ]);                        
                     } else if (type == "violationsUser") {
                         data = google.visualization.arrayToDataTable([
-                        ['User', '#Violations'],
+                        ['User', '#Security Violations'],
                         <c:forEach var="count" items="${violationsUser.rows}">
                             ['${count.user_id}', ${count.c}],
                         </c:forEach>
                         ]);                        
                     } else if (type == "violationsDevice") {
                         data = google.visualization.arrayToDataTable([
-                        ['Device', '#Violations'],
+                        ['Device', '#Security Violations'],
                         <c:forEach var="count" items="${violationsDevice.rows}">
                             ['${count.device_id}', ${count.c}],
                         </c:forEach>
                         ]);                        
-                    } else {                        
+                    } else {
+                        data = google.visualization.arrayToDataTable([
+                        ['Date', '#Security Incidents'],
+                        <c:forEach var="count" items="${incidentsTime.rows}">
+                            ['${count.d}', ${count.e}],
+                        </c:forEach>
+                        ]);                        
                     }                    
 
                     var options = {
