@@ -40,6 +40,10 @@
         <sql:query dataSource="${snapshot}" var="devicesModel">
             SELECT distinct model FROM devices WHERE model IS NOT NULL AND model != 'domemodel' AND model != '1222' AND model != '1223';
         </sql:query>
+            
+        <sql:query dataSource="${snapshot}" var="roles">
+            SELECT role_id, name FROM roles WHERE name IS NOT NULL AND name != 'role';
+        </sql:query>
         
         <title>MUSES tool for CSOs - Main Page</title>
     </head>
@@ -195,7 +199,7 @@
                             }
                             break;
                         case "users":
-
+                            drawPieChart("users");
                             break;
                         case "incidents":
 
@@ -259,7 +263,7 @@
                               </c:forEach>
                           </c:forEach>
                       ]);
-                    } else {
+                    } else if (type == "model"){
                         data = google.visualization.arrayToDataTable([
                         ['Model', '#Devices'],
                         <c:forEach var="model" items="${devicesModel.rows}">
@@ -271,7 +275,18 @@
                               </c:forEach>
                           </c:forEach>
                       ]);                    
-                    }                   
+                    } else {
+                        data = google.visualization.arrayToDataTable([
+                        ['Role', '#Users'],
+                        <c:forEach var="role" items="${roles.rows}">
+                              <sql:query dataSource="${snapshot}" var="total">
+                                 SELECT count(*) as c FROM users WHERE role_id = '${role.role_id}';
+                              </sql:query>
+                              <c:forEach var="row" items="${total.rows}">
+                                  ['${role.name}', ${row.c}],
+                              </c:forEach>
+                          </c:forEach>
+                      ]);}                  
 
                     var options = {
                       title: 'MUSES custom Graph',
