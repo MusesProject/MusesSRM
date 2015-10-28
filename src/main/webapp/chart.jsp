@@ -202,28 +202,72 @@
                                         }
                         });
                         $("#datepicker_end").datepicker("setDate", new Date);
-                    });
+                    });                    
                     
+                    var xAxis, yAxis;
+
                     $("#X").change( function() {
-                        var xAxis = $("#X").val();
+                        $("#Y").empty();
+                        xAxis = $("#X").val();
+                        var yDropdown = document.getElementById("Y");
                         switch(xAxis) {
                             case "events":
-                                alert(xAxis);
+                                var option1 = document.createElement("option");
+                                var option2 = document.createElement("option");
+                                var option3 = document.createElement("option");
+                                var option4 = document.createElement("option");
+                                var option5 = document.createElement("option");
+                                option1.text = "Time";
+                                option2.text = "Decisions";
+                                option3.text = "Users";
+                                option4.text = "Devices";
+                                option5.text = "Type";
+                                yDropdown.add(option1);
+                                yDropdown.add(option2);
+                                yDropdown.add(option3);
+                                yDropdown.add(option4);
+                                yDropdown.add(option5);
                                 break;
                             case "violations":
-                                alert(xAxis);
+                                var option1 = document.createElement("option");
+                                var option2 = document.createElement("option");
+                                var option3 = document.createElement("option");
+                                option1.text = "Time";
+                                option2.text = "Users";
+                                option3.text = "Devices";
+                                yDropdown.add(option1);
+                                yDropdown.add(option2);
+                                yDropdown.add(option3);
                                 break;
                             case "devices":
-                                alert(xAxis);
+                                var option1 = document.createElement("option");
+                                var option2 = document.createElement("option");
+                                option1.text = "OS distribution";
+                                option1.value = "OS";
+                                option2.text = "Model distribution";
+                                option2.value = "model";
+                                yDropdown.add(option1);
+                                yDropdown.add(option2);
                                 break;
                             case "users":
-                                alert(xAxis);
+                                var option = document.createElement("option");
+                                option.text = "Roles distribution";
+                                option.value = "roles";
+                                yDropdown.add(option);
                                 break;
                             case "incidents":
-                                alert(xAxis);
+                                var option = document.createElement("option");
+                                option.text = "Time";
+                                yDropdown.add(option);
                                 break;
                         }
                     });
+
+                    $("#Y").change( function() { 
+                        yAxis = $("#Y").val();
+                        alert(xAxis+" VS "+yAxis);
+                    });
+                    
                 </script>
             </div>
             <button class="ui purple button" type="submit" value="submit">Show Events</button>
