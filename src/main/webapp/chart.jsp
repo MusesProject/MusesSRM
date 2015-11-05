@@ -30,7 +30,7 @@
         <jsp:useBean id="date" class="java.util.Date" />
         <jsp:useBean id="otherDate" class="java.util.Date" />
         <fmt:formatDate value="${date}" pattern="yyyy-MM-dd" var="currentDate" />
-        <jsp:setProperty name="otherDate" property="time" value="${otherDate.time - 7776000000}"/>
+        <jsp:setProperty name="otherDate" property="time" value="${otherDate.time - 15552000000}"/>
         <fmt:formatDate value="${otherDate}" pattern="yyyy-MM-dd" var="pastDate" />
         
         <sql:query dataSource="${snapshot}" var="devicesOS">
@@ -94,7 +94,7 @@
         <br>
         
         <form class="ui form" method="POST" action="">
-            <h4 class="ui dividing header">Please, choose what to display and the dates:</h4>
+            <h4 class="ui dividing header">Please, choose what to display:</h4>
             <div class="six wide field">
                 <label>I want to display:</label>
                 <select class="ui dropdown" name="X" id="X">
