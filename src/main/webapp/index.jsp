@@ -148,7 +148,7 @@
         
         <%
         // Page will be auto refresh after 1 seconds
-        response.setIntHeader("Refresh", 30);
+        response.setIntHeader("Refresh", 3);
 
         // Get Current Time
         //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
