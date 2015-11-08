@@ -43,21 +43,22 @@
         <sql:query dataSource="${snapshot}" var="result">
             SELECT count(*) as u, user_id, count(user_id) as c FROM simple_events WHERE date(date)='${currentDate}' GROUP BY user_id ORDER BY c;
         </sql:query>
-        
-        <sql:query dataSource="${snapshot}" var="users">
-            SELECT count(distinct user_id) as c FROM simple_events WHERE date(date)='${currentDate}';
-        </sql:query>
-            <c:forEach var="u" items="${users.rows}"><c:set var="u_n" value="${u.c*26}"/></c:forEach>
-        
+            
         <sql:query dataSource="${snapshot}" var="result2">
             SELECT user_id, count(user_id) as c FROM security_violation WHERE date(detection)='${currentDate}' GROUP BY user_id ORDER BY c;
         </sql:query>
         
-        <sql:query dataSource="${snapshot}" var="users2">
-            SELECT count(distinct user_id) FROM security_violation WHERE date(detection)='${currentDate}';
-        </sql:query>
-            <c:forEach var="u2" items="${users2.rows}"><c:set var="u2_n" value="${u2.c*26}"/></c:forEach>
-        
+        <c:choose>
+            <c:when test="${result.rowCount <= 5}">
+                <c:set var="height1" value="250"/>
+                <c:set var="height2" value="250"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="height1" value="${result.rowCount*26}"/>
+                <c:set var="height2" value="${result2.rowCount*26}"/>
+            </c:otherwise>
+        </c:choose>        
+            
         <!-- Google Charts API -->
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript">
@@ -81,7 +82,7 @@
             var options = {
                 title: 'Events statistics for ${currentDate}',
                 chartArea: {width: '75%'},
-                height: '${u_n}',
+                height: '${height1}',
                 hAxis: {
                   title: 'Number of events',
                   minValue: 0,
@@ -116,7 +117,7 @@
             var options = {
                 title: 'Security Violation statistics for ${currentDate}',
                 chartArea: {width: '75%'},
-                height: '${u2_n}',
+                height: '${height2}',
                 hAxis: {
                   title: 'Number of Security Violations',
                   minValue: 0,
@@ -147,8 +148,8 @@
         <jsp:include page="modules/musesintro.jsp"></jsp:include>
         
         <%
-        // Page will be auto refresh after 1 seconds
-        response.setIntHeader("Refresh", 3);
+        // Page will be auto refresh after 5 seconds
+        response.setIntHeader("Refresh", 5);
 
         // Get Current Time
         //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
