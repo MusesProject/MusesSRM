@@ -51,12 +51,16 @@
         <c:choose>
             <c:when test="${result.rowCount <= 5}">
                 <c:set var="height1" value="250"/>
+            </c:when>
+            <c:when test="${result2.rowCount <= 5}">
                 <c:set var="height2" value="250"/>
             </c:when>
-            <c:otherwise>
+            <c:when test="${result.rowCount > 5}">
                 <c:set var="height1" value="${result.rowCount*26}"/>
+            </c:when>
+            <c:when test="${result2.rowCount > 5}">
                 <c:set var="height2" value="${result2.rowCount*26}"/>
-            </c:otherwise>
+            </c:when>
         </c:choose>        
             
         <!-- Google Charts API -->

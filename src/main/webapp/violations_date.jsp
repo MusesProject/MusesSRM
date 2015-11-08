@@ -25,7 +25,7 @@
         </sql:query>
             
          <sql:query dataSource="${snapshot}" var="eventList">
-            SELECT * FROM security_violation WHERE date(detection)<='${param.endD}' AND date(detection)>='${param.startD}';
+            SELECT * FROM security_violation WHERE date(detection)<='${param.endD}' AND date(detection)>='${param.startD}' ORDER BY detection DESC;
         </sql:query>
         
         <!-- Google Charts API -->

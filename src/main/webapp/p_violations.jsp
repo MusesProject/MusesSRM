@@ -31,10 +31,14 @@
             SELECT user_id, count(user_id) as c FROM security_violation WHERE date(detection)='${currentDate}' GROUP BY user_id ORDER BY c;
         </sql:query>
         
-        <sql:query dataSource="${snapshot}" var="users2">
-            SELECT count(distinct user_id) FROM security_violation WHERE date(detection)='${currentDate}';
-        </sql:query>
-            <c:forEach var="u2" items="${users2.rows}"><c:set var="u2_n" value="${u2.c*26}"/></c:forEach>
+        <c:choose>
+            <c:when test="${result2.rowCount <= 5}">
+                <c:set var="height2" value="250"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="height2" value="${result2.rowCount*26}"/>
+            </c:otherwise>
+        </c:choose>
             
         <sql:query dataSource="${snapshot}" var="users" scope="session">
             SELECT user_id, name, surname FROM users;
@@ -62,7 +66,7 @@
             var options = {
                 title: 'Security Violation statistics for ${currentDate}',
                 chartArea: {width: '75%'},
-                height: '${u2_n}',
+                height: '${height2}',
                 hAxis: {
                   title: 'Number of Security Violations',
                   minValue: 0,
@@ -93,7 +97,7 @@
         
         <%
         // Page will be auto refresh after 1 seconds
-        response.setIntHeader("Refresh", 30);
+        response.setIntHeader("Refresh", 15);
 
         // Get Current Time
         //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

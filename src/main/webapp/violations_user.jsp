@@ -31,7 +31,7 @@
         </sql:query>
             
          <sql:query dataSource="${snapshot}" var="eventList">
-            SELECT * FROM security_violation WHERE user_id='${param.user_id}';
+            SELECT * FROM security_violation WHERE user_id='${param.user_id}' ORDER BY detection DESC;
         </sql:query>
         
         <!-- Google Charts API -->
