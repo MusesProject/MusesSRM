@@ -25,7 +25,7 @@
                            user="muses"  password="muses11"/> 
         
         <sql:query dataSource="${snapshot}" var="result" scope="session" >
-            SELECT * FROM simple_events WHERE event_type_id = '27';
+            SELECT * FROM simple_events WHERE event_type_id = '27' ORDER BY date, time DESC;
         </sql:query>
 
         <title>MUSES tool for CSOs - User Behaviour</title>

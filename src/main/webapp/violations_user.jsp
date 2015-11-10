@@ -125,7 +125,6 @@
                     <th>Condition Text</th>
                     <th>Mode Text</th>
                     <th>#User</th>
-                    <th>#Decision</th>
                     <th>#Event</th>
                     <th>#Device</th>
                     <th>Detection Time</th>
@@ -139,7 +138,6 @@
                     <td><c:out value="${rowBody.conditionText}"/></td>
                     <td><c:out value="${rowBody.modeText}"/></td>
                     <td><c:out value="${rowBody.user_id}"/></td>
-                    <td><c:out value="${rowBody.decision_id}"/></td>
                     <td><c:out value="${rowBody.event_id}"/></td>
                     <td><c:out value="${rowBody.device_id}"/></td>
                     <td><c:out value="${rowBody.detection}"/></td>

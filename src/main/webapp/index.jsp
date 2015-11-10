@@ -78,7 +78,7 @@
             data.addColumn('number', '# Events');
             data.addRows([
                 <c:forEach var="count" items="${result.rows}">
-                            ['<c:out value="${count.user_id}"/>', <c:out value="${count.c}"/>],
+                            ['ID: <c:out value="${count.user_id}"/>', <c:out value="${count.c}"/>],
                                                                             <c:set var="max" value="${count.c}"/>
                 </c:forEach>                
             ]);
@@ -113,7 +113,7 @@
             data.addColumn('number', '# Security Violations');
             data.addRows([
                 <c:forEach var="count2" items="${result2.rows}">
-                            ['<c:out value="${count2.user_id}"/>', <c:out value="${count2.c}"/>],
+                            ['ID: <c:out value="${count2.user_id}"/>', <c:out value="${count2.c}"/>],
                                                                             <c:set var="max2" value="${count2.c}"/>
                 </c:forEach>                
             ]);
